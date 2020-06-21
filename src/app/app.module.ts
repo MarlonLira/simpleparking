@@ -3,16 +3,35 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 
-import { AppRoutingModule } from './app.routing';
-import { ComponentsModule } from './components/components.module';
+import { NgxMaskModule } from 'ngx-mask'
 import { ToastrModule } from 'ngx-toastr';
 
+import { AppRoutingModule } from './app.routing';
+import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { BaseComponent } from './base/base.component';
+import { PhonePipe } from './commons/pipes/phonePipe';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { TableListComponent } from './table-list/table-list.component';
+import { MapsComponent } from './maps/maps.component';
+import { ParkingComponent } from './parking/parking.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { TabContentComponent } from './shared/tab/tab-content/tab-content.component';
+import { TabHeaderComponent } from './shared/tab/tab-header/tab-header.component';
+import { TabHeaderItemComponent } from './shared/tab/tab-header-item/tab-header-item.component';
+import { TabComponent } from './shared/tab/tab.component';
+import { TabContentItemComponent } from './shared/tab/tab-content-item/tab-content-item.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   imports: [
@@ -21,18 +40,37 @@ import { BaseComponent } from './base/base.component';
     ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
-    ComponentsModule,
+    SharedModule,
     RouterModule,
     AppRoutingModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    NgxMaskModule.forRoot(),
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBrGTfBFa0mZ9303uZOuvW-xYxHXtHRs2k'
-    })
+    }),
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
-    BaseComponent
+    BaseComponent,
+    DashboardComponent,
+    UserProfileComponent,
+    TableListComponent,
+    MapsComponent,
+    ParkingComponent,
+    EmployeeComponent,
+    TabContentComponent,
+    TabHeaderComponent,
+    TabHeaderItemComponent,
+    TabComponent,
+    TabContentItemComponent,
+    AuthComponent,
+    PhonePipe
   ],
   providers: [],
   bootstrap: [AppComponent]
