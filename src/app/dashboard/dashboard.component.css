@@ -1,0 +1,28 @@
+.sr-only
+{
+    position: absolute;
+
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+
+    width: 1px;
+    height: 1px;
+    padding: 0;
+
+    white-space: nowrap;
+
+    border: 0;
+}
+.sr-only-focusable:active,
+.sr-only-focusable:focus
+{
+    position: static;
+
+    overflow: visible;
+    clip: auto;
+
+    width: auto;
+    height: auto;
+
+    white-space: normal;
+}

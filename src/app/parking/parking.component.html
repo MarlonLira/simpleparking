@@ -1,0 +1,147 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div>
+      <app-tab>
+        <app-tab-header>
+          <li class="nav-item">
+            <a mat-button class="nav-link active" href="#list" data-toggle="tab">
+              <i class="material-icons">list</i> List
+              <div class="ripple-container"></div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a mat-button class="nav-link" href="#register" data-toggle="tab">
+              <i class="material-icons">save</i> Register
+              <div class="ripple-container"></div>
+            </a>
+          </li>
+        </app-tab-header>
+        <app-tab-content>
+          <app-tab-content-item class="tab-pane active" id="list">
+            <div class="card">
+              <div class="card-body table-responsive">
+                <table class="table table-hover">
+                  <thead class="text-warning">
+                    <th>#ID</th>
+                    <th>Name</th>
+                    <th>Registry Code</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let parking of parkings">
+                      <td><b>#{{ parking.id}}</b></td>
+                      <td>{{ parking.name}}</td>
+                      <td>{{ parking.registryCode | mask: '00.000.000/0000-00'}}</td>
+                      <td>{{ parking.phone | mask: '(00) 9 0000-0000'}}</td>
+                      <td>{{ parking.email}}</td>
+                      <td class="td-actions text-right">
+                        <button mat-raised-button type="button" matTooltip="Edit" (click)="onEdit(parking)"
+                          [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <button mat-raised-button type="button" matTooltip="Remove" (click)="onRemove(parking)"
+                          [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                          <i class="material-icons">close</i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer py-4">
+                <nav aria-label="...">
+                  <ul class="pagination justify-content-end mb-0">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                        <i class="fa fa-angle-left"></i>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <li class="page-item active">
+                      <a class="page-link" href="javascript:void(0)">1</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="javascript:void(0)">
+                        <i class="fa fa-angle-right"></i>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </app-tab-content-item>
+          <app-tab-content-item class="tab-pane" id="register">
+            <div class="card">
+              <div class="card-body">
+                <form [formGroup]="parkingForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <input matInput placeholder="Id" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <input matInput placeholder="name" formControlName="name">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <input matInput placeholder="Registry Code" type="text" formControlName="registryCode">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <input matInput placeholder="Phone" type="text" formControlName="phone">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input matInput placeholder="Email address" type="email" formControlName="email">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field>
+                        <input matInput placeholder="Adress" type="text" formControlName="adress">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input matInput placeholder="City" type="text" formControlName="city">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input matInput placeholder="Country" type="text" formControlName="country">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input matInput placeholder="Postal Code" type="text" formControlName="postalCode">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <button mat-raised-button type="submit" class="btn btn-info pull-right">Save</button>
+                  <div class="clearfix"></div>
+                </form>
+              </div>
+            </div>
+          </app-tab-content-item>
+        </app-tab-content>
+      </app-tab>
+    </div>
+  </div>
+</div>
