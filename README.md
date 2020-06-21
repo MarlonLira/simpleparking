@@ -5,54 +5,34 @@
 **Empresa:** Simple System Tecnologia SSTEC\
 **Nome do app:** Simple Parking\
 **Site:** simpleparking.com\
-**Tecnologias de desenvolvimento:** [Flutter](https://flutter.dev/docs) | [React Js](https://pt-br.reactjs.org/) | [Typescript](https://alligator.io/react/typescript-with-react/) - ([Mais](https://www.youtube.com/watch?v=OXxul6AvXNs)) - [Git](https://github.com/Rocketseat/youtube-typescript-reactjs) 
+**Tecnologias de desenvolvimento:** [[Angular 9](https://angular.io/docs) | [Typescript](https://alligator.io/react/typescript-with-react/) - ([Mais](https://www.youtube.com/watch?v=OXxul6AvXNs)) - [Git](https://github.com/Rocketseat/youtube-typescript-reactjs) 
 
 ### Requisitos
-- [Android Studio](https://developer.android.com/studio/ "Android Studio") Aplicação Mobile - Flutter.
 - [VS Code](https://code.visualstudio.com/ "Visual Studio Code").
 - [Node LTS](https://nodejs.org/en/ "Node Js") Aplicação Web|Mobile - BackEnd
 - [Cmder](https://cmder.net/ "Cmder")
-
-### Dependencias
-- [Axios](https://malcoded.com/posts/react-http-requests-axios/) - Envia requisições HTTP
-- [Json](https://www.techiediaries.com/react-json-fetch-rest-api-bootstrap/) [(Mais)](https://pusher.com/tutorials/consume-restful-api-react) - Não é uma dependencia mas vai dar um caminho
 
 ### Instalação
 - Via Executavel.
 
 ### Estrutura dos arquivos do FrontEnd da Aplicação -> Web
-**assets/** - Arquivos estáticos: fontes, imagens, etc.\
+
 **src/** - Arquivos de códigos da aplicação.\
-**src/common/** - Arquivos comuns da aplicação. Inclui componentes e utilitários.\
-**src/common/styles/** - Arquivos de estilo da aplicação.\
-**src/views/** - Telas.\
-**src/views/exemplo/** - Arquivos de uma tela.\
-**src/views/exemplo/exemploForm.jsx** - Formulario utilizados na tela.\
-**src/views/exemplo/exemploActions.js** - Ações realizadas pela tela.\
-**src/views/exemplo/exemploReducer.js** - Controle do estado da tela.\
-**src/views/exemplo/exemplo.jsx** - A tela.\
-**src/views/exemplo/types.js** - Contém constantes para serem utilizadas nos types das actions creators e reducers.\
-**src/Navigation.jsx** - Configura a navegação de todas as telas.\
+**src/assets/** - Arquivos estáticos: fontes, imagens, etc. e arquivos de estilo\
+**src/app/commons/** - Arquivos comuns da aplicação. Inclui funções e utilitários.\
+**src/app/exemplo/** - Arquivos de uma tela.\
+**src/app/exemplo/exemploForm.jsx** - Formulario utilizados na tela.\
+**src/app/exemplo/exemplo.component.html** - A tela.\
+**src/app/exemplo/exemplo.component.ts** - Arquivo com metodos e objetos referente a tela.\
+**src/app/exemplo/exemplo.component.css** - Arquivo com estilos referentes a tela.\
+**src/app/app.module.ts** - Configura os modulos do sitema.\
+**src/app/app.routing.ts** - Configura a navegação do sistema.\
 **.gitignore** - Configura arquivos a serem ignorados pelo git.\
 **App.js** - Arquivo inicial. Arquivo chamado pelo Expo.\
 **package.json** - Arquivo de dependências e detalhes do projeto.\
 **README.md** - Leia-me com instruções.\
 **yarn.lock** - Mapa de dependencias gerenciado pelo yarn| Caso algúem use o Yarn.
 **package-lock** - Mapa de dependencias gerenciado pelo NPM| Caso algúem use o NPM.
-
-### Estrutura dos arquivos do FrontEnd da Aplicação -> Mobile
-**assets/** - Arquivos estáticos: fontes, imagens, etc.\
-**src/** - Arquivos de códigos da aplicação.\
-**src/common/** - Arquivos comuns da aplicação. Inclui componentes e utilitários.\
-**src/screens/** - Telas.\
-**src/screens/exemploDeScreen/** - Arquivos de uma tela.\
-**src/screens/exemploDeScreen/components/** - Componentes utilizados na tela.\
-**src/screens/exemploDeScreen/components/ExemploX.dart** - Componente de apresentação utilizado na tela.\
-**src/screens/exemploDeScreen/index.dart** - Exporta o tela como default.\
-**src/screens/exemploDeScreen/types.dart** - Contém constantes para serem utilizadas nos types das actions creators e reducers.\
-**.gitignore** - Configura arquivos a serem ignorados pelo git.\
-**App.dart** - Arquivo inicial.\
-**README.md** - Leia-me com instruções.\
 
 ### Nomeação dos arquivos e componentes
   - Os componentes são nomeados com o padrão PascalCase independente de ser componente de classe ou funcional.
