@@ -5,7 +5,7 @@
 **Empresa:** Simple System Tecnologia SSTEC\
 **Nome do app:** Simple Parking\
 **Site:** simpleparking.com\
-**Tecnologias de desenvolvimento:** [[Angular 9](https://angular.io/docs) | [Typescript](https://alligator.io/react/typescript-with-react/) - ([Mais](https://www.youtube.com/watch?v=OXxul6AvXNs)) - [Git](https://github.com/Rocketseat/youtube-typescript-reactjs) 
+**Tecnologias de desenvolvimento:** [Angular 9](https://angular.io/docs) | [Typescript](https://alligator.io/react/typescript-with-react/) - ([Mais](https://www.youtube.com/watch?v=OXxul6AvXNs)) - [Git](https://github.com/Rocketseat/youtube-typescript-reactjs) 
 
 ### Requisitos
 - [VS Code](https://code.visualstudio.com/ "Visual Studio Code").
@@ -31,8 +31,8 @@
 **App.js** - Arquivo inicial. Arquivo chamado pelo Expo.\
 **package.json** - Arquivo de dependências e detalhes do projeto.\
 **README.md** - Leia-me com instruções.\
-**yarn.lock** - Mapa de dependencias gerenciado pelo yarn| Caso algúem use o Yarn.
-**package-lock** - Mapa de dependencias gerenciado pelo NPM| Caso algúem use o NPM.
+**yarn.lock** - Mapa de dependencias gerenciado pelo yarn| Caso algúem use o Yarn.\
+**package-lock** - Mapa de dependencias gerenciado pelo NPM| Caso algúem use o NPM.\
 
 ### Nomeação dos arquivos e componentes
   - Os componentes são nomeados com o padrão PascalCase independente de ser componente de classe ou funcional.
