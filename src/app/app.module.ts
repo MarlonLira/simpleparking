@@ -15,23 +15,28 @@ import { AgmCoreModule } from '@agm/core';
 import { NgxMaskModule } from 'ngx-mask'
 import { ToastrModule } from 'ngx-toastr';
 
+// - Pipes
+import { PhonePipe } from './commons/pipes/phonePipe';
+import { TimePipe } from './commons/pipes/timePipe';
+
+// - Routes
 import { AppRoutingModule } from './app.routing';
+
+// - Components
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
-import { BaseComponent } from './base/base.component';
-import { PhonePipe } from './commons/pipes/phonePipe';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { TableListComponent } from './table-list/table-list.component';
-import { MapsComponent } from './maps/maps.component';
-import { ParkingComponent } from './parking/parking.component';
-import { EmployeeComponent } from './employee/employee.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { TableListComponent } from './components/table-list/table-list.component';
+import { MapsComponent } from './components/maps/maps.component';
+import { ParkingComponent } from './components/parking/parking.component';
+import { EmployeeComponent } from './components/employee/employee.component';
 import { TabContentComponent } from './shared/tab/tab-content/tab-content.component';
 import { TabHeaderComponent } from './shared/tab/tab-header/tab-header.component';
 import { TabHeaderItemComponent } from './shared/tab/tab-header-item/tab-header-item.component';
 import { TabComponent } from './shared/tab/tab.component';
 import { TabContentItemComponent } from './shared/tab/tab-content-item/tab-content-item.component';
-import { AuthComponent } from './auth/auth.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   imports: [
@@ -57,7 +62,6 @@ import { AuthComponent } from './auth/auth.component';
   ],
   declarations: [
     AppComponent,
-    BaseComponent,
     DashboardComponent,
     UserProfileComponent,
     TableListComponent,
@@ -70,7 +74,8 @@ import { AuthComponent } from './auth/auth.component';
     TabComponent,
     TabContentItemComponent,
     AuthComponent,
-    PhonePipe
+    PhonePipe,
+    TimePipe
   ],
   providers: [],
   bootstrap: [AppComponent]

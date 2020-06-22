@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { BaseComponent } from 'app/base.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent extends BaseComponent implements OnInit {
 
-  userProfileForm: FormGroup;
-  constructor() { }
+  constructor(
+    public toastr: ToastrService
+  ) {
+    super(toastr);
+  }
 
   ngOnInit() {
-    this.userProfileForm = new FormGroup({
+    this.form = new FormGroup({
       name: new FormControl('Marlon Lira'),
       registryCode: new FormControl('091.773.504-80'),
       phone: new FormControl('(81) 9 85856666'),
