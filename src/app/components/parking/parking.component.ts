@@ -3,9 +3,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
-import Parking from '../models/parking';
-import { ParkingService } from '../services/parking.service';
-import Consts from '../consts';
+import Parking from '../../models/parking';
+import { ParkingService } from '../../services/parking.service';
+import Consts from '../../consts';
 
 @Component({
   selector: 'app-parking',

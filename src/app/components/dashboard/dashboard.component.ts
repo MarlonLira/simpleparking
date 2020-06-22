@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import * as Chartist from 'chartist';
 import { HttpClient } from '@angular/common/http';
-import Consts from '../consts';
+import Consts from '../../consts';
 
 @Component({
   selector: 'app-dashboard',
