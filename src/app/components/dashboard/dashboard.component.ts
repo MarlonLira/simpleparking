@@ -2,22 +2,38 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import * as Chartist from 'chartist';
 import { HttpClient } from '@angular/common/http';
 import Consts from '../../consts';
+import { BaseComponent } from 'app/base.component';
+import { ToastrService } from 'ngx-toastr';
+import { GetTime } from '../../commons/functions/properties';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends BaseComponent implements OnInit {
   public vehicles: any;
+  public schedulings: any;
 
   constructor(
+    public toastr: ToastrService,
     private http: HttpClient
-  ) { }
+  ) {
+    super(toastr);
+  }
 
   getVehicles() {
     return new Promise((resolve) => {
       this.http.get(`${Consts.API_URL}/vehicles/userid/1`)
+        .subscribe(requested => {
+          resolve(requested['result']);
+        });
+    });
+  }
+
+  getSchedulings() {
+    return new Promise((resolve) => {
+      this.http.get(`${Consts.API_URL}/schedulings/companyid/1`)
         .subscribe(requested => {
           resolve(requested['result']);
         });
@@ -168,6 +184,12 @@ export class DashboardComponent implements OnInit {
     this.getVehicles()
       .then(result => {
         this.vehicles = result;
+      });
+
+    this.getSchedulings()
+      .then(result => {
+        this.schedulings = result;
+        console.log(result)
       });
   }
 

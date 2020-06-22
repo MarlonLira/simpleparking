@@ -15,10 +15,16 @@ import { AgmCoreModule } from '@agm/core';
 import { NgxMaskModule } from 'ngx-mask'
 import { ToastrModule } from 'ngx-toastr';
 
+// - Pipes
+import { PhonePipe } from './commons/pipes/phonePipe';
+import { TimePipe } from './commons/pipes/timePipe';
+
+// - Routes
 import { AppRoutingModule } from './app.routing';
+
+// - Components
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
-import { PhonePipe } from './commons/pipes/phonePipe';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { TableListComponent } from './components/table-list/table-list.component';
@@ -68,7 +74,8 @@ import { AuthComponent } from './components/auth/auth.component';
     TabComponent,
     TabContentItemComponent,
     AuthComponent,
-    PhonePipe
+    PhonePipe,
+    TimePipe
   ],
   providers: [],
   bootstrap: [AppComponent]
