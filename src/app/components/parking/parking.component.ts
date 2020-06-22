@@ -1,22 +1,21 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
 import Parking from '../../models/parking';
 import { ParkingService } from '../../services/parking.service';
-import Consts from '../../consts';
+import { BaseComponent } from 'app/base.component';
 
 @Component({
   selector: 'app-parking',
   templateUrl: './parking.component.html',
   styleUrls: ['./parking.component.css']
 })
-export class ParkingComponent implements OnInit {
+export class ParkingComponent extends BaseComponent implements OnInit {
 
   parkings: Parking[];
 
-  parkingForm = new FormGroup({
+  form = new FormGroup({
     name: new FormControl(''),
     registryCode: new FormControl(''),
     phone: new FormControl(''),
@@ -28,10 +27,11 @@ export class ParkingComponent implements OnInit {
   });
 
   constructor(
-    private http: HttpClient,
     public toastr: ToastrService,
     public parkingService: ParkingService
-  ) { }
+  ) {
+    super(toastr);
+  }
 
   ngOnInit(): void {
     this.parkingService.ToList()
@@ -53,14 +53,14 @@ export class ParkingComponent implements OnInit {
   }
 
   onSubmit() {
-    const _value = new Parking(this.parkingForm.value);
+    const _value = new Parking(this.form.value);
     _value.companyId = 1;
     _value.imgUrl = 'www.google.com.br';
     const __value = { 'parking': _value };
 
-    this.http.post(`${Consts.API_URL}/parking`, __value)
-      .subscribe(requested => {
-        this.toastr.info(requested['message'], '');
-      })
+    this.parkingService.Save(__value)
+      .then(result => {
+        this.toastr.info(result, '');
+      });
   }
 }

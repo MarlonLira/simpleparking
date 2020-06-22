@@ -80,7 +80,7 @@
           <app-tab-content-item class="tab-pane" id="register">
             <div class="card">
               <div class="card-body">
-                <form [formGroup]="parkingForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
                   <div class="row">
                     <div class="col-md-3">
                       <mat-form-field>
@@ -94,14 +94,14 @@
                     </div>
                     <div class="col-md-3">
                       <mat-form-field>
-                        <input matInput placeholder="Registry Code" type="text" formControlName="registryCode">
+                        <input matInput placeholder="Registry Code" mask="00.000.000/0000-00" type="text" formControlName="registryCode">
                       </mat-form-field>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-3">
                       <mat-form-field>
-                        <input matInput placeholder="Phone" type="text" formControlName="phone">
+                        <input matInput placeholder="Phone" mask="(00) 9 0000-0000" type="text" formControlName="phone">
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">

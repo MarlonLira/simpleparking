@@ -22,4 +22,13 @@ export class ParkingService extends BaseService<Parking> {
         });
     });
   }
+
+  Save(values): Promise<any> {
+    return new Promise((resolve) => {
+      this.onPost('/parking', values)
+        .subscribe(requested => {
+          resolve(requested['message']);
+        });
+    });
+  }
 }
