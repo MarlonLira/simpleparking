@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseComponent } from 'app/base.component';
+import { ToastrService } from 'ngx-toastr';
 
 declare const google: any;
 
@@ -13,11 +15,11 @@ interface Marker {
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.css']
 })
-export class MapsComponent implements OnInit {
+export class MapsComponent extends BaseComponent {
 
-  constructor() { }
+  constructor(public toastr: ToastrService) { super(toastr) }
 
-  ngOnInit() {
+  onInit() {
     const myLatlng = [
       [new google.maps.LatLng(-8.05428, -34.8813), 'Estacionamento do Seu zé'],
       [new google.maps.LatLng(-8.11208, -35.0154), 'Estacionamento de Dona Marieta'],

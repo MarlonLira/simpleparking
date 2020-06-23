@@ -2,8 +2,6 @@ import { OnInit, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
-import Consts from './consts';
-
 @Injectable()
 export abstract class BaseComponent implements OnInit {
   public form: FormGroup;
@@ -12,5 +10,9 @@ export abstract class BaseComponent implements OnInit {
     public toastr: ToastrService
   ) { }
 
-  ngOnInit() { }
+  protected abstract onInit();
+
+  ngOnInit() {
+    this.onInit();
+  }
 }

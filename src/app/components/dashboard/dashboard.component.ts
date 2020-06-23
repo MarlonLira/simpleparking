@@ -1,17 +1,16 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import * as Chartist from 'chartist';
 import { HttpClient } from '@angular/common/http';
 import Consts from '../../consts';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
-import { GetTime } from '../../commons/functions/properties';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent extends BaseComponent implements OnInit {
+export class DashboardComponent extends BaseComponent {
   public vehicles: any;
   public schedulings: any;
 
@@ -100,7 +99,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
     seq2 = 0;
   };
-  ngOnInit() {
+  onInit() {
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
     const dataDailySalesChart: any = {
