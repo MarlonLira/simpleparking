@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'parking', component: ParkingComponent },
   { path: 'employee', component: EmployeeComponent },
   { path: 'auth', component: AuthComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full'}
+  { path: '', redirectTo: 'auth', pathMatch: 'full'}
 ];
 
 @NgModule({
