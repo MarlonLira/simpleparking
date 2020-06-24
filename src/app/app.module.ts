@@ -36,7 +36,10 @@ import { TabHeaderComponent } from './shared/tab/tab-header/tab-header.component
 import { TabHeaderItemComponent } from './shared/tab/tab-header-item/tab-header-item.component';
 import { TabComponent } from './shared/tab/tab.component';
 import { TabContentItemComponent } from './shared/tab/tab-content-item/tab-content-item.component';
-import { AuthComponent } from './components/auth/auth.component';
+import { AccountRecoveryComponent } from './components/auth/account-recovery/account-recovery.component';
+import { SigninComponent } from './components/auth/signin/signin.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   imports: [
@@ -73,9 +76,12 @@ import { AuthComponent } from './components/auth/auth.component';
     TabHeaderItemComponent,
     TabComponent,
     TabContentItemComponent,
-    AuthComponent,
     PhonePipe,
-    TimePipe
+    TimePipe,
+    AccountRecoveryComponent,
+    SigninComponent,
+    SignupComponent,
+    ErrorComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
-import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
+import { Injectable } from '@angular/core';
+import { BaseComponent } from 'app/base.component';
 
-@Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
-})
-export class AuthComponent extends BaseComponent{
-
+@Injectable()
+export abstract class AuthComponent extends BaseComponent {
+  
   constructor(
     public toastr: ToastrService
   ) { super(toastr) }
 
+  protected abstract onSafelyInit();
+
   onInit(): void {
+    this.onSafelyInit();
   }
 
 }

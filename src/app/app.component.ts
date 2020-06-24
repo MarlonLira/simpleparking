@@ -138,8 +138,9 @@ export class AppComponent implements OnInit {
   }
 
   isRoute(path) {
-    const title = this.location.path().replace('/', '').replace('#', '');
-    if (path === title) {
+    const route = this.location.path();
+    const isRoute = new RegExp(`/.*?${path}.*/`);
+    if (isRoute.test(route)) {
       return true;
     } else {
       return false;
