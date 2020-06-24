@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'app/services/auth.service';
 
 declare const google: any;
 
@@ -17,7 +18,10 @@ interface Marker {
 })
 export class MapsComponent extends BaseComponent {
 
-  constructor(public toastr: ToastrService) { super(toastr) }
+  constructor(
+    public toastr: ToastrService,
+    public authService: AuthService
+  ) { super(toastr, authService) }
 
   onInit() {
     const myLatlng = [

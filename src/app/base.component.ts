@@ -1,39 +1,62 @@
 import { OnInit, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Location, PopStateEvent } from '@angular/common';
+import { Location } from '@angular/common';
 import { isArray, isString, isNullOrUndefined } from 'util';
+import { AuthService } from './services/auth.service';
 
 @Injectable()
 export abstract class BaseComponent implements OnInit {
   public form: FormGroup;
-  protected isAuthenticated: boolean;
+  protected isValidAuthentication: boolean;
   public location: Location;
   public storage: Storage;
 
   constructor(
-    public toastr: ToastrService
-  ) { }
+    public toastr: ToastrService,
+    public authService: AuthService
+  ) {
+  }
 
   protected abstract onInit();
 
   ngOnInit() {
-    this.authVerify();
+    this.TokenVerify();
     this.onInit();
   }
 
-  private authVerify() {
-    this.isAuthenticated = this.IsValid(localStorage.getItem('_sp_isAuth'));
-    if (this.isAuthenticated && this.isRoute('auth')) {
-      this.redirectFor('dashboard')
-    } else if (!this.isAuthenticated && !this.isRoute('auth')) {
+  protected async TokenVerify() {
+    if (this.IsValid(this.getToken())) {
+      this.isValidAuthentication = (await this.authService.verifyToken(this.getToken())).valid;
+      if (this.isValidAuthentication && this.isRoute('auth')) {
+        this.redirectFor('dashboard')
+      } else if (!this.isValidAuthentication && !this.isRoute('auth')) {
+        this.destroyToken();
+        this.redirectFor('auth/signin');
+      }
+    } else {
       this.redirectFor('auth/signin')
     }
   }
 
-  public createAuth(valueName, value) {
+  protected setToken(token) {
     this.storage = localStorage;
-    this.storage.setItem(valueName, value)
+    this.storage.setItem('_sp_token', token);
+    this.storage.setItem('_sp_isAuth', 'true');
+  }
+
+  protected getToken(): string {
+    this.storage = localStorage;
+    return this.storage.getItem('_sp_token');
+  }
+
+  protected destroyToken() {
+    this.storage = localStorage;
+    this.storage.clear();
+  }
+
+  protected isAuth() {
+    return this.storage.getItem('_sp_isAuth');
   }
 
   protected isRoute(path) {
@@ -57,8 +80,15 @@ export abstract class BaseComponent implements OnInit {
     return (!isNullOrUndefined(value)) ? true : false;
   }
 
+  ReturnIfValid(value, defaultValue) {
+    let result = defaultValue;
+    if (!isNullOrUndefined(value) && value != '') {
+      result = value;
+    }
+    return result;
+  }
+
   public redirectFor(pathName) {
-    console.log(pathName)
     const path = `${window.location.origin}/#/${pathName}`;
     window.location.replace(path);
   }

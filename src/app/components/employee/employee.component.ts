@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import Employee from '../../models/employee.model';
 import { EmployeeService } from '../../services/employee.service';
 import { BaseComponent } from 'app/base.component';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-employee',
@@ -15,10 +16,11 @@ export class EmployeeComponent extends BaseComponent {
 
   constructor(
     public toastr: ToastrService,
-    public employeeService: EmployeeService
+    public employeeService: EmployeeService,
+    public authService: AuthService
 
   ) {
-    super(toastr);
+    super(toastr, authService);
   }
 
   protected onInit() {

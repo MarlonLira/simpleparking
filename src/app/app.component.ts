@@ -5,20 +5,31 @@ import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
 import * as $ from 'jquery';
+import { BaseComponent } from './base.component';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent extends BaseComponent {
+
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
 
-  constructor(public location: Location, private router: Router) { }
+  constructor(
+    public location: Location,
+    private router: Router,
+    public toastr: ToastrService,
+    public authService: AuthService
+  ) {
+    super(toastr, authService);
+  }
 
-  ngOnInit() {
+  onInit() {
     if (!this.isRoute('auth')) {
       const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
@@ -49,13 +60,17 @@ export class AppComponent implements OnInit {
           }
         }
       });
-      this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
-        elemMainPanel.scrollTop = 0;
-        elemSidebar.scrollTop = 0;
-      });
-      if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-        let ps = new PerfectScrollbar(elemMainPanel);
-        ps = new PerfectScrollbar(elemSidebar);
+      if (this.IsValid(elemMainPanel) || this.IsValid(elemSidebar)) {
+        this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
+          elemMainPanel.scrollTop = 0;
+          elemSidebar.scrollTop = 0;
+        });
+
+
+        if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+          let ps = new PerfectScrollbar(elemMainPanel);
+          ps = new PerfectScrollbar(elemSidebar);
+        }
       }
 
       const window_width = $(window).width();

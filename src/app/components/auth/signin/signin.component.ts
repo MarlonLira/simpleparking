@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { AuthComponent } from '../auth.component';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl } from '@angular/forms';
+import Auth from 'app/models/auth.model';
+import Employee from 'app/models/employee.model';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -10,9 +13,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class SigninComponent extends AuthComponent {
   constructor(
-    toastr: ToastrService
+    public toastr: ToastrService,
+    public authService: AuthService
   ) {
-    super(toastr);
+    super(toastr, authService);
   }
 
   protected onSafelyInit() {
@@ -22,10 +26,15 @@ export class SigninComponent extends AuthComponent {
     });
   }
 
-  public onSubmit() {
-    console.log('aquii')
-    this.createAuth('_sp_isAuth', true);
-    this.redirectFor('dashboard')
+  public async onSubmit() {
+    const _auth = new Auth();
+    _auth.employee = new Employee(this.form.value);
+    await this.signin(_auth)
+      .then((result: Auth) => {
+        this.setToken(result.token);
+      });
+
+    this.TokenVerify();
   }
 
 }

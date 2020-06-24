@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import Consts from '../../consts';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,9 +17,10 @@ export class DashboardComponent extends BaseComponent {
 
   constructor(
     public toastr: ToastrService,
+    public authService: AuthService,
     private http: HttpClient
   ) {
-    super(toastr);
+    super(toastr, authService);
   }
 
   getVehicles() {
@@ -188,7 +190,6 @@ export class DashboardComponent extends BaseComponent {
     this.getSchedulings()
       .then(result => {
         this.schedulings = result;
-        console.log(result)
       });
   }
 

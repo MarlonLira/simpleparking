@@ -5,13 +5,14 @@ import { ToastrService } from 'ngx-toastr';
 import Parking from '../../models/parking.model';
 import { ParkingService } from '../../services/parking.service';
 import { BaseComponent } from 'app/base.component';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-parking',
   templateUrl: './parking.component.html',
   styleUrls: ['./parking.component.css']
 })
-export class ParkingComponent extends BaseComponent{
+export class ParkingComponent extends BaseComponent {
 
   parkings: Parking[];
 
@@ -28,15 +29,15 @@ export class ParkingComponent extends BaseComponent{
 
   constructor(
     public toastr: ToastrService,
-    public parkingService: ParkingService
+    public parkingService: ParkingService,
+    public authService: AuthService
   ) {
-    super(toastr);
+    super(toastr, authService);
   }
 
   onInit(): void {
     this.parkingService.ToList()
       .then((result: Parking[]) => {
-        console.log(result);
         this.parkings = result;
       });
   }

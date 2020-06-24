@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AuthComponent } from '../auth.component';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,9 +11,10 @@ import { AuthComponent } from '../auth.component';
 export class SignupComponent extends AuthComponent {
 
   constructor(
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    public authService: AuthService
   ) {
-    super(toastr);
+    super(toastr, authService);
   }
 
   protected onSafelyInit() {
