@@ -28,13 +28,17 @@ export abstract class BaseComponent implements OnInit {
   protected async TokenVerify() {
     if (this.IsValid(this.getToken())) {
       this.isValidAuthentication = (await this.authService.verifyToken(this.getToken())).valid;
+      console.log(this.isValidAuthentication)
       if (this.isValidAuthentication && this.isRoute('auth')) {
         this.redirectFor('dashboard')
       } else if (!this.isValidAuthentication && !this.isRoute('auth')) {
         this.destroyToken();
         this.redirectFor('auth/signin');
+      } else if (!this.isValidAuthentication && this.isRoute('auth')) {
+        this.destroyToken();
       }
     } else {
+      this.destroyToken();
       this.redirectFor('auth/signin')
     }
   }
