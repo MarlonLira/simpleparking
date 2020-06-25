@@ -23,4 +23,13 @@ export class EmployeeService extends BaseService<Employee> {
         });
     });
   }
+
+  Update(values): Promise<any> {
+    return new Promise((resolve) => {
+      this.onPut('/employee', values)
+        .subscribe(requested => {
+          resolve(requested)
+        });
+    });
+  }
 }

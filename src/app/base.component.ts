@@ -86,7 +86,7 @@ export abstract class BaseComponent implements OnInit {
 
   ReturnIfValid(value, defaultValue) {
     let result = defaultValue;
-    if (!isNullOrUndefined(value) && value != '') {
+    if (!isNullOrUndefined(value) && value !== '') {
       result = value;
     }
     return result;
