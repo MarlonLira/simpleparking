@@ -1,25 +1,26 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import * as Chartist from 'chartist';
 import { HttpClient } from '@angular/common/http';
 import Consts from '../../consts';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
-import { GetTime } from '../../commons/functions/properties';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent extends BaseComponent implements OnInit {
+export class DashboardComponent extends BaseComponent {
   public vehicles: any;
   public schedulings: any;
 
   constructor(
     public toastr: ToastrService,
+    public authService: AuthService,
     private http: HttpClient
   ) {
-    super(toastr);
+    super(toastr, authService);
   }
 
   getVehicles() {
@@ -100,7 +101,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
     seq2 = 0;
   };
-  ngOnInit() {
+  onInit() {
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
     const dataDailySalesChart: any = {
@@ -189,7 +190,6 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     this.getSchedulings()
       .then(result => {
         this.schedulings = result;
-        console.log(result)
       });
   }
 

@@ -1,15 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Injectable } from '@angular/core';
+import { BaseComponent } from 'app/base.component';
+import { AuthService } from 'app/services/auth.service';
+import Auth from 'app/models/auth.model';
 
-@Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
-})
-export class AuthComponent implements OnInit {
+@Injectable()
+export abstract class AuthComponent extends BaseComponent {
 
-  constructor() { }
+  constructor(
+    public toastr: ToastrService,
+    public authService: AuthService
+  ) { super(toastr, authService) }
 
-  ngOnInit(): void {
+  protected abstract onSafelyInit();
+
+  onInit(): void {
+    this.onSafelyInit();
+  }
+
+  protected signin(values): Promise<Auth> {
+    return new Promise((resolve) => {
+      this.authService.signin(values)
+        .then(requested => {
+          this.toastr.success(requested['message']);
+          resolve(requested['result']);
+        });
+    });
   }
 
 }

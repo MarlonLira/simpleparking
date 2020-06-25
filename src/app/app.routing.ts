@@ -9,17 +9,23 @@ import { TableListComponent } from './components/table-list/table-list.component
 import { MapsComponent } from './components/maps/maps.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { EmployeeComponent } from './components/employee/employee.component';
-import { AuthComponent } from './components/auth/auth.component';
+import { SigninComponent } from './components/auth/signin/signin.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { AccountRecoveryComponent } from './components/auth/account-recovery/account-recovery.component';
+import { ErrorComponent } from './components/error/error.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'table-list', component: TableListComponent },
   { path: 'maps', component: MapsComponent },
   { path: 'parking', component: ParkingComponent },
   { path: 'employee', component: EmployeeComponent },
-  { path: 'auth', component: AuthComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full'}
+  { path: 'auth/signin', component: SigninComponent },
+  { path: 'auth/signup', component: SignupComponent },
+  { path: 'auth/account-recovery', component: AccountRecoveryComponent },
+  { path: '**', component: ErrorComponent },
 ];
 
 @NgModule({

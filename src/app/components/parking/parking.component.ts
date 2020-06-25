@@ -1,17 +1,18 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
-import Parking from '../../models/parking';
+import Parking from '../../models/parking.model';
 import { ParkingService } from '../../services/parking.service';
 import { BaseComponent } from 'app/base.component';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-parking',
   templateUrl: './parking.component.html',
   styleUrls: ['./parking.component.css']
 })
-export class ParkingComponent extends BaseComponent implements OnInit {
+export class ParkingComponent extends BaseComponent {
 
   parkings: Parking[];
 
@@ -28,15 +29,15 @@ export class ParkingComponent extends BaseComponent implements OnInit {
 
   constructor(
     public toastr: ToastrService,
-    public parkingService: ParkingService
+    public parkingService: ParkingService,
+    public authService: AuthService
   ) {
-    super(toastr);
+    super(toastr, authService);
   }
 
-  ngOnInit(): void {
+  onInit(): void {
     this.parkingService.ToList()
       .then((result: Parking[]) => {
-        console.log(result);
         this.parkings = result;
       });
   }
