@@ -13,7 +13,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/employee', title: 'Employee', icon: 'engineering', visible: true },
   { path: '/auth', title: 'auth', icon: 'engineering', visible: false },
   { path: '/user-profile', title: 'User Profile', icon: 'person', visible: true },
-  { path: '/maps', title: 'Maps', icon: 'location_on', visible: true },
+  { path: '/maps', title: 'Maps', icon: 'location_on', visible: true }
 ];
 
 @Component({
