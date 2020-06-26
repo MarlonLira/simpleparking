@@ -152,7 +152,7 @@ export class AppComponent extends BaseComponent {
 
   }
 
-  isRoute(path) {
+  public isRoute(path) {
     const route = this.location.path();
     const isRoute = new RegExp(`/.*?${path}.*/`);
     if (isRoute.test(route)) {

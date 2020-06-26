@@ -64,8 +64,11 @@ export abstract class BaseComponent implements OnInit {
   }
 
   protected isRoute(path) {
+    console.log(path)
     const route = window.location.toString();
+    console.log(route)
     const isRoute = new RegExp(`/.*?${path}.*/`);
+    console.log(isRoute.test(route))
     if (isRoute.test(route)) {
       return true;
     } else {
