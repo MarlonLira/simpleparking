@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { isArray, isString, isNullOrUndefined } from 'util';
 import { AuthService } from './services/auth.service';
+import * as $ from 'jquery';
 
 @Injectable()
 export abstract class BaseComponent implements OnInit {
@@ -16,11 +17,13 @@ export abstract class BaseComponent implements OnInit {
     public toastr: ToastrService,
     public authService: AuthService
   ) {
+    this.storage = localStorage;
   }
 
   protected abstract onInit();
 
   ngOnInit() {
+    this.onShowFotter();
     this.TokenVerify();
     this.onInit();
   }
@@ -33,42 +36,17 @@ export abstract class BaseComponent implements OnInit {
         this.redirectFor('dashboard')
       } else if (!this.isValidAuthentication && !this.isRoute('auth')) {
         this.destroyToken();
-        this.redirectFor('auth/signin');
       } else if (!this.isValidAuthentication && this.isRoute('auth')) {
         this.destroyToken();
       }
     } else {
       this.destroyToken();
-      this.redirectFor('auth/signin')
     }
   }
 
-  protected setToken(token) {
-    this.storage = localStorage;
-    this.storage.setItem('_sp_token', token);
-    this.storage.setItem('_sp_isAuth', 'true');
-  }
-
-  protected getToken(): string {
-    this.storage = localStorage;
-    return this.storage.getItem('_sp_token');
-  }
-
-  protected destroyToken() {
-    this.storage = localStorage;
-    this.storage.clear();
-  }
-
-  protected isAuth() {
-    return this.storage.getItem('_sp_isAuth');
-  }
-
   protected isRoute(path) {
-    console.log(path)
     const route = window.location.toString();
-    console.log(route)
     const isRoute = new RegExp(`/.*?${path}.*/`);
-    console.log(isRoute.test(route))
     if (isRoute.test(route)) {
       return true;
     } else {
@@ -95,8 +73,20 @@ export abstract class BaseComponent implements OnInit {
     return result;
   }
 
-  public redirectFor(pathName) {
-    const path = `${window.location.origin}/#/${pathName}`;
-    window.location.replace(path);
+  protected setToken(token) {
+    this.storage.setItem('_sp_token', token);
+    this.storage.setItem('_sp_isAuth', 'true');
   }
+
+  protected destroyToken() {
+    this.storage.clear();
+    this.redirectFor('auth/signin');
+  }
+
+  public redirectFor = (pathName): void => window.location.replace(`${window.location.origin}/#/${pathName}`);
+  protected getToken = (): string => this.storage.getItem('_sp_token');
+  protected isAuth = (): boolean => Boolean(this.storage.getItem('_sp_isAuth'));
+  protected signOut = (): void => this.destroyToken();
+  protected onHideFooter = () => $('.footer').hide();
+  protected onShowFotter = () => $('.footer').show();
 }

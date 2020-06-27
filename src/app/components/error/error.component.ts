@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import * as $ from 'jquery';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
@@ -33,6 +33,7 @@ export class ErrorComponent extends BaseComponent {
     });
 
     document.querySelector('.cont_principal').className = 'cont_principal cont_error_active';
+    this.onHideFooter();
   }
 
   onLightUp(): void {
