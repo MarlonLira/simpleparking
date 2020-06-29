@@ -1,4 +1,4 @@
-import { ReturnIfValid, IsValid } from '../commons/functions/properties';
+import { Utils } from '../commons/functions/utils';
 import User from './user.model';
 import Employee from './employee.model';
 import Company from './company.model';
@@ -15,13 +15,13 @@ export default class Auth {
 
   constructor(json?: any) {
     if (json) {
-      this.token = ReturnIfValid(json.token, '');
-      this.authenticationLevel = ReturnIfValid(json.authenticationLevel);
-      this.validated = ReturnIfValid(json.validated);
-      this.user = IsValid(json.user) ? new User(json.user) : undefined;
-      this.employee = IsValid(json.employee) ? new Employee(json.employee) : undefined;
-      this.company = IsValid(json.company) ? new Company(json.company) : undefined;
-      this.parking = IsValid(json.parking) ? new Parking(json.parking) : undefined;
+      this.token = Utils.returnIfValid(json.token, '');
+      this.authenticationLevel = Utils.returnIfValid(json.authenticationLevel);
+      this.validated = Utils.returnIfValid(json.validated);
+      this.user = Utils.isValid(json.user) ? new User(json.user) : undefined;
+      this.employee = Utils.isValid(json.employee) ? new Employee(json.employee) : undefined;
+      this.company = Utils.isValid(json.company) ? new Company(json.company) : undefined;
+      this.parking = Utils.isValid(json.parking) ? new Parking(json.parking) : undefined;
     }
   }
 }

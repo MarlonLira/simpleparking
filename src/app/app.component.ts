@@ -60,7 +60,7 @@ export class AppComponent extends BaseComponent {
           }
         }
       });
-      if (this.IsValid(elemMainPanel) || this.IsValid(elemSidebar)) {
+      if (this.isValid(elemMainPanel) || this.isValid(elemSidebar)) {
         this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
           elemMainPanel.scrollTop = 0;
           elemSidebar.scrollTop = 0;

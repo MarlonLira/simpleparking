@@ -2,9 +2,9 @@ import { OnInit, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
-import { isArray, isString, isNullOrUndefined } from 'util';
-import { AuthService } from './services/auth.service';
 import * as $ from 'jquery';
+import { AuthService } from './services/auth.service';
+import { Utils } from './commons/functions/utils';
 
 @Injectable()
 export abstract class BaseComponent implements OnInit {
@@ -20,7 +20,7 @@ export abstract class BaseComponent implements OnInit {
     this.storage = localStorage;
   }
 
-  protected abstract onInit();
+  protected abstract onInit(): void;
 
   ngOnInit() {
     this.onShowFotter();
@@ -29,7 +29,7 @@ export abstract class BaseComponent implements OnInit {
   }
 
   protected async TokenVerify() {
-    if (this.IsValid(this.getToken())) {
+    if (this.isValid(this.getToken())) {
       this.isValidAuthentication = (await this.authService.verifyToken(this.getToken())).valid;
       console.log(this.isValidAuthentication)
       if (this.isValidAuthentication && this.isRoute('auth')) {
@@ -54,25 +54,6 @@ export abstract class BaseComponent implements OnInit {
     }
   }
 
-  public IsValid(value) {
-    if (isArray(value)) {
-      return value.length > 0 ? true : false;
-    }
-
-    if (isString(value)) {
-      return value !== '' ? true : false;
-    }
-    return (!isNullOrUndefined(value)) ? true : false;
-  }
-
-  ReturnIfValid(value, defaultValue) {
-    let result = defaultValue;
-    if (!isNullOrUndefined(value) && value !== '') {
-      result = value;
-    }
-    return result;
-  }
-
   protected setToken(token) {
     this.storage.setItem('_sp_token', token);
     this.storage.setItem('_sp_isAuth', 'true');
@@ -83,7 +64,11 @@ export abstract class BaseComponent implements OnInit {
     this.redirectFor('auth/signin');
   }
 
-  public redirectFor = (pathName): void => window.location.replace(`${window.location.origin}/#/${pathName}`);
+  protected onResetForm = (): void => this.form.reset();
+  protected onLoadForm = (values): void => this.form.patchValue(values);
+  protected returnIfValid = (value, defaultValue) => Utils.returnIfValid(value, defaultValue);
+  protected isValid = (value): boolean => Utils.isValid(value);
+  protected redirectFor = (pathName): void => window.location.replace(`${window.location.origin}/#/${pathName}`);
   protected getToken = (): string => this.storage.getItem('_sp_token');
   protected isAuth = (): boolean => Boolean(this.storage.getItem('_sp_isAuth'));
   protected signOut = (): void => this.destroyToken();

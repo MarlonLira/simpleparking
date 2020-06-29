@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
-import Parking from '../../models/parking.model';
-import { ParkingService } from '../../services/parking.service';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import Parking from 'app/models/parking.model';
 
 @Component({
   selector: 'app-parking',
@@ -13,10 +12,10 @@ import { AuthService } from 'app/services/auth.service';
   styleUrls: ['./parking.component.css']
 })
 export class ParkingComponent extends BaseComponent {
-
   parkings: Parking[];
 
   form = new FormGroup({
+    id: new FormControl({ value: 0, disabled: true }),
     name: new FormControl(''),
     registryCode: new FormControl(''),
     phone: new FormControl(''),
@@ -29,39 +28,11 @@ export class ParkingComponent extends BaseComponent {
 
   constructor(
     public toastr: ToastrService,
-    public parkingService: ParkingService,
     public authService: AuthService
   ) {
     super(toastr, authService);
   }
 
   onInit(): void {
-    this.parkingService.ToList()
-      .then((result: Parking[]) => {
-        this.parkings = result;
-      });
-  }
-
-  onEdit(parking) {
-    console.warn('edit');
-    console.log(parking)
-
-  }
-
-  onRemove(parking) {
-    console.warn('remove');
-    console.log(parking)
-  }
-
-  onSubmit() {
-    const _value = new Parking(this.form.value);
-    _value.companyId = 1;
-    _value.imgUrl = 'www.google.com.br';
-    const __value = { 'parking': _value };
-
-    this.parkingService.Save(__value)
-      .then(result => {
-        this.toastr.info(result, '');
-      });
   }
 }
