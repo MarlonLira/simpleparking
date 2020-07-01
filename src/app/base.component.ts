@@ -4,12 +4,13 @@ import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import * as $ from 'jquery';
 import { AuthService } from './services/auth.service';
-import { Utils } from './commons/core/utils';
+import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
 
 @Injectable()
 export abstract class BaseComponent implements OnInit {
+  private static timer: Array<Timer>;
   public form: FormGroup;
   protected isValidAuthentication: boolean;
   public location: Location;
@@ -27,23 +28,60 @@ export abstract class BaseComponent implements OnInit {
 
   ngOnInit() {
     this.onShowFotter();
-    this.TokenVerify();
     this.auth = this.getAuth();
+    this.timerVerify();
     this.onInit();
   }
 
-  protected async TokenVerify() {
+  protected async TokenVerify(hash: string = undefined) {
     if (this.isValid(this.getToken())) {
       this.isValidAuthentication = (await this.authService.verifyToken(this.getToken())).valid;
+      this.requestTokenTimer(hash);
       if (this.isValidAuthentication && this.isRoute('auth')) {
         this.redirectFor('dashboard')
       } else if (!this.isValidAuthentication && !this.isRoute('auth')) {
+        window.alert('Token Invalid');
         this.destroyToken();
       } else if (!this.isValidAuthentication && this.isRoute('auth')) {
         this.destroyToken();
       }
     } else {
       this.destroyToken();
+    }
+  }
+
+  private requestTokenTimer(hash: string) {
+    const _timer: Timer = {
+      hash: '',
+      id: ''
+    }
+
+    if (this.isValid(this.isValidAuthentication)) {
+      if (!this.isValid(BaseComponent.timer)) {
+        BaseComponent.timer = new Array<Timer>();
+        _timer.hash = this.generateUUID();
+        _timer.id = setTimeout(() => this.TokenVerify(_timer.hash), 600000); // Check the token every 10 minutes
+
+        BaseComponent.timer.push(_timer);
+      } else if (this.isValid(BaseComponent.timer) && this.isValid(hash)) {
+        const found = BaseComponent.timer.find(t => t.hash === hash);
+
+        if (this.isValid(found)) {
+          clearTimeout(found.id);
+          BaseComponent.timer.pop();
+        }
+
+        _timer.hash = this.generateUUID();
+        _timer.id = setTimeout(() => this.TokenVerify(_timer.hash), 600000); // Check the token every 10 minutes
+
+        BaseComponent.timer.push(_timer);
+      }
+    }
+  }
+
+  protected timerVerify() {
+    if (!this.isValid(BaseComponent.timer) && !this.isRoute('auth')) {
+      this.TokenVerify();
     }
   }
 
@@ -59,6 +97,7 @@ export abstract class BaseComponent implements OnInit {
 
   protected destroyToken() {
     this.storage.clear();
+    BaseComponent.timer = undefined;
     this.redirectFor('auth/signin');
   }
 
@@ -82,6 +121,7 @@ export abstract class BaseComponent implements OnInit {
   protected onLoadForm = (values): void => this.form.patchValue(values);
   protected returnIfValid = (value, defaultValue) => Utils.returnIfValid(value, defaultValue);
   protected isValid = (value): boolean => Utils.isValid(value);
+  protected generateUUID = (): string => Utils.generateUUID();
   protected redirectFor = (pathName): void => window.location.replace(`${window.location.origin}/#/${pathName}`);
   protected signOut = (): void => this.destroyToken();
   protected onHideFooter = () => $('.footer').hide();
