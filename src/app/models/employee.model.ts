@@ -1,4 +1,4 @@
-import { Utils } from '../commons/functions/utils';
+import { Utils } from '../commons/core/utils';
 
 export default class Employee {
   public id!: number;

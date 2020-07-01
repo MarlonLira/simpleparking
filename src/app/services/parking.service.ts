@@ -16,7 +16,7 @@ export class ParkingService extends BaseService<Parking> {
 
   ToList(): Promise<Parking[]> {
     return new Promise((resolve, reject) => {
-      this.onGet('/parkings/companyId/1')
+      this.onGet(`/parkings/companyId/${this.auth.company.id}`)
         .subscribe(requested => {
           resolve(requested['result']);
         });

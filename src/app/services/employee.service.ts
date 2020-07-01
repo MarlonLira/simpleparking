@@ -17,7 +17,7 @@ export class EmployeeService extends BaseService<Employee> {
 
   ToList(): Promise<Employee[]> {
     return new Promise((resolve) => {
-      this.onGet('/employees/companyId/1')
+      this.onGet(`/employees/companyId/${this.auth.company.id}`)
         .subscribe(requested => {
           resolve(requested['result']);
         });

@@ -1,4 +1,4 @@
-import { Utils } from '../commons/functions/utils';
+import { Utils } from '../commons/core/utils';
 import User from './user.model';
 import Employee from './employee.model';
 import Company from './company.model';

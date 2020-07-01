@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Parking from 'app/models/parking.model';
 
 @Component({
