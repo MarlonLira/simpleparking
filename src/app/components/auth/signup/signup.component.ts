@@ -18,7 +18,7 @@ export class SignupComponent extends AuthComponent {
   }
 
   protected onSafelyInit() {
-    throw new Error('Method not implemented.');
+
   }
 
 }
