@@ -60,7 +60,7 @@ export class AppComponent extends BaseComponent {
           }
         }
       });
-      if (this.IsValid(elemMainPanel) || this.IsValid(elemSidebar)) {
+      if (this.isValid(elemMainPanel) || this.isValid(elemSidebar)) {
         this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
           elemMainPanel.scrollTop = 0;
           elemSidebar.scrollTop = 0;
@@ -152,7 +152,7 @@ export class AppComponent extends BaseComponent {
 
   }
 
-  isRoute(path) {
+  public isRoute(path) {
     const route = this.location.path();
     const isRoute = new RegExp(`/.*?${path}.*/`);
     if (isRoute.test(route)) {

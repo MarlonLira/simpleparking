@@ -31,10 +31,9 @@ export class SigninComponent extends AuthComponent {
     _auth.employee = new Employee(this.form.value);
     await this.signin(_auth)
       .then((result: Auth) => {
-        this.setToken(result.token);
+        this.setAuth(result);
       });
 
     this.TokenVerify();
   }
-
 }

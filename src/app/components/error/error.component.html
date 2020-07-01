@@ -1,1 +1,19 @@
-<p>Page not found!</p>
+<div class="body-aura">
+  <div class="body-aura-content">
+    <div class="cont_principal" >
+      <div class="cont_error">
+        <div class="content-text" (click)="onLightDown()">
+          <div class="text">
+            <h1>{{labels.error_code}}</h1>
+            <h2>{{labels.msg1}}</h2>
+            <h3>{{labels.msg2}}</h3>
+            <h3>{{labels.msg3}}</h3>
+          </div>
+        </div>
+        <div id="light" class="torch" (click)="onLightUp()"></div>
+      </div>
+      <div class="cont_aura_1"></div>
+      <div class="cont_aura_2"></div>
+    </div>
+  </div>
+</div>

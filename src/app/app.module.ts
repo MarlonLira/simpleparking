@@ -11,7 +11,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
-
 import { NgxMaskModule } from 'ngx-mask'
 import { ToastrModule } from 'ngx-toastr';
 
@@ -40,6 +39,9 @@ import { AccountRecoveryComponent } from './components/auth/account-recovery/acc
 import { SigninComponent } from './components/auth/signin/signin.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { ErrorComponent } from './components/error/error.component';
+import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
+import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   imports: [
@@ -81,7 +83,10 @@ import { ErrorComponent } from './components/error/error.component';
     AccountRecoveryComponent,
     SigninComponent,
     SignupComponent,
-    ErrorComponent
+    ErrorComponent,
+    ParkingFormComponent,
+    ParkingListComponent,
+    DialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

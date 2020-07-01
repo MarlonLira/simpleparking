@@ -25,7 +25,8 @@ const routes: Routes = [
   { path: 'auth/signin', component: SigninComponent },
   { path: 'auth/signup', component: SignupComponent },
   { path: 'auth/account-recovery', component: AccountRecoveryComponent },
-  { path: '**', component: ErrorComponent },
+  { path: 'error', component: ErrorComponent },
+  { path: '**', redirectTo: 'error', pathMatch: 'full' }
 ];
 
 @NgModule({

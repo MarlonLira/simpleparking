@@ -14,6 +14,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/auth', title: 'auth', icon: 'engineering', visible: false },
   { path: '/user-profile', title: 'User Profile', icon: 'person', visible: true },
   { path: '/maps', title: 'Maps', icon: 'location_on', visible: true },
+  { path: '/error', title: 'Page not found', icon: 'error', visible: false },
 ];
 
 @Component({
