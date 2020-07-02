@@ -40,7 +40,6 @@ export abstract class BaseComponent implements OnInit {
       if (this.isValidAuthentication && this.isRoute('auth')) {
         this.redirectFor('dashboard')
       } else if (!this.isValidAuthentication && !this.isRoute('auth')) {
-        window.alert('Token Invalid');
         this.destroyToken();
       } else if (!this.isValidAuthentication && this.isRoute('auth')) {
         this.destroyToken();

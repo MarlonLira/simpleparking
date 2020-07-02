@@ -1,4 +1,4 @@
-import { ReturnIfValid } from '../commons/functions/properties';
+import { Utils } from '../commons/core/utils';
 
 export default class ParkingAdress {
   id!: number;
@@ -16,18 +16,18 @@ export default class ParkingAdress {
   parkingId!: number;
 
   constructor(json?: any) {
-    this.id = ReturnIfValid(json.id);
-    this.status = ReturnIfValid(json.status);
-    this.country = ReturnIfValid(json.country);
-    this.state = ReturnIfValid(json.state);
-    this.city = ReturnIfValid(json.city);
-    this.district = ReturnIfValid(json.district);
-    this.street = ReturnIfValid(json.street);
-    this.number = ReturnIfValid(json.number);
-    this.zipCode = ReturnIfValid(json.zipCode);
-    this.latitude = ReturnIfValid(json.latitude);
-    this.longitude = ReturnIfValid(json.longitude);
-    this.complement = ReturnIfValid(json.complement);
-    this.parkingId = ReturnIfValid(json.parkingId);
+    this.id = Utils.returnIfValid(json.id);
+    this.status = Utils.returnIfValid(json.status);
+    this.country = Utils.returnIfValid(json.country);
+    this.state = Utils.returnIfValid(json.state);
+    this.city = Utils.returnIfValid(json.city);
+    this.district = Utils.returnIfValid(json.district);
+    this.street = Utils.returnIfValid(json.street);
+    this.number = Utils.returnIfValid(json.number);
+    this.zipCode = Utils.returnIfValid(json.zipCode);
+    this.latitude = Utils.returnIfValid(json.latitude);
+    this.longitude = Utils.returnIfValid(json.longitude);
+    this.complement = Utils.returnIfValid(json.complement);
+    this.parkingId = Utils.returnIfValid(json.parkingId);
   }
 }

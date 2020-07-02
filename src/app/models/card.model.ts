@@ -1,4 +1,4 @@
-import { ReturnIfValid } from '../commons/functions/properties';
+import { Utils } from '../commons/core/utils';
 
 export default class Card {
   id!: number;
@@ -12,14 +12,14 @@ export default class Card {
   userId: number;
 
   constructor(json?: any) {
-    this.id = ReturnIfValid(json.id);
-    this.status = ReturnIfValid(json.status);
-    this.holder = ReturnIfValid(json.holder);
-    this.flag = ReturnIfValid(json.flag);
-    this.number = ReturnIfValid(json.number);
-    this.expirationDate = ReturnIfValid(json.expirationDate);
-    this.secureCode = ReturnIfValid(json.secureCode);
-    this.type = ReturnIfValid(json.type);
-    this.userId = ReturnIfValid(json.userId);
+    this.id = Utils.returnIfValid(json.id);
+    this.status = Utils.returnIfValid(json.status);
+    this.holder = Utils.returnIfValid(json.holder);
+    this.flag = Utils.returnIfValid(json.flag);
+    this.number = Utils.returnIfValid(json.number);
+    this.expirationDate = Utils.returnIfValid(json.expirationDate);
+    this.secureCode = Utils.returnIfValid(json.secureCode);
+    this.type = Utils.returnIfValid(json.type);
+    this.userId = Utils.returnIfValid(json.userId);
   }
 }
