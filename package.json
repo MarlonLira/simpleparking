@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && ng serve -o"
+    "install:clean": "npm rm -rf node_modules/ && npm rm -rf package-lock.json && npm install && ng serve --open"
   },
   "engines": {
     "node": "6.11.1",
@@ -24,7 +24,6 @@
     "@angular/compiler": "10.0.2",
     "@angular/core": "10.0.2",
     "@angular/forms": "10.0.2",
-    "@angular/http": "^7.2.16",
     "@angular/material": "10.0.1",
     "@angular/platform-browser": "10.0.2",
     "@angular/platform-browser-dynamic": "10.0.2",
