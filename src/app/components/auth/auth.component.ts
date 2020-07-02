@@ -18,7 +18,7 @@ export abstract class AuthComponent extends BaseComponent {
     this.onSafelyInit();
   }
 
-  protected signin(values): Promise<Auth> {
+  protected signin(values): Promise<string> {
     return new Promise((resolve) => {
       this.authService.signin(values)
         .then(requested => {

@@ -115,7 +115,7 @@ export abstract class BaseComponent implements OnInit {
       ? (<Auth>JSON.parse(Crypto.Decrypt(this.storage.getItem('_sp_auth')))).validated
       : undefined;
 
-  protected setAuth = (auth: Auth) => this.storage.setItem('_sp_auth', Crypto.Encrypt(JSON.stringify(auth)));
+  protected setAuth = (auth: string) => this.storage.setItem('_sp_auth', auth);
   protected onResetForm = (): void => this.form.reset();
   protected onLoadForm = (values): void => this.form.patchValue(values);
   protected returnIfValid = (value, defaultValue) => Utils.returnIfValid(value, defaultValue);

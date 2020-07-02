@@ -30,7 +30,7 @@ export class SigninComponent extends AuthComponent {
     const _auth = new Auth();
     _auth.employee = new Employee(this.form.value);
     await this.signin(_auth)
-      .then((result: Auth) => {
+      .then((result: string) => {
         this.setAuth(result);
       });
 
