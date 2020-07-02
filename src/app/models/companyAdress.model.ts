@@ -1,4 +1,4 @@
-import { ReturnIfValid } from '../commons/functions/properties';
+import { Utils } from '../commons/core/utils';
 
 export default class CompanyAdress {
 
@@ -15,16 +15,16 @@ export default class CompanyAdress {
   companyId!: number;
 
   constructor(json?: any) {
-    this.id = ReturnIfValid(json.id);
-    this.status = ReturnIfValid(json.status);
-    this.country = ReturnIfValid(json.country);
-    this.state = ReturnIfValid(json.state);
-    this.city = ReturnIfValid(json.city);
-    this.district = ReturnIfValid(json.district);
-    this.street = ReturnIfValid(json.street);
-    this.number = ReturnIfValid(json.number);
-    this.zipCode = ReturnIfValid(json.zipCode);
-    this.complement = ReturnIfValid(json.complement);
-    this.companyId = ReturnIfValid(json.companyId);
+    this.id = Utils.returnIfValid(json.id);
+    this.status = Utils.returnIfValid(json.status);
+    this.country = Utils.returnIfValid(json.country);
+    this.state = Utils.returnIfValid(json.state);
+    this.city = Utils.returnIfValid(json.city);
+    this.district = Utils.returnIfValid(json.district);
+    this.street = Utils.returnIfValid(json.street);
+    this.number = Utils.returnIfValid(json.number);
+    this.zipCode = Utils.returnIfValid(json.zipCode);
+    this.complement = Utils.returnIfValid(json.complement);
+    this.companyId = Utils.returnIfValid(json.companyId);
   }
 }

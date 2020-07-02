@@ -31,4 +31,13 @@ export class ParkingService extends BaseService<Parking> {
         });
     });
   }
+
+  Delete(id: number): Promise<any> {
+    return new Promise((resolve) => {
+      this.onDelete(`/parking/${id}`)
+        .subscribe(requested => {
+          resolve(requested['message']);
+        });
+    });
+  }
 }

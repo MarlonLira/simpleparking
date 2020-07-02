@@ -35,7 +35,9 @@ export class ParkingListComponent extends ParkingComponent {
   }
 
   onRemove(parking) {
-    console.warn('remove');
-    console.log(parking)
+    this.parkingService.Delete(parking.id)
+      .then(result => {
+        this.toastr.success(result);
+      });
   }
 }

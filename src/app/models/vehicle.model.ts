@@ -1,4 +1,4 @@
-import { ReturnIfValid } from '../commons/functions/properties';
+import { Utils } from '../commons/core/utils';
 
 export default class Vehicle {
 
@@ -11,12 +11,12 @@ export default class Vehicle {
   userId!: number;
 
   constructor(json?: any) {
-    this.id = ReturnIfValid(json.id);
-    this.status = ReturnIfValid(json.status);
-    this.model = ReturnIfValid(json.model);
-    this.color = ReturnIfValid(json.color);
-    this.type = ReturnIfValid(json.type);
-    this.licensePlate = ReturnIfValid(json.licensePlate);
-    this.userId = ReturnIfValid(json.userId);
+    this.id = Utils.returnIfValid(json.id);
+    this.status = Utils.returnIfValid(json.status);
+    this.model = Utils.returnIfValid(json.model);
+    this.color = Utils.returnIfValid(json.color);
+    this.type = Utils.returnIfValid(json.type);
+    this.licensePlate = Utils.returnIfValid(json.licensePlate);
+    this.userId = Utils.returnIfValid(json.userId);
   }
 }
