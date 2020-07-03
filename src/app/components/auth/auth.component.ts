@@ -19,11 +19,15 @@ export abstract class AuthComponent extends BaseComponent {
   }
 
   protected signin(values): Promise<string> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.authService.signin(values)
         .then(requested => {
-          this.toastr.success(requested['message']);
+          this.toastr.success(requested['message'], 'Success');
           resolve(requested['result']);
+        })
+        .catch(error => {
+          this.toastr.error(error['message'], 'Error');
+          reject(error);
         });
     });
   }

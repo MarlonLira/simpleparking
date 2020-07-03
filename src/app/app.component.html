@@ -1,4 +1,5 @@
 <div class="wrapper" *ngIf="!isRoute('auth'); else authBlock">
+  <div id="loading" class="load not-load"><img src="/assets/img/loading.gif" /></div>
   <div class="sidebar" data-color="purple" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
     <app-sidebar></app-sidebar>
     <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
@@ -13,6 +14,7 @@
 </div>
 
 <ng-template #authBlock>
+  <div id="loading" class="load not-load"><img src="/assets/img/loading.gif" /></div>
   <router-outlet></router-outlet>
 </ng-template>
 
