@@ -550,16 +550,35 @@ iframe {
 
 /* Loading */
 
-.load {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  top: 30%;
-  left: 45%;
-  color: blue;
-  z-index: 5;
-}
-
 .not-load {
   display: none;
+}
+
+#pn-load {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999998;
+  background-color: #80808040;
+}
+
+.loading {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  color: #59578e;
+}
+
+.spinner {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: .25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner-border .75s linear infinite;
+  animation: spinner-border .75s linear infinite;
 }

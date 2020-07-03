@@ -127,6 +127,6 @@ export abstract class BaseComponent implements OnInit {
   protected signOut = (): void => this.destroyToken();
   protected onHideFooter = () => $('.footer').hide();
   protected onShowFotter = () => $('.footer').show();
-  protected onStartLoading = () => $('.load').removeClass('not-load');
-  protected onStopLoading = () => $('.load').addClass('not-load');
+  protected onStartLoading = () => $('#pn-load').removeClass('not-load');
+  protected onStopLoading = () => $('#pn-load').addClass('not-load');
 }
