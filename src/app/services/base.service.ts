@@ -6,7 +6,6 @@ import Auth from 'app/models/auth.model';
 import { Utils } from 'app/commons/core/utils';
 import { Crypto } from 'app/commons/core/crypto';
 
-
 @Injectable({
   providedIn: 'root'
 })
