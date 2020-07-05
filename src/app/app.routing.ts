@@ -3,6 +3,7 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
+import { GroupGuard } from './group-guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { TableListComponent } from './components/table-list/table-list.component';
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'table-list', component: TableListComponent },
-  { path: 'maps', component: MapsComponent },
+  { path: 'maps', component: MapsComponent, canActivate: [GroupGuard] },
   { path: 'parking', component: ParkingComponent },
   { path: 'employee', component: EmployeeComponent },
   { path: 'auth/signin', component: SigninComponent },

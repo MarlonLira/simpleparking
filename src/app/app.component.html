@@ -1,4 +1,8 @@
 <div class="wrapper" *ngIf="!isRoute('auth'); else authBlock">
+  <div id="pn-load" class="not-load" tabindex="0">
+    <div class="spinner-border loading" role="status">
+    </div>
+  </div>
   <div class="sidebar" data-color="purple" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
     <app-sidebar></app-sidebar>
     <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
@@ -13,6 +17,10 @@
 </div>
 
 <ng-template #authBlock>
+  <div id="pn-load" class="not-load" tabindex="0">
+    <div class="spinner loading" role="status">
+    </div>
+  </div>
   <router-outlet></router-outlet>
 </ng-template>
 

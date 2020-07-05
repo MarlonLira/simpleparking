@@ -27,11 +27,16 @@ export class SigninComponent extends AuthComponent {
   }
 
   public async onSubmit() {
+    this.onStartLoading();
     const _auth = new Auth();
     _auth.employee = new Employee(this.form.value);
     await this.signin(_auth)
       .then((result: string) => {
         this.setAuth(result);
+        this.onStopLoading();
+      })
+      .catch(error => {
+        this.onStopLoading();
       });
 
     this.TokenVerify();

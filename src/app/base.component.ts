@@ -27,10 +27,12 @@ export abstract class BaseComponent implements OnInit {
   protected abstract onInit(): void;
 
   ngOnInit() {
+    this.onStartLoading();
     this.onShowFotter();
     this.auth = this.getAuth();
     this.timerVerify();
     this.onInit();
+    this.onStopLoading();
   }
 
   protected async TokenVerify(hash: string = undefined) {
@@ -125,4 +127,6 @@ export abstract class BaseComponent implements OnInit {
   protected signOut = (): void => this.destroyToken();
   protected onHideFooter = () => $('.footer').hide();
   protected onShowFotter = () => $('.footer').show();
+  protected onStartLoading = () => $('#pn-load').removeClass('not-load');
+  protected onStopLoading = () => $('#pn-load').addClass('not-load');
 }
