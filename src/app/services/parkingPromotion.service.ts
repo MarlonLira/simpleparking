@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import Parking from '../models/parking.model';
+import ParkingPromotion from '../models/parkingPromotion.model';
 import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ParkingService extends BaseService<Parking> {
+export class ParkingPromotionService extends BaseService<ParkingPromotion> {
 
   constructor(
     public http: HttpClient
@@ -16,7 +16,7 @@ export class ParkingService extends BaseService<Parking> {
 
   Save(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPost('/parking', values)
+      this.onPost('/parkingPromotion', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -25,7 +25,7 @@ export class ParkingService extends BaseService<Parking> {
 
   Delete(id: number): Promise<any> {
     return new Promise((resolve) => {
-      this.onDelete(`/parking/${id}`)
+      this.onDelete(`/parkingPromotion/${id}`)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -34,27 +34,27 @@ export class ParkingService extends BaseService<Parking> {
 
   Update(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPut('/parking', values)
+      this.onPut('/parkingPromotion', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
     });
   }
 
-  ToList(): Promise<Parking[]> {
-    return new Promise((resolve, reject) => {
-      this.onGet(`/parkings/companyId/${this.auth.company.id}`)
-        .subscribe(requested => {
-          resolve(requested['result']);
+  GetByName(parkingPromotionName: string): Promise<ParkingPromotion[]> {
+    return new Promise((resolve) => {
+      this.onGet(`/parkingPromotion/name/${parkingPromotionName}`)
+        .subscribe((requested: ParkingPromotion[]) => {
+          resolve(requested);
         });
     });
   }
 
-  GetByRegistryCode(registryCode: string): Promise<Parking[]> {
+  ToList(parkingId): Promise<ParkingPromotion[]> {
     return new Promise((resolve) => {
-      this.onGet(`/parking/companyId/:companyId/registryCode/${this.auth.company.registryCode}`)
-        .subscribe(requested => {
-          resolve(requested['result']);
+      this.onGet(`/ParkingsPromotion/${parkingId}`)
+        .subscribe((requested: ParkingPromotion[]) => {
+          resolve(requested);
         });
     });
   }
