@@ -230,7 +230,17 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 177px 130px 33px 95px;
+  padding: 177px 130px 130px 95px
+}
+
+.btn-back{
+  padding-top: 15px;
+  margin-bottom: -15px;
+}
+
+.btn-forward{
+  padding-top: 15px;
+  margin-bottom: -15px;
 }
 
 /*------------------------------------------------------------------

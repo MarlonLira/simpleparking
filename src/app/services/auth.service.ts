@@ -15,13 +15,27 @@ export class AuthService extends BaseService<Auth> {
     super(http);
   }
 
-  public signin(values): Promise<any> {
+  public signin(values: Auth): Promise<any> {
     return new Promise((resolve, reject) => {
       this.onPost('/auth/employee/signin', values)
         .subscribe((requested) => {
           resolve(requested);
         },
           (error) => {
+            reject(error);
+          }
+        );
+    });
+  }
+
+  public signup(values: Auth): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.onPost('/auth/employee/signup', values)
+        .subscribe((requested) => {
+          resolve(requested);
+        },
+          (error) => {
+            console.log('aqui')
             reject(error);
           }
         );

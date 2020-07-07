@@ -32,4 +32,18 @@ export abstract class AuthComponent extends BaseComponent {
     });
   }
 
+  protected signup(values): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.authService.signup(values)
+        .then(requested => {
+          this.toastr.success(requested['message'], 'Success');
+          resolve(requested['result']);
+        })
+        .catch(error => {
+          this.toastr.error(error['message'], 'Error');
+          reject(error);
+        });
+    });
+  }
+
 }
