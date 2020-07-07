@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "material-dashboard-angular": {
+    "simple-parking": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -59,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "material-dashboard-angular:build"
+            "browserTarget": "simple-parking:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "material-dashboard-angular:build:production"
+              "browserTarget": "simple-parking:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "material-dashboard-angular:build"
+            "browserTarget": "simple-parking:build"
           }
         },
         "test": {
@@ -113,7 +113,7 @@
         }
       }
     },
-    "material-dashboard-angular-e2e": {
+    "simple-parking-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -122,7 +122,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "material-dashboard-angular:serve"
+            "devServerTarget": "simple-parking:serve"
           }
         },
         "lint": {
@@ -137,11 +137,11 @@
       }
     }
   },
-  "defaultProject": "material-dashboard-angular",
+  "defaultProject": "simple-parking",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "style": "scss"
+      "style": "css"
     },
     "@schematics/angular:directive": {
       "prefix": "app"

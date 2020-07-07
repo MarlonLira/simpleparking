@@ -84,7 +84,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ErrorComponent,
     ParkingFormComponent,
     ParkingListComponent,
-    DialogComponent
+    DialogComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

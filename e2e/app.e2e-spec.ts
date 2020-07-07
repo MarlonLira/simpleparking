@@ -1,6 +1,6 @@
 import { MaterialDashboardAngularPage } from './app.po';
 
-describe('material-dashboard-angular App', () => {
+describe('simple-parking App', () => {
   let page: MaterialDashboardAngularPage;
 
   beforeEach(() => {
@@ -9,6 +9,6 @@ describe('material-dashboard-angular App', () => {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.navigateTo()).toEqual('');
   });
 });
