@@ -215,7 +215,7 @@ iframe {
   background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
   background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
   background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
-  background: linear-gradient(-135deg, #9053c7, #59578e);
+  background: linear-gradient(-135deg, #59578e, #59578e);
 }
 
 .wrap-login100 {
@@ -230,7 +230,17 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 177px 130px 33px 95px;
+  padding: 177px 130px 130px 95px
+}
+
+.btn-back{
+  padding-top: 15px;
+  margin-bottom: -15px;
+}
+
+.btn-forward{
+  padding-top: 15px;
+  margin-bottom: -15px;
 }
 
 /*------------------------------------------------------------------
@@ -532,7 +542,7 @@ iframe {
 /* alter card primary */
 
 .card .card-header-info .card-icon, .card .card-header-info:not(.card-header-icon):not(.card-header-text), .card .card-header-info .card-text {
-  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px #7774b5 !important;
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px #59578e !important;
 }
 
 .card .card-header-info .card-icon, .card .card-header-info .card-text, .card .card-header-info:not(.card-header-icon):not(.card-header-text), .card.bg-info, .card.card-rotate.bg-info .front, .card.card-rotate.bg-info .back {
@@ -546,4 +556,39 @@ iframe {
   background-color: #59578e !important;
   border-color: #59578e !important;
   box-shadow: 0 2px 2px 0 rgba(0, 188, 212, 0.14), 0 3px 1px -2px rgba(0, 188, 212, 0.2), 0 1px 5px 0 rgba(0, 188, 212, 0.12) !important;
+}
+
+/* Loading */
+
+.not-load {
+  display: none;
+}
+
+#pn-load {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999998;
+  background-color: #80808040;
+}
+
+.loading {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  color: #59578e;
+}
+
+.spinner {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: .25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner-border .75s linear infinite;
+  animation: spinner-border .75s linear infinite;
 }

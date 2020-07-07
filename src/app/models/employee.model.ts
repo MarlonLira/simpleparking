@@ -1,4 +1,4 @@
-import { ReturnIfValid } from '../commons/functions/properties';
+import { Utils } from '../commons/core/utils';
 
 export default class Employee {
   public id!: number;
@@ -13,16 +13,16 @@ export default class Employee {
   public ruleId!: number;
 
   constructor(json?: any) {
-    this.id = ReturnIfValid(json.id);
-    this.name = ReturnIfValid(json.name);
-    this.status = ReturnIfValid(json.status);
-    this.registryCode = ReturnIfValid(json.registryCode);
-    this.password = ReturnIfValid(json.password);
-    this.phone = ReturnIfValid(json.phone);
-    this.email = ReturnIfValid(json.email);
-    this.parkingId = ReturnIfValid(json.parkingId);
-    this.companyId = ReturnIfValid(json.companyId);
-    this.ruleId = ReturnIfValid(json.ruleId);
+    this.id = Utils.returnIfValid(json.id);
+    this.name = Utils.returnIfValid(json.name);
+    this.status = Utils.returnIfValid(json.status);
+    this.registryCode = Utils.returnIfValid(json.registryCode);
+    this.password = Utils.returnIfValid(json.password);
+    this.phone = Utils.returnIfValid(json.phone);
+    this.email = Utils.returnIfValid(json.email);
+    this.parkingId = Utils.returnIfValid(json.parkingId);
+    this.companyId = Utils.returnIfValid(json.companyId);
+    this.ruleId = Utils.returnIfValid(json.ruleId);
   }
 
 }

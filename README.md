@@ -5,7 +5,7 @@
 **Empresa:** Simple System Tecnologia SSTEC\
 **Nome do app:** Simple Parking\
 **Site:** simpleparking.com\
-**Tecnologias de desenvolvimento:** [Angular 9](https://angular.io/docs) | [Typescript](https://alligator.io/react/typescript-with-react/) - ([Mais](https://www.youtube.com/watch?v=OXxul6AvXNs)) - [Git](https://github.com/Rocketseat/youtube-typescript-reactjs) 
+**Tecnologias de desenvolvimento:** [Angular 10](https://angular.io/docs) | [Typescript](https://www.typescriptlang.org/)
 
 ### Requisitos
 - [VS Code](https://code.visualstudio.com/ "Visual Studio Code").
@@ -21,7 +21,8 @@
 **src/assets/** - Arquivos estáticos: fontes, imagens, etc. e arquivos de estilo\
 **src/app/commons/** - Arquivos comuns da aplicação. Inclui funções e utilitários.\
 **src/app/exemplo/** - Arquivos de uma tela.\
-**src/app/exemplo/exemploForm.jsx** - Formulario utilizados na tela.\
+**src/app/exemplo/exemplo-form/exemplo-form.component.ts** - Formulario utilizados na tela.\
+**src/app/exemplo/exemplo-list/exemplo-list.component.ts** - Listas utilizadas na tela.\
 **src/app/exemplo/exemplo.component.html** - A tela.\
 **src/app/exemplo/exemplo.component.ts** - Arquivo com metodos e objetos referente a tela.\
 **src/app/exemplo/exemplo.component.css** - Arquivo com estilos referentes a tela.\
@@ -35,11 +36,7 @@
 **package-lock** - Mapa de dependencias gerenciado pelo NPM| Caso algúem use o NPM.\
 
 ### Nomeação dos arquivos e componentes
-  - Os componentes são nomeados com o padrão PascalCase independente de ser componente de classe ou funcional.
-  - Os components e containers tem seus arquivos com o mesmo nome. Caso o component ou container esteja fora do diretório components ou containers respectivamente, o nome do arquivo deve serguir com o identificador Component ou Container.
-  - As views também são considerados componentes e devem ter seus arquivos ViewComponent.jsx e ViewContainer.js.
-  - Os arquivos que não são componentes devem ser nomeados no formato camelCase.js.
-  - Os arquivos que contém código JSX devem ser nomeados com a extensão .jsx.
+  - Os componentes são nomeados com o padrão do Angular 10
 
 ### GitFlow
 O GitFlow Workflow é um design de fluxo de trabalho Git que define um modelo de ramificação projetado em torno da versão do projeto. Isso fornece uma estrutura robusta para gerenciar projetos maiores.\

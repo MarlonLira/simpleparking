@@ -1,19 +1,27 @@
 <div class="wrapper" *ngIf="!isRoute('auth'); else authBlock">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
-        <app-sidebar></app-sidebar>
-        <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
+  <div id="pn-load" class="not-load" tabindex="0">
+    <div class="spinner-border loading" role="status">
     </div>
-    <div class="main-panel">
-        <app-navbar></app-navbar>
-        <router-outlet></router-outlet>
-        <div *ngIf="!isRoute('maps')">
-            <app-footer></app-footer>
-        </div>
+  </div>
+  <div class="sidebar" data-color="purple" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+    <app-sidebar></app-sidebar>
+    <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
+  </div>
+  <div class="main-panel">
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <div *ngIf="!isRoute('maps');">
+      <app-footer></app-footer>
     </div>
+  </div>
 </div>
 
 <ng-template #authBlock>
-    <router-outlet></router-outlet>
+  <div id="pn-load" class="not-load" tabindex="0">
+    <div class="spinner loading" role="status">
+    </div>
+  </div>
+  <router-outlet></router-outlet>
 </ng-template>
 
 <!-- colors : purple, azure -->

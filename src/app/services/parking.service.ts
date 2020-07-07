@@ -14,20 +14,47 @@ export class ParkingService extends BaseService<Parking> {
     super(http);
   }
 
+  Save(values): Promise<any> {
+    return new Promise((resolve) => {
+      this.onPost('/parking', values)
+        .subscribe(requested => {
+          resolve(requested['message']);
+        });
+    });
+  }
+
+  Delete(id: number): Promise<any> {
+    return new Promise((resolve) => {
+      this.onDelete(`/parking/${id}`)
+        .subscribe(requested => {
+          resolve(requested['message']);
+        });
+    });
+  }
+
+  Update(values): Promise<any> {
+    return new Promise((resolve) => {
+      this.onPut('/parking', values)
+        .subscribe(requested => {
+          resolve(requested['message']);
+        });
+    });
+  }
+
   ToList(): Promise<Parking[]> {
     return new Promise((resolve, reject) => {
-      this.onGet('/parkings/companyId/1')
+      this.onGet(`/parkings/companyId/${this.auth.company.id}`)
         .subscribe(requested => {
           resolve(requested['result']);
         });
     });
   }
 
-  Save(values): Promise<any> {
+  GetByRegistryCode(registryCode: string): Promise<Parking[]> {
     return new Promise((resolve) => {
-      this.onPost('/parking', values)
+      this.onGet(`/parking/companyId/:companyId/registryCode/${this.auth.company.registryCode}`)
         .subscribe(requested => {
-          resolve(requested['message']);
+          resolve(requested['result']);
         });
     });
   }
