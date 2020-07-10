@@ -46,4 +46,17 @@ export abstract class AuthComponent extends BaseComponent {
     });
   }
 
+  protected accountRecovery(values) {
+    return new Promise((resolve, reject) => {
+      this.authService.accountRecovery(values)
+        .then(result => {
+          this.toastr.info(result['message'], 'Success');
+          resolve(result);
+        }).catch(error => {
+          this.toastr.error(error['message'], 'Error');
+          reject(error);
+        });
+    });
+  }
+
 }

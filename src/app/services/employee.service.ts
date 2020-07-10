@@ -32,4 +32,13 @@ export class EmployeeService extends BaseService<Employee> {
         });
     });
   }
+
+  GetByRegistryCode(registryCode) {
+    return new Promise((resolve) => {
+      this.onGet(`/employees/companyId/${this.auth.company.id}/registryCode/${registryCode}`)
+        .subscribe(requested => {
+          resolve(requested['result']);
+        });
+    })
+  }
 }

@@ -42,6 +42,8 @@ export class AuthService extends BaseService<Auth> {
     });
   }
 
+  accountRecovery = (values) => this.onPost('/auth/employee/accountRecovery', values).toPromise();
+
   public getAuthentication = (): Auth => this.auth;
 
   public verifyToken(token: string): Promise<any> {
