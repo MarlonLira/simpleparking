@@ -4,6 +4,7 @@ import { ParkingService } from 'app/services/parking.service';
 import { ToastrService } from 'ngx-toastr';
 import Parking from 'app/models/parking.model';
 import { ParkingComponent } from '../parking.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-parking-form',
@@ -17,9 +18,10 @@ export class ParkingFormComponent extends ParkingComponent {
   constructor(
     public toastr: ToastrService,
     public parkingService: ParkingService,
-    public authService: AuthService
+    public authService: AuthService,
+    public dialog: MatDialog
   ) {
-    super(toastr, authService);
+    super(toastr, authService, dialog);
   }
 
   onInit(): void {

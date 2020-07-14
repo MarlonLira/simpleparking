@@ -1,4 +1,4 @@
-import { OnInit, Injectable } from '@angular/core';
+import { OnInit, Injectable, Optional } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
@@ -7,6 +7,8 @@ import { AuthService } from './services/auth.service';
 import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
+import { MatDialog } from '@angular/material/dialog';
+// import Swal from 'sweetalert2'
 
 @Injectable()
 export abstract class BaseComponent implements OnInit {
@@ -16,12 +18,43 @@ export abstract class BaseComponent implements OnInit {
   public location: Location;
   public storage: Storage;
   protected auth: Auth;
+  private dialogConfig = {
+    disableClose: true,
+    autoFocus: true,
+    width: '1080px'
+  }
 
   constructor(
     public toastr: ToastrService,
-    public authService: AuthService
+    public authService: AuthService,
+    @Optional() public dialog?: MatDialog
   ) {
     this.storage = sessionStorage;
+  }
+
+  openDialog(component) {
+    const dialogRef = this.dialog.open(component, this.dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+    // Swal.fire({
+    //   title: 'Are you sure?',
+    //   text: "You won't be able to revert this!",
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Yes, delete it!'
+    // }).then((result) => {
+    //   if (result.value) {
+    //     Swal.fire(
+    //       'Deleted!',
+    //       'Your file has been deleted.',
+    //       'success'
+    //     )
+    //   }
+    // })
   }
 
   protected abstract onInit(): void;
