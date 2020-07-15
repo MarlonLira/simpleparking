@@ -5,6 +5,7 @@ import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Parking from 'app/models/parking.model';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-parking',
@@ -28,9 +29,10 @@ export class ParkingComponent extends BaseComponent {
 
   constructor(
     public toastr: ToastrService,
-    public authService: AuthService
+    public authService: AuthService,
+    public dialog: MatDialog
   ) {
-    super(toastr, authService);
+    super(toastr, authService, dialog);
   }
 
   onInit(): void {

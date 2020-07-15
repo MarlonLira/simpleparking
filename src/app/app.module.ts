@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { NgxMaskModule } from 'ngx-mask'
 import { ToastrModule } from 'ngx-toastr';
+import {MatDialogModule} from '@angular/material/dialog';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
@@ -57,6 +58,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatDialogModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
@@ -87,6 +89,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     DialogComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }
