@@ -39,12 +39,10 @@ export class ParkingFormComponent extends ParkingComponent {
 
   objectBuild() {
     const obj: Parking = Object.assign({}, this._parkingAssign, this.form.value);
-    const result = { 'parking': {} };
     obj.id = this._id;
     obj.imgUrl = 'www.google.com.br';
     obj.companyId = this.auth.company.id;
-    result.parking = obj;
-    return result;
+    return obj;
   }
 
   onSubmit() {
@@ -55,7 +53,8 @@ export class ParkingFormComponent extends ParkingComponent {
           this.onResetForm();
           this.onLoadList();
           this.onStopLoading();
-          this.onSuccessMessage('Saved Successfully!', result);
+          this.onSuccessMessage('Saved Successfully!', result)
+            .then(() => this.redirectFor('/parking/list'));
         });
     } else {
       this.service.Update(this.objectBuild())
@@ -63,7 +62,8 @@ export class ParkingFormComponent extends ParkingComponent {
           this.onResetForm();
           this.onLoadList();
           this.onStopLoading();
-          this.onSuccessMessage('Saved Successfully!', result);
+          this.onSuccessMessage('Saved Successfully!', result)
+            .then(() => this.redirectFor('/parking/list'));
         });
     }
   }
