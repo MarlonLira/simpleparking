@@ -3,19 +3,28 @@ import { Injectable } from '@angular/core';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import Auth from 'app/models/auth.model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export abstract class AuthComponent extends BaseComponent {
 
   constructor(
     public toastr: ToastrService,
+    public router: Router,
     public authService: AuthService
-  ) { super(toastr, authService) }
+  ) { super(toastr, router, authService) }
 
   protected abstract onSafelyInit();
 
   onInit(): void {
+    this.verify();
     this.onSafelyInit();
+  }
+
+  private verify() {
+    if (this.auth) {
+      this.redirectFor('dashboard');
+    }
   }
 
   protected signin(values): Promise<string> {

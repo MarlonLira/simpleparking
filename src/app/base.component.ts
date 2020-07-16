@@ -7,8 +7,8 @@ import { AuthService } from './services/auth.service';
 import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
-import { MatDialog } from '@angular/material/dialog';
-// import Swal from 'sweetalert2'
+import Swal, { SweetAlertOptions } from 'sweetalert2'
+import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
 
 @Injectable()
 export abstract class BaseComponent implements OnInit {
@@ -18,43 +18,23 @@ export abstract class BaseComponent implements OnInit {
   public location: Location;
   public storage: Storage;
   protected auth: Auth;
-  private dialogConfig = {
-    disableClose: true,
-    autoFocus: true,
-    width: '1080px'
+
+  private onConfirmMessageConfig: SweetAlertOptions = {
+    title: 'Are you sure?',
+    text: 'You won\'t be able to revert this!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
   }
 
   constructor(
     public toastr: ToastrService,
-    public authService: AuthService,
-    @Optional() public dialog?: MatDialog
+    public router: Router,
+    public authService: AuthService
   ) {
     this.storage = sessionStorage;
-  }
-
-  openDialog(component) {
-    const dialogRef = this.dialog.open(component, this.dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-    // Swal.fire({
-    //   title: 'Are you sure?',
-    //   text: "You won't be able to revert this!",
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'Yes, delete it!'
-    // }).then((result) => {
-    //   if (result.value) {
-    //     Swal.fire(
-    //       'Deleted!',
-    //       'Your file has been deleted.',
-    //       'success'
-    //     )
-    //   }
-    // })
   }
 
   protected abstract onInit(): void;
@@ -156,10 +136,12 @@ export abstract class BaseComponent implements OnInit {
   protected returnIfValid = (value, defaultValue) => Utils.returnIfValid(value, defaultValue);
   protected isValid = (value): boolean => Utils.isValid(value);
   protected generateUUID = (): string => Utils.generateUUID();
-  protected redirectFor = (pathName): void => window.location.replace(`${window.location.origin}/#/${pathName}`);
+  protected redirectFor = (route: string, params: Params = {}) => this.router.navigate([route], { queryParams: params });
   protected signOut = (): void => this.destroyToken();
   protected onHideFooter = () => $('.footer').hide();
   protected onShowFotter = () => $('.footer').show();
   protected onStartLoading = () => $('#pn-load').removeClass('not-load');
   protected onStopLoading = () => $('#pn-load').addClass('not-load');
+  protected onConfirmMessage = () => Swal.fire(this.onConfirmMessageConfig);
+  protected onSuccessMessage = (title: string, message?: string) => Swal.fire(title, message, 'success');
 }

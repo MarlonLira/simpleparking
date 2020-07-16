@@ -5,6 +5,7 @@ import { AuthService } from 'app/services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EmailService } from 'app/services/email.service';
 import { EmployeeService } from 'app/services/employee.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-recovery',
@@ -18,8 +19,9 @@ export class AccountRecoveryComponent extends AuthComponent {
     public authService: AuthService,
     public emailService: EmailService,
     public employeeService: EmployeeService,
+    public router: Router
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
   }
   protected onSafelyInit() {
     this.form = new FormGroup({

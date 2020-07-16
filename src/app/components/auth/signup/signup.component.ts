@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Employee from 'app/models/employee.model';
 import Company from 'app/models/company.model';
 import Auth from 'app/models/auth.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -16,9 +17,10 @@ export class SignupComponent extends AuthComponent {
 
   constructor(
     public toastr: ToastrService,
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
   }
 
   protected onSafelyInit() {

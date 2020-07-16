@@ -24,9 +24,9 @@ export class NavbarComponent extends BaseComponent {
     public authService: AuthService,
     location: Location,
     private element: ElementRef,
-    private router: Router
+    public router: Router
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
     this.location = location;
     this.sidebarVisible = false;
   }

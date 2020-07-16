@@ -1,6 +1,6 @@
 <div class="limiter">
   <div class="container-login100">
-    <div class="wrap-login100">
+    <div [formGroup]="form" (ngSubmit)="onSubmit()" class="wrap-login100">
       <!--================================= Employee =================================================-->
 
       <div class="title-recovery">

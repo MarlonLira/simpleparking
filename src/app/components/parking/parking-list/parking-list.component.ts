@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ParkingComponent } from '../parking.component';
 import { ToastrService } from 'ngx-toastr';
 import { ParkingService } from 'app/services/parking.service';
 import { AuthService } from 'app/services/auth.service';
-import Parking from 'app/models/parking.model';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
-import { DialogComponent } from 'app/components/dialog/dialog.component';
-import { ParkingFormComponent } from '../parking-form/parking-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-parking-list',
@@ -17,38 +14,34 @@ export class ParkingListComponent extends ParkingComponent {
 
   constructor(
     public toastr: ToastrService,
-    public parkingService: ParkingService,
+    public service: ParkingService,
     public authService: AuthService,
-    public dialog: MatDialog
+    public router: Router
   ) {
-    super(toastr, authService, dialog);
+    super(toastr, router, authService, service);
   }
 
-  // openDialog() {
-  //   const dialogConfig = new MatDialogConfig();
-
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-
-  //   this.dialog.open(ParkingFormComponent, dialogConfig);
-  // }
-
   onInit(): void {
-    this.parkingService.ToList()
-      .then((result: Parking[]) => {
-        this.parkings = result;
-      });
+    this.onLoadList();
   }
 
   onEdit(parking) {
-    this.onLoadForm(parking);
-    this.openDialog(ParkingFormComponent);
+    this.onSelectedParking(parking);
+    this.redirectFor('/parking/edit', { id: parking.id })
   }
 
   onRemove(parking) {
-    this.parkingService.Delete(parking.id)
-      .then(result => {
-        this.toastr.success(result);
+    this.onConfirmMessage()
+      .then((btn) => {
+        if (btn.isConfirmed) {
+          this.onStartLoading();
+          this.service.Delete(parking.id)
+            .then(result => {
+              this.onLoadList();
+              this.onStopLoading();
+              this.onSuccessMessage('Deleted!', result);
+            });
+        }
       });
   }
 }

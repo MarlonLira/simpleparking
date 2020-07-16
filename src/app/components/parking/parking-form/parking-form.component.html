@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" ngNativeValidate>
       <div class="row">
         <div class="col-md-3">
           <mat-form-field>
@@ -15,7 +15,7 @@
         <div class="col-md-3">
           <mat-form-field>
             <input matInput placeholder="Registry Code" mask="00.000.000/0000-00" type="text"
-              formControlName="registryCode">
+              formControlName="registryCode" minlength="14" required>
           </mat-form-field>
         </div>
       </div>

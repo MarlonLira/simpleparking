@@ -22,11 +22,12 @@ export class AppComponent extends BaseComponent {
 
   constructor(
     public location: Location,
-    private router: Router,
+    public router: Router,
     public toastr: ToastrService,
-    public authService: AuthService
+    public authService: AuthService,
+
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
   }
 
   onInit() {

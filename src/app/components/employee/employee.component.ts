@@ -5,6 +5,7 @@ import Employee from '../../models/employee.model';
 import { EmployeeService } from '../../services/employee.service';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -17,10 +18,11 @@ export class EmployeeComponent extends BaseComponent {
   constructor(
     public toastr: ToastrService,
     public employeeService: EmployeeService,
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
 
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
   }
 
   protected onInit() {

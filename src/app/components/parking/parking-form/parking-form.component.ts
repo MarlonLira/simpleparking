@@ -4,7 +4,7 @@ import { ParkingService } from 'app/services/parking.service';
 import { ToastrService } from 'ngx-toastr';
 import Parking from 'app/models/parking.model';
 import { ParkingComponent } from '../parking.component';
-import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-parking-form',
@@ -14,23 +14,33 @@ import { MatDialog } from '@angular/material/dialog';
 export class ParkingFormComponent extends ParkingComponent {
 
   private _parkingAssign: Parking;
+  private _id: number;
+  private isEditing = false;
 
   constructor(
     public toastr: ToastrService,
-    public parkingService: ParkingService,
+    public service: ParkingService,
     public authService: AuthService,
-    public dialog: MatDialog
+    private route: ActivatedRoute,
+    public router: Router
   ) {
-    super(toastr, authService, dialog);
+    super(toastr, router, authService, service);
   }
 
   onInit(): void {
-
+    this.route.queryParams.subscribe(params => {
+      if (params['id']) {
+        this._id = params['id'];
+        this.isEditing = true;
+        this.onLoadForm(this.SelectedParking());
+      }
+    });
   }
 
   objectBuild() {
     const obj: Parking = Object.assign({}, this._parkingAssign, this.form.value);
     const result = { 'parking': {} };
+    obj.id = this._id;
     obj.imgUrl = 'www.google.com.br';
     obj.companyId = this.auth.company.id;
     result.parking = obj;
@@ -38,11 +48,23 @@ export class ParkingFormComponent extends ParkingComponent {
   }
 
   onSubmit() {
-    this.parkingService.Save(this.objectBuild())
-      .then(result => {
-        this.toastr.info(result, '');
-        this.onResetForm();
-      });
+    this.onStartLoading();
+    if (!this.isEditing) {
+      this.service.Save(this.objectBuild())
+        .then(result => {
+          this.onResetForm();
+          this.onLoadList();
+          this.onStopLoading();
+          this.onSuccessMessage('Saved Successfully!', result);
+        });
+    } else {
+      this.service.Update(this.objectBuild())
+        .then(result => {
+          this.onResetForm();
+          this.onLoadList();
+          this.onStopLoading();
+          this.onSuccessMessage('Saved Successfully!', result);
+        });
+    }
   }
-
 }
