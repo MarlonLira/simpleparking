@@ -42,7 +42,7 @@ export class AuthService extends BaseService<Auth> {
     });
   }
 
-  accountRecovery = (values) => this.onPost('/auth/employee/accountRecovery', values).toPromise();
+  accountRecovery = (values) => this.onPost('/auth/employee/account-recovery', values).toPromise();
 
   public getAuthentication = (): Auth => this.auth;
 
@@ -50,7 +50,7 @@ export class AuthService extends BaseService<Auth> {
     return new Promise((resolve, reject) => {
       const _auth = new Auth();
       _auth.token = token;
-      this.onPost('/auth/tokenValidate', _auth)
+      this.onPost('/auth/token-validate', _auth)
         .subscribe((requested: any) => {
           resolve(requested);
         },
