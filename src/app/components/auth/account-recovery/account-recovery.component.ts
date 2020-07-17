@@ -6,6 +6,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EmailService } from 'app/services/email.service';
 import { EmployeeService } from 'app/services/employee.service';
 import { Router } from '@angular/router';
+import Employee from 'app/models/employee.model';
+import Auth from 'app/models/auth.model';
 
 @Component({
   selector: 'app-account-recovery',
@@ -33,12 +35,12 @@ export class AccountRecoveryComponent extends AuthComponent {
   public async onSubmit() {
     this.onStartLoading();
     try {
-      const _values = this.form.value;
+      const _values = new Auth();
+      _values.employee = new Employee(this.form.value);
       await this.accountRecovery(_values);
+      this.onStopLoading();
     } catch (error) {
-
-    }
-    finally {
+      this.toastr.error(error, 'Error');
       this.onStopLoading();
     }
   }

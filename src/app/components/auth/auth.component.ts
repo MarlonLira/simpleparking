@@ -55,7 +55,7 @@ export abstract class AuthComponent extends BaseComponent {
     });
   }
 
-  protected accountRecovery(values) {
+  protected accountRecovery(values): Promise<any> {
     return new Promise((resolve, reject) => {
       this.authService.accountRecovery(values)
         .then(result => {

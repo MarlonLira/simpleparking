@@ -42,7 +42,16 @@ export class AuthService extends BaseService<Auth> {
     });
   }
 
-  accountRecovery = (values) => this.onPost('/auth/employee/account-recovery', values).toPromise();
+  public accountRecovery(values: Auth) {
+    return new Promise((resolve, reject) => {
+      this.onPost('/auth/employee/account-recovery', values)
+        .subscribe(
+          (requested: any) => resolve(requested),
+          (error) => reject(error)
+        );
+    });
+
+  }
 
   public getAuthentication = (): Auth => this.auth;
 

@@ -1,6 +1,6 @@
 <div class="limiter">
   <div class="container-login100">
-    <div [formGroup]="form" (ngSubmit)="onSubmit()" class="wrap-login100">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="wrap-login100">
       <!--================================= Employee =================================================-->
 
       <div class="title-recovery">
@@ -11,7 +11,7 @@
       </div>
 
       <div class="wrap-input100 validate-input">
-        <input class="input100" type="text" name="registryCode" placeholder="Registry Code"
+        <input class="input100" type="text" name="registryCode" mask="000.000.000-00" placeholder="Registry Code"
           formControlName="registryCode">
         <span class="focus-input100"></span>
         <span class="symbol-input100">
@@ -28,17 +28,17 @@
       </div>
 
       <div class="container-login100-form-btn">
-        <button class="login100-form-btn">
+        <button type="submit" class="login100-form-btn">
           Enviar
         </button>
       </div>
 
       <div class="text-center btn-back">
-        <a class="txt2" href="#/auth/signin">
+        <a class="txt2" routerLink="/auth/signin" >
           <i class="material-icons">west</i>
           Voltar
         </a>
       </div>
 
-    </div>
+    </form>
   </div>
