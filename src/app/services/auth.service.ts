@@ -18,12 +18,9 @@ export class AuthService extends BaseService<Auth> {
   public signin(values: Auth): Promise<any> {
     return new Promise((resolve, reject) => {
       this.onPost('/auth/employee/signin', values)
-        .subscribe((requested) => {
-          resolve(requested);
-        },
-          (error) => {
-            reject(error);
-          }
+        .subscribe(
+          (requested) => resolve(requested),
+          (e) => reject(e.error)
         );
     });
   }
@@ -31,13 +28,9 @@ export class AuthService extends BaseService<Auth> {
   public signup(values: Auth): Promise<any> {
     return new Promise((resolve, reject) => {
       this.onPost('/auth/employee/signup', values)
-        .subscribe((requested) => {
-          resolve(requested);
-        },
-          (error) => {
-            console.log('aqui')
-            reject(error);
-          }
+        .subscribe(
+          (requested) => resolve(requested),
+          (e) => reject(e.error)
         );
     });
   }
@@ -47,7 +40,7 @@ export class AuthService extends BaseService<Auth> {
       this.onPost('/auth/employee/account-recovery', values)
         .subscribe(
           (requested: any) => resolve(requested),
-          (error) => reject(error)
+          (e) => reject(e.error)
         );
     });
 
@@ -60,12 +53,9 @@ export class AuthService extends BaseService<Auth> {
       const _auth = new Auth();
       _auth.token = token;
       this.onPost('/auth/token-validate', _auth)
-        .subscribe((requested: any) => {
-          resolve(requested);
-        },
-          (error) => {
-            reject(error);
-          }
+        .subscribe(
+          (requested: any) => resolve(requested),
+          (e) => reject(e.error)
         );
     });
   }
