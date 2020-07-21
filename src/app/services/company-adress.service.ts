@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import ParkingFinance from '../models/parkingFinance.model';
+import CompanyAdress from '../models/company-adress.model';
 import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ParkingFinanceService extends BaseService<ParkingFinance> {
+export class CompanyAdressService extends BaseService<CompanyAdress> {
 
   constructor(
     public http: HttpClient
@@ -16,7 +16,7 @@ export class ParkingFinanceService extends BaseService<ParkingFinance> {
 
   Save(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPost('/parkingFinance', values)
+      this.onPost('/companyAdress', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -25,7 +25,7 @@ export class ParkingFinanceService extends BaseService<ParkingFinance> {
 
   Delete(id: number): Promise<any> {
     return new Promise((resolve) => {
-      this.onDelete(`/parkingFinance/${id}`)
+      this.onDelete(`/companyAdress/${id}`)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -34,26 +34,17 @@ export class ParkingFinanceService extends BaseService<ParkingFinance> {
 
   Update(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPut('/parkingFinance', values)
+      this.onPut('/companyAdress', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
     });
   }
 
-  GetById(parkingFinanceId: number): Promise<ParkingFinance>{
-     return new Promise((resolve) => {
-       this.onGet(`/parkingFinance/id/${parkingFinanceId}`)
-        .subscribe((requested: ParkingFinance) => {
-          resolve(requested);
-        });
-     });
-  }
-
-  ToList(parkingId): Promise<ParkingFinance[]> {
+  GetByCompanyId(companyId: number): Promise<CompanyAdress[]> {
     return new Promise((resolve) => {
-      this.onGet(`/ParkingFinance/${parkingId}`)
-        .subscribe((requested: ParkingFinance[]) => {
+      this.onGet(`/companyAdress/companyId/${companyId}`)
+        .subscribe((requested: CompanyAdress[]) => {
           resolve(requested);
         });
     });

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import ParkingScore from '../models/parkingScore.model';
+import ParkingPromotion from '../models/parking-promotion.model';
 import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ParkingScoreService extends BaseService<ParkingScore> {
+export class ParkingPromotionService extends BaseService<ParkingPromotion> {
 
   constructor(
     public http: HttpClient
@@ -16,7 +16,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
 
   Save(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPost('/parkingScore', values)
+      this.onPost('/parkingPromotion', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -25,7 +25,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
 
   Delete(id: number): Promise<any> {
     return new Promise((resolve) => {
-      this.onDelete(`/parkingScore/${id}`)
+      this.onDelete(`/parkingPromotion/${id}`)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -34,26 +34,26 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
 
   Update(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPut('/parkingScore', values)
+      this.onPut('/parkingPromotion', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
     });
   }
 
-  GetById(id: number): Promise<ParkingScore> {
+  GetByName(parkingPromotionName: string): Promise<ParkingPromotion[]> {
     return new Promise((resolve) => {
-      this.onGet(`/parkingScore/parkingScoreId/${id}`)
-        .subscribe((requested: ParkingScore) => {
+      this.onGet(`/parkingPromotion/name/${parkingPromotionName}`)
+        .subscribe((requested: ParkingPromotion[]) => {
           resolve(requested);
         });
     });
   }
 
-  ToList(parkingId): Promise<ParkingScore[]> {
+  ToList(parkingId): Promise<ParkingPromotion[]> {
     return new Promise((resolve) => {
-      this.onGet(`/ParkingsScore/${parkingId}`)
-        .subscribe((requested: ParkingScore[]) => {
+      this.onGet(`/ParkingsPromotion/${parkingId}`)
+        .subscribe((requested: ParkingPromotion[]) => {
           resolve(requested);
         });
     });
