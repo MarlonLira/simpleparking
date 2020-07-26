@@ -1,4 +1,4 @@
-import { OnInit, Injectable } from '@angular/core';
+import { OnInit, Injectable, Optional } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
@@ -7,6 +7,8 @@ import { AuthService } from './services/auth.service';
 import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
+import Swal, { SweetAlertOptions } from 'sweetalert2'
+import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
 
 @Injectable()
 export abstract class BaseComponent implements OnInit {
@@ -17,8 +19,19 @@ export abstract class BaseComponent implements OnInit {
   public storage: Storage;
   protected auth: Auth;
 
+  private onConfirmMessageConfig: SweetAlertOptions = {
+    title: 'Are you sure?',
+    text: 'You won\'t be able to revert this!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }
+
   constructor(
     public toastr: ToastrService,
+    public router: Router,
     public authService: AuthService
   ) {
     this.storage = sessionStorage;
@@ -123,10 +136,12 @@ export abstract class BaseComponent implements OnInit {
   protected returnIfValid = (value, defaultValue) => Utils.returnIfValid(value, defaultValue);
   protected isValid = (value): boolean => Utils.isValid(value);
   protected generateUUID = (): string => Utils.generateUUID();
-  protected redirectFor = (pathName): void => window.location.replace(`${window.location.origin}/#/${pathName}`);
+  protected redirectFor = (route: string, params: Params = {}) => this.router.navigate([route], { queryParams: params });
   protected signOut = (): void => this.destroyToken();
   protected onHideFooter = () => $('.footer').hide();
   protected onShowFotter = () => $('.footer').show();
   protected onStartLoading = () => $('#pn-load').removeClass('not-load');
   protected onStopLoading = () => $('#pn-load').addClass('not-load');
+  protected onConfirmMessage = () => Swal.fire(this.onConfirmMessageConfig);
+  protected onSuccessMessage = (title: string, message?: string) => Swal.fire(title, message, 'success');
 }

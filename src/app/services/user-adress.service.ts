@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import Employee from '../models/employee.model';
+import UserAdress from '../models/user-adress.model';
 import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService extends BaseService<Employee> {
+export class UserAdressService extends BaseService<UserAdress> {
 
   constructor(
     public http: HttpClient
@@ -15,18 +14,18 @@ export class EmployeeService extends BaseService<Employee> {
     super(http);
   }
 
-  ToList(): Promise<Employee[]> {
+  Save(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onGet(`/employees/companyId/${this.auth.company.id}`)
+      this.onPost('/userAdress', values)
         .subscribe(requested => {
-          resolve(requested['result']);
+          resolve(requested['message']);
         });
     });
   }
 
-  Save(values): Promise<any> {
+  Delete(id: number): Promise<any> {
     return new Promise((resolve) => {
-      this.onPost('/employee', values)
+      this.onDelete(`/userAdress/${id}`)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -35,19 +34,19 @@ export class EmployeeService extends BaseService<Employee> {
 
   Update(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPut('/employee', values)
+      this.onPut('/userAdress', values)
         .subscribe(requested => {
-          resolve(requested)
+          resolve(requested['message']);
         });
     });
   }
 
-  GetByRegistryCode(registryCode) {
+  GetByUserId(userId: number): Promise<UserAdress[]> {
     return new Promise((resolve) => {
-      this.onGet(`/employees/companyId/${this.auth.company.id}/registryCode/${registryCode}`)
-        .subscribe(requested => {
-          resolve(requested['result']);
+      this.onGet(`/userAdress/userId/${userId}`)
+        .subscribe((requested: UserAdress[]) => {
+          resolve(requested);
         });
-    })
+    });
   }
 }

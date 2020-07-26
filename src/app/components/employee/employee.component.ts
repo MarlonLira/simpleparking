@@ -6,6 +6,7 @@ import { EmployeeService } from '../../services/employee.service';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
@@ -29,10 +30,16 @@ export class EmployeeComponent extends BaseComponent {
 
   constructor(
     public toastr: ToastrService,
+<<<<<<< HEAD
     public authService: AuthService
+=======
+    public employeeService: EmployeeService,
+    public authService: AuthService,
+    public router: Router
+>>>>>>> 2abebf4682f1446929951a0c0539bebc20969753
 
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
   }
 
   protected onInit() {

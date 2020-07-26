@@ -5,6 +5,7 @@ import Consts from '../../consts';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,9 +19,10 @@ export class DashboardComponent extends BaseComponent {
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
-    private http: HttpClient
+    private http: HttpClient,
+    public router: Router
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
   }
 
   getVehicles() {
