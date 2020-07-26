@@ -41,6 +41,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
 import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
+import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
 
 @NgModule({
   imports: [
@@ -84,7 +86,9 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ErrorComponent,
     ParkingFormComponent,
     ParkingListComponent,
-    DialogComponent
+    DialogComponent,
+    EmployeeFormComponent,
+    EmployeeListComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

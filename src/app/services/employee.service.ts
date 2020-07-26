@@ -24,6 +24,15 @@ export class EmployeeService extends BaseService<Employee> {
     });
   }
 
+  Save(values): Promise<any> {
+    return new Promise((resolve) => {
+      this.onPost('/employee', values)
+        .subscribe(requested => {
+          resolve(requested['message']);
+        });
+    });
+  }
+
   Update(values): Promise<any> {
     return new Promise((resolve) => {
       this.onPut('/employee', values)
