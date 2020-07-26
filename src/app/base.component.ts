@@ -14,6 +14,7 @@ import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
 export abstract class BaseComponent implements OnInit {
   private static timer: Array<Timer>;
   public form: FormGroup;
+  public isEditing = false;
   protected isValidAuthentication: boolean;
   public location: Location;
   public storage: Storage;
@@ -107,6 +108,11 @@ export abstract class BaseComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  protected onEditing() {
+    $('#list').removeClass('active');
+    this.isEditing = true;
   }
 
   protected destroyToken() {
