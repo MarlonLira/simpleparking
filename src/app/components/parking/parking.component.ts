@@ -23,6 +23,7 @@ export class ParkingComponent extends BaseComponent {
     registryCode: new FormControl('', Validators.compose([Validators.required])),
     phone: new FormControl(''),
     email: new FormControl(''),
+    imgUrl: new FormControl(''),
     adress: new FormControl(''),
     city: new FormControl(''),
     country: new FormControl(''),

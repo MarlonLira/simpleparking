@@ -15,7 +15,6 @@ export class ParkingFormComponent extends ParkingComponent {
 
   private _parkingAssign: Parking;
   private _id: number;
-  private isEditing = false;
 
   constructor(
     public toastr: ToastrService,
@@ -31,7 +30,7 @@ export class ParkingFormComponent extends ParkingComponent {
     this.route.queryParams.subscribe(params => {
       if (params['id']) {
         this._id = params['id'];
-        this.isEditing = true;
+        this.onEditing();
         this.onLoadForm(this.SelectedParking());
       }
     });
@@ -43,6 +42,20 @@ export class ParkingFormComponent extends ParkingComponent {
     obj.imgUrl = 'www.google.com.br';
     obj.companyId = this.auth.company.id;
     return obj;
+  }
+
+  onFileSelected() {
+    const inputNode: any = document.querySelector('#file');
+
+    if (typeof (FileReader) !== 'undefined') {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        //this.srcResult = e.target.result;
+      };
+
+      reader.readAsArrayBuffer(inputNode.files[0]);
+    }
   }
 
   onSubmit() {

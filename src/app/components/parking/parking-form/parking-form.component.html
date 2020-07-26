@@ -54,6 +54,21 @@
             <input matInput placeholder="Postal Code" mask="00000-000" type="text" formControlName="postalCode">
           </mat-form-field>
         </div>
+
+        <!-- <div class="col-md-4">
+          <mat-form-field>
+            <label for="singleFile">Upload file</label>
+            <input id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue" />
+            <br>
+
+            <mat-file-upload-queue #fileUploadQueue [fileAlias]="'file'"
+              [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
+
+              <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index">
+              </mat-file-upload>
+            </mat-file-upload-queue>
+          </mat-form-field>
+        </div> -->
       </div>
       <button mat-raised-button type="submit" class="btn btn-info pull-right">Save</button>
       <div class="clearfix"></div>
