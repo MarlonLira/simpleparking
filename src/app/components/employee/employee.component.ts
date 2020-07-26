@@ -30,23 +30,19 @@ export class EmployeeComponent extends BaseComponent {
 
   constructor(
     public toastr: ToastrService,
-<<<<<<< HEAD
-    public authService: AuthService
-=======
     public employeeService: EmployeeService,
     public authService: AuthService,
     public router: Router
->>>>>>> 2abebf4682f1446929951a0c0539bebc20969753
 
   ) {
     super(toastr, router, authService);
   }
 
   protected onInit() {
-    // this.employeeService.ToList()
-    //   .then((result: Employee[]) => {
-    //     this.employees = result;
-    //   });
+    this.employeeService.ToList()
+      .then((result: Employee[]) => {
+        this.employees = result;
+      });
   }
 
 }

@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { ParkingService } from 'app/services/parking.service';
 import Parking from 'app/models/parking.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-form',
@@ -15,24 +16,25 @@ import Parking from 'app/models/parking.model';
 export class EmployeeFormComponent extends EmployeeComponent {
 
   public rules: any = [
-    {'id': 1, 'status': 'AT', 'name': 'ADM MASTER', 'level': 1},
-    {'id': 2, 'status': 'AT', 'name': 'ADM', 'level': 2},
-    {'id': 3, 'status': 'AT', 'name': 'FUNCIONARIO', 'level': 3},
+    { 'id': 1, 'status': 'AT', 'name': 'ADM MASTER', 'level': 1 },
+    { 'id': 2, 'status': 'AT', 'name': 'ADM', 'level': 2 },
+    { 'id': 3, 'status': 'AT', 'name': 'FUNCIONARIO', 'level': 3 },
   ]
 
-  public parkings: Parking [];
+  public parkings: Parking[];
 
   constructor(
     public toastr: ToastrService,
     public employeeService: EmployeeService,
     public parkingService: ParkingService,
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
   ) {
-    super(toastr, authService);
+    super(toastr, employeeService, authService, router);
     parkingService.ToList()
-    .then(result =>{
-      this.parkings = result;
-    })
+      .then(result => {
+        this.parkings = result;
+      })
   }
 
   onSubmit() {
