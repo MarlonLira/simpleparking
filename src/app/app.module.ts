@@ -13,6 +13,8 @@ import { AgmCoreModule } from '@agm/core';
 import { NgxMaskModule } from 'ngx-mask'
 import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
@@ -61,6 +63,8 @@ import { EmployeeListComponent } from './components/employee/employee-list/emplo
     MatSelectModule,
     MatTooltipModule,
     MatDialogModule,
+    MatDividerModule,
+    MaterialFileInputModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({

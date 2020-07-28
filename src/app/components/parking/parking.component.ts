@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators, MinLengthValidator } from '@angular
 import Parking from 'app/models/parking.model';
 import { ParkingService } from 'app/services/parking.service';
 import { Router } from '@angular/router';
+import { FileValidator } from 'ngx-material-file-input';
 
 @Component({
   selector: 'app-parking',
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
 export class ParkingComponent extends BaseComponent {
   private static _selectedParking: Parking;
   parkings: Parking[];
+  readonly maxSize = 104857600;
 
   form = new FormGroup({
     id: new FormControl({ value: 0, disabled: true }),
@@ -24,10 +26,21 @@ export class ParkingComponent extends BaseComponent {
     phone: new FormControl(''),
     email: new FormControl(''),
     imgUrl: new FormControl(''),
-    adress: new FormControl(''),
-    city: new FormControl(''),
-    country: new FormControl(''),
-    postalCode: new FormControl(''),
+    file: new FormControl(
+      undefined,
+      [Validators.required, FileValidator.maxContentSize(this.maxSize)]
+    ),
+    parkingAdress: new FormGroup({
+      city: new FormControl(''),
+      country: new FormControl(''),
+      street: new FormControl(''),
+      district: new FormControl(''),
+      complement: new FormControl(''),
+      zipCode: new FormControl(''),
+      number: new FormControl(0),
+      latitude: new FormControl(0),
+      longitude: new FormControl(0),
+    })
   });
 
   constructor(
@@ -44,8 +57,6 @@ export class ParkingComponent extends BaseComponent {
   }
 
   protected SelectedParking = () => ParkingComponent._selectedParking;
-
-
 
   onInit(): void {
     this.redirectFor('parking/list');

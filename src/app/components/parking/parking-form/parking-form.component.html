@@ -2,17 +2,17 @@
   <div class="card-body">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" ngNativeValidate>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Id" formControlName="id" disabled>
           </mat-form-field>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Name" formControlName="name">
           </mat-form-field>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Registry Code" mask="00.000.000/0000-00" type="text"
               formControlName="registryCode" minlength="14" required>
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Phone" mask="(00) 0 0000-0000" type="text" formControlName="phone">
           </mat-form-field>
@@ -30,45 +30,51 @@
             <input matInput placeholder="Email address" type="email" formControlName="email">
           </mat-form-field>
         </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <ngx-mat-file-input formControlName="file" placeholder="Image"></ngx-mat-file-input>
+            <i class="material-icons" matSuffix>folder</i>
+          </mat-form-field>
+        </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <mat-form-field>
-            <input matInput placeholder="Adress" type="text" formControlName="adress">
-          </mat-form-field>
+      <br />
+      <h4><b>Adress</b></h4>
+      <div formGroupName="parkingAdress">
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field>
+              <input matInput placeholder="City" type="text" formControlName="city">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field>
+              <input matInput placeholder="Country" type="text" formControlName="country">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field>
+              <input matInput placeholder="Zip Code" mask="00000-000" type="text" formControlName="zipCode">
+            </mat-form-field>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <mat-form-field>
-            <input matInput placeholder="City" type="text" formControlName="city">
-          </mat-form-field>
-        </div>
-        <div class="col-md-4">
-          <mat-form-field>
-            <input matInput placeholder="Country" type="text" formControlName="country">
-          </mat-form-field>
-        </div>
-        <div class="col-md-4">
-          <mat-form-field>
-            <input matInput placeholder="Postal Code" mask="00000-000" type="text" formControlName="postalCode">
-          </mat-form-field>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field>
+              <input matInput placeholder="District" type="text" formControlName="district">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field>
+              <input matInput placeholder="Street" type="text" formControlName="street">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field>
+              <input matInput placeholder="Number" type="text" formControlName="number">
+            </mat-form-field>
+          </div>
         </div>
 
-        <!-- <div class="col-md-4">
-          <mat-form-field>
-            <label for="singleFile">Upload file</label>
-            <input id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue" />
-            <br>
-
-            <mat-file-upload-queue #fileUploadQueue [fileAlias]="'file'"
-              [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
-
-              <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index">
-              </mat-file-upload>
-            </mat-file-upload-queue>
-          </mat-form-field>
-        </div> -->
       </div>
       <button mat-raised-button type="submit" class="btn btn-info pull-right">Save</button>
       <div class="clearfix"></div>
