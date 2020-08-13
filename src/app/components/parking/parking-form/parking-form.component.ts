@@ -27,11 +27,20 @@ export class ParkingFormComponent extends ParkingComponent {
   }
 
   onInit(): void {
+    this.onStartLoading();
     this.route.queryParams.subscribe(params => {
       if (params['id']) {
         this._id = params['id'];
-        this.onEditing();
-        this.onLoadForm(this.SelectedParking());
+        this.service.getById(this._id)
+          .then((result: Parking) => {
+            console.log(result)
+            this.onEditing();
+            this.onLoadForm(result);
+            this.onStopLoading();
+          }).catch(error => {
+            this.onStopLoading();
+            this.toastr.error(error['message'], 'Error!')
+          });
       }
     });
   }
@@ -61,22 +70,28 @@ export class ParkingFormComponent extends ParkingComponent {
   onSubmit() {
     this.onStartLoading();
     if (!this.isEditing) {
-      this.service.Save(this.objectBuild())
+      this.service.save(this.objectBuild())
         .then(result => {
           this.onResetForm();
           this.onLoadList();
           this.onStopLoading();
           this.onSuccessMessage('Saved Successfully!', result)
             .then(() => this.redirectFor('/parking/list'));
+        }).catch(error => {
+          this.OnErrorMessage('Error', error.message);
+          this.onStopLoading();
         });
     } else {
-      this.service.Update(this.objectBuild())
+      this.service.update(this.objectBuild())
         .then(result => {
           this.onResetForm();
           this.onLoadList();
           this.onStopLoading();
           this.onSuccessMessage('Saved Successfully!', result)
             .then(() => this.redirectFor('/parking/list'));
+        }).catch(error => {
+          this.OnErrorMessage('Error', error.message);
+          this.onStopLoading();
         });
     }
   }

@@ -150,4 +150,5 @@ export abstract class BaseComponent implements OnInit {
   protected onStopLoading = () => $('#pn-load').addClass('not-load');
   protected onConfirmMessage = () => Swal.fire(this.onConfirmMessageConfig);
   protected onSuccessMessage = (title: string, message?: string) => Swal.fire(title, message, 'success');
+  protected OnErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
 }

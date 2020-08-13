@@ -14,48 +14,63 @@ export class ParkingService extends BaseService<Parking> {
     super(http);
   }
 
-  Save(values): Promise<any> {
-    return new Promise((resolve) => {
+  save(values): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onPost('/parking', values)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested['message']),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  Delete(id: number): Promise<any> {
-    return new Promise((resolve) => {
+  delete(id: number): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onDelete(`/parking/${id}`)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested['message']),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  Update(values): Promise<any> {
-    return new Promise((resolve) => {
+  update(values): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onPut('/parking', values)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested['message']),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  ToList(): Promise<Parking[]> {
+  toList(): Promise<Parking[]> {
     return new Promise((resolve, reject) => {
       this.onGet(`/parkings/companyId/${this.auth.company.id}`)
-        .subscribe(requested => {
-          resolve(requested['result']);
-        });
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  GetByRegistryCode(registryCode: string): Promise<Parking[]> {
-    return new Promise((resolve) => {
-      this.onGet(`/parking/companyId/:companyId/registryCode/${this.auth.company.registryCode}`)
-        .subscribe(requested => {
-          resolve(requested['result']);
-        });
+  getByRegistryCode(registryCode: string): Promise<Parking[]> {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/parking/companyId/${this.auth.company.id}/registryCode/${registryCode}`)
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
+    });
+  }
+
+  getById(id: number): Promise<Parking> {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/parking/${id}`)
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
     });
   }
 }

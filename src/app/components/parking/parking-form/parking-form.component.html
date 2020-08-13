@@ -39,19 +39,25 @@
       </div>
       <br />
       <h4><b>Adress</b></h4>
-      <div formGroupName="parkingAdress">
+      <div formGroupName="adress">
         <div class="row">
-          <div class="col-md-4">
-            <mat-form-field>
-              <input matInput placeholder="City" type="text" formControlName="city">
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <mat-form-field>
               <input matInput placeholder="Country" type="text" formControlName="country">
             </mat-form-field>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
+            <mat-form-field>
+              <input matInput placeholder="State" type="text" formControlName="state">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <input matInput placeholder="City" type="text" formControlName="city">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-3">
             <mat-form-field>
               <input matInput placeholder="Zip Code" mask="00000-000" type="text" formControlName="zipCode">
             </mat-form-field>

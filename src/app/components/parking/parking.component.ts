@@ -30,9 +30,11 @@ export class ParkingComponent extends BaseComponent {
       undefined,
       [Validators.required, FileValidator.maxContentSize(this.maxSize)]
     ),
-    parkingAdress: new FormGroup({
+    adress: new FormGroup({
+      id: new FormControl(0),
       city: new FormControl(''),
       country: new FormControl(''),
+      state: new FormControl(''),
       street: new FormControl(''),
       district: new FormControl(''),
       complement: new FormControl(''),
@@ -63,7 +65,7 @@ export class ParkingComponent extends BaseComponent {
   }
 
   protected onLoadList() {
-    this.service.ToList()
+    this.service.toList()
       .then((result: Parking[]) => {
         this.parkings = result;
       });

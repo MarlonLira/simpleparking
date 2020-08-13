@@ -31,7 +31,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
     public router: Router
   ) {
     super(toastr, employeeService, authService, router);
-    parkingService.ToList()
+    parkingService.toList()
       .then(result => {
         this.parkings = result;
       })

@@ -115,18 +115,15 @@ export class NavbarComponent extends BaseComponent {
 
       body.classList.add('nav-open');
       this.mobile_menu_visible = 1;
-
     }
   };
 
   getTitle() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    if (titlee.charAt(0) === '#') {
-      titlee = titlee.slice(1);
-    }
+    const titlePart = this.location.prepareExternalUrl(this.location.path()).split('/');
+    const title = titlePart.length > 0 ? titlePart[1] : '';
 
-    for (var item = 0; item < this.listTitles.length; item++) {
-      if (this.listTitles[item].path === titlee) {
+    for (let item = 0; item < this.listTitles.length; item++) {
+      if (this.listTitles[item].name === title) {
         return this.listTitles[item].title;
       }
     }

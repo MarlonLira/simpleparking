@@ -35,7 +35,7 @@ export class ParkingListComponent extends ParkingComponent {
       .then((btn) => {
         if (btn.isConfirmed) {
           this.onStartLoading();
-          this.service.Delete(parking.id)
+          this.service.delete(parking.id)
             .then(result => {
               this.onLoadList();
               this.onStopLoading();
