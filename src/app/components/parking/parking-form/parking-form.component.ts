@@ -89,32 +89,31 @@ export class ParkingFormComponent extends ParkingComponent {
 
 
   onSubmit() {
-    this.objectBuild();
-    // this.onStartLoading();
-    // if (!this.isEditing) {
-    //   this.service.save(this.objectBuild())
-    //     .then(result => {
-    //       this.onResetForm();
-    //       this.onLoadList();
-    //       this.onStopLoading();
-    //       this.onSuccessMessage('Saved Successfully!', result)
-    //         .then(() => this.redirectFor('/parking/list'));
-    //     }).catch(error => {
-    //       this.OnErrorMessage('Error', error.message);
-    //       this.onStopLoading();
-    //     });
-    // } else {
-    //   this.service.update(this.objectBuild())
-    //     .then(result => {
-    //       this.onResetForm();
-    //       this.onLoadList();
-    //       this.onStopLoading();
-    //       this.onSuccessMessage('Saved Successfully!', result)
-    //         .then(() => this.redirectFor('/parking/list'));
-    //     }).catch(error => {
-    //       this.OnErrorMessage('Error', error.message);
-    //       this.onStopLoading();
-    //     });
-    // }
+    this.onStartLoading();
+    if (!this.isEditing) {
+      this.service.save(this.objectBuild())
+        .then(result => {
+          this.onResetForm();
+          this.onLoadList();
+          this.onStopLoading();
+          this.onSuccessMessage('Saved Successfully!', result)
+            .then(() => this.redirectFor('/parking/list'));
+        }).catch(error => {
+          this.OnErrorMessage('Error', error.message);
+          this.onStopLoading();
+        });
+    } else {
+      this.service.update(this.objectBuild())
+        .then(result => {
+          this.onResetForm();
+          this.onLoadList();
+          this.onStopLoading();
+          this.onSuccessMessage('Saved Successfully!', result)
+            .then(() => this.redirectFor('/parking/list'));
+        }).catch(error => {
+          this.OnErrorMessage('Error', error.message);
+          this.onStopLoading();
+        });
+    }
   }
 }
