@@ -1,0 +1,45 @@
+<app-tab>
+  <app-tab-header>
+    <li class="nav-item">
+      <a id="addFiles" class="nav-link" mat-button (click)="addFiles()" [disabled]="uploading || uploadSuccessful">
+        <i class="material-icons">attachment</i> Add
+        <div class="ripple-container"></div>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a mat-button (click)="closeDialog()" class="nav-link" [disabled]="!canBeClosed">
+        <i class="material-icons">save_alt</i> Upload
+        <div class="ripple-container"></div>
+      </a>
+    </li>
+  </app-tab-header>
+  <app-tab-content>
+    <app-tab-content-item class="tab-pane active">
+      <div class="card">
+        <div class="card-body">
+          <mat-dialog-content>
+            <mat-list>
+              <mat-list-item *ngFor="let file of files">
+                <h4 mat-line>{{file.name}}</h4>
+                <mat-progress-bar *ngIf="progress" mode="determinate" [value]="progress[file.name].progress | async">
+                </mat-progress-bar>
+              </mat-list-item>
+            </mat-list>
+          </mat-dialog-content>
+
+          <input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
+          <div class="row">
+            <mat-dialog-actions class="actions">
+              <!-- <button mat-raised-button (click)="addFiles()" class="btn btn-info pull-right"
+                [disabled]="uploading || uploadSuccessful">Add</button>
+              <button mat-raised-button (click)="closeDialog()" [disabled]="!canBeClosed"
+                class="btn btn-info pull-right">Upload</button> -->
+              <button mat-dialog-close class="btn btn-info pull-right">Cancel</button>
+              <div class="clearfix"></div>
+            </mat-dialog-actions>
+          </div>
+        </div>
+      </div>
+    </app-tab-content-item>
+  </app-tab-content>
+</app-tab>

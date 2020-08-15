@@ -15,6 +15,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
@@ -43,9 +45,10 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
 import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
-import { DialogComponent } from './components/dialog/dialog.component';
 import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
+import { DialogComponent } from './shared/upload/dialog/dialog.component';
+import { UploadComponent } from './shared/upload/upload.component';
 
 @NgModule({
   imports: [
@@ -63,6 +66,8 @@ import { EmployeeListComponent } from './components/employee/employee-list/emplo
     MatSelectModule,
     MatTooltipModule,
     MatDialogModule,
+    MatListModule,
+    MatProgressBarModule,
     MatDividerModule,
     MaterialFileInputModule,
     NgxMaskModule.forRoot(),
@@ -92,9 +97,10 @@ import { EmployeeListComponent } from './components/employee/employee-list/emplo
     ErrorComponent,
     ParkingFormComponent,
     ParkingListComponent,
-    DialogComponent,
     EmployeeFormComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    DialogComponent,
+    UploadComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
