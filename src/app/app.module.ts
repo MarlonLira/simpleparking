@@ -17,10 +17,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
 import { TimePipe } from './commons/pipes/timePipe';
+import { MegabytePipe } from './commons/pipes/megabytePipe';
 
 // - Routes
 import { AppRoutingModule } from './app.routing';
@@ -68,6 +70,7 @@ import { UploadComponent } from './shared/upload/upload.component';
     MatDialogModule,
     MatListModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     MatDividerModule,
     MaterialFileInputModule,
     NgxMaskModule.forRoot(),
@@ -91,6 +94,7 @@ import { UploadComponent } from './shared/upload/upload.component';
     TabContentItemComponent,
     PhonePipe,
     TimePipe,
+    MegabytePipe,
     AccountRecoveryComponent,
     SigninComponent,
     SignupComponent,

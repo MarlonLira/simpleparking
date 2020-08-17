@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { forkJoin } from 'rxjs';
 import { UploadService } from 'app/services/upload.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
@@ -19,7 +18,6 @@ export class DialogComponent extends UploadComponent {
 
   progress;
   canBeClosed = true;
-  showCancelButton = true;
   uploading = false;
   uploadSuccessful = false;
 
@@ -38,37 +36,30 @@ export class DialogComponent extends UploadComponent {
 
   onFilesAdded() {
     const files: { [key: string]: File } = this.file.nativeElement.files;
-    for (let key in files) {
-      if (!isNaN(parseInt(key))) {
+    for (const key in files) {
+      if (!isNaN(parseInt(key, 10))) {
         this.files.add(files[key]);
       }
     }
   }
 
   addFiles() {
-    this.file.nativeElement.click();
+    if (!this.uploading) {
+      this.file.nativeElement.click();
+    }
   }
 
-  closeDialog() {
-    if (this.uploadSuccessful) {
-      return this.dialogRef.close();
-    }
-
+  uploadFiles() {
     this.uploading = true;
-    this.progress = this.uploadService.parkingUpload(this.files, DialogComponent.id);
-    for (let key in this.progress) {
-      this.progress[key].progress
-        .subscribe(val => console.log(val));
-    }
-
-    let allProgressObservables = [];
-    for (let key in this.progress) {
-      allProgressObservables.push(this.progress[key].progress);
-    }
-
     this.canBeClosed = false;
     this.dialogRef.disableClose = true;
-    this.showCancelButton = false;
+    this.progress = this.uploadService.parkingUpload(this.files, DialogComponent.id);
+
+    const allProgressObservables = [];
+    // tslint:disable-next-line: forin
+    for (const key in this.progress) {
+      allProgressObservables.push(this.progress[key].progress);
+    }
 
     forkJoin(allProgressObservables)
       .subscribe(end => {
@@ -76,9 +67,12 @@ export class DialogComponent extends UploadComponent {
         this.dialogRef.disableClose = false;
         this.uploadSuccessful = true;
         this.uploading = false;
-        this.dialogRef.close();
-        this.onSuccessMessage('Upload Successfully!', '')
-            .then(() => this.routeReload());
       });
+  }
+
+  closeDialog() {
+    if (this.uploadSuccessful) {
+      return this.dialogRef.close();
+    }
   }
 }

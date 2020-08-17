@@ -18,7 +18,7 @@ export class UploadComponent extends BaseComponent {
 
   @Input() public id: any;
   @Input() public title: string;
-  uploads: Upload[];
+  @Input() uploads: Upload[];
 
   constructor(
     public dialog: MatDialog,

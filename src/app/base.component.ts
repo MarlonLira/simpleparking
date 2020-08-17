@@ -8,7 +8,7 @@ import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
 import Swal, { SweetAlertOptions } from 'sweetalert2'
-import { Router, ActivatedRoute, ParamMap, Params, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, Params, RouterStateSnapshot, NavigationEnd } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable()
@@ -154,20 +154,36 @@ export abstract class BaseComponent implements OnInit {
   protected onErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
   protected getRoute = () => window.location.toString();
   protected getSelfRoute = () => (this.getRoute().split('#'))[1];
-  protected routeReload() {
-    const selfRoute = this.getSelfRoute().split('?');
-    let _route: string;
-    let _params: any;
 
-    if (selfRoute[0]) {
-      _route = selfRoute[0];
-    }
-    if (selfRoute[1]) {
-      const httpParams = new HttpParams({ fromString: this.getRoute().split('?')[1] });
-      const _id = Number(selfRoute[1].split('id=')[1]);
-      _params = { id: _id };
-    }
+  // protected routeReload(uri) {
+  //   this.router.navigateByUrl('#', { skipLocationChange: true })
+  //     .then(() =>
+  //       this.router.navigate([uri], {
+  //         skipLocationChange: true,
+  //         queryParamsHandling: 'merge'
+  //       }));
+  // }
 
-    this.redirectFor(_route, _params)
-  }
+
+  // protected routeReload() {
+  //   const a = this.getRoute();
+  //   this.router.navigateByUrl(a, { skipLocationChange: true })
+  //     .then(() => {
+  //       const selfRoute = this.getSelfRoute().split('?');
+  //       let _route: string;
+  //       let _params: any;
+
+  //       if (selfRoute[0]) {
+  //         _route = selfRoute[0];
+  //       }
+  //       if (selfRoute[1]) {
+  //         const httpParams = new HttpParams({ fromString: this.getRoute().split('?')[1] });
+  //         const _id = Number(selfRoute[1].split('id=')[1]);
+  //         _params = { id: _id };
+  //       }
+  //       console.log(_route)
+  //       console.log(_params)
+  //       this.redirectFor(_route, { id: 1 });
+  //     })
+  // }
 }
