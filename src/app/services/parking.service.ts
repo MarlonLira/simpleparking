@@ -18,7 +18,7 @@ export class ParkingService extends BaseService<Parking> {
     return new Promise((resolve, reject) => {
       this.onPost('/parking', values)
         .subscribe(
-          (requested) => resolve(requested['message']),
+          (requested) => resolve(requested),
           (e) => reject(e.error)
         );
     });

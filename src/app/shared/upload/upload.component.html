@@ -1,5 +1,36 @@
-<!-- <button mat-raised-button (click)="openUploadDialog()">Upload</button> -->
-<mat-form-field>
-  <input matInput (click)="openUploadDialog()" placeholder="Image" />
-  <i class="material-icons" matSuffix>folder</i>
-</mat-form-field>
+<div *ngIf="this.id">
+  <br />
+  <h4 *ngIf="this.title"><b>{{this.title}}</b></h4>
+  <br />
+  <a mat-raised-button (click)="openUploadDialog()">
+    <i class="material-icons">attachment</i>
+  </a>
+
+  <div class="card">
+    <div class="card-body table-responsive">
+      <table class="table table-hover">
+        <thead class="text-info">
+          <th>#ID</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let upload of uploads">
+            <td><b>#{{ upload.id}}</b></td>
+            <td>{{ upload.name}}</td>
+            <td class="td-actions text-right">
+              <button mat-raised-button type="button" matTooltip="View" (click)="onView(file)"
+                [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                <i class="material-icons">visibility</i>
+              </button>
+              <button mat-raised-button type="button" matTooltip="Remove" (click)="onRemove(file)"
+                [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                <i class="material-icons">close</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

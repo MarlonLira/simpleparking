@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Injectable } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import Auth from './models/auth.model';
+import { Utils } from './commons/core/utils';
 
 @Injectable({ providedIn: 'root' })
 export class GroupGuard implements CanActivate {
@@ -18,10 +19,12 @@ export class GroupGuard implements CanActivate {
   private verify(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       const _auth: Auth = this.authService.getAuthentication();
-      if (_auth.authenticationLevel > 2) {
+      if (_auth.authenticationLevel > 2 || !Utils.isValid(_auth.authenticationLevel)) {
         this.toastr.warning(`The profile your user is in does not have access to that area of ​​the application.
         If in doubt, contact your system administrator`, 'Error');
         resolve(false);
+      } else {
+        resolve(true);
       }
     });
   }

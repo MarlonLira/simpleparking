@@ -100,7 +100,7 @@ import { UploadComponent } from './shared/upload/upload.component';
     EmployeeFormComponent,
     EmployeeListComponent,
     DialogComponent,
-    UploadComponent
+    UploadComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -4,13 +4,11 @@ import {
   HttpRequest,
   HttpEventType,
   HttpResponse,
-  HttpParams,
-  HttpHeaders
 } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 import { BaseService } from './base.service';
 import Consts from '../consts';
-import { param } from 'jquery';
+import Upload from 'app/models/upload.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +17,16 @@ export class UploadService extends BaseService<File> {
 
   constructor(public http: HttpClient) {
     super(http);
+  }
+
+  public toList(id: number): Promise<Upload[]> {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/uploads/parkingId/${id}`)
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
+    });
   }
 
   public parkingUpload(files: Set<File>, id): { [key: string]: { progress: Observable<number> } } {

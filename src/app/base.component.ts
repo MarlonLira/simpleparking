@@ -8,7 +8,8 @@ import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
 import Swal, { SweetAlertOptions } from 'sweetalert2'
-import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap, Params, RouterStateSnapshot } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable()
 export abstract class BaseComponent implements OnInit {
@@ -150,5 +151,23 @@ export abstract class BaseComponent implements OnInit {
   protected onStopLoading = () => $('#pn-load').addClass('not-load');
   protected onConfirmMessage = () => Swal.fire(this.onConfirmMessageConfig);
   protected onSuccessMessage = (title: string, message?: string) => Swal.fire(title, message, 'success');
-  protected OnErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
+  protected onErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
+  protected getRoute = () => window.location.toString();
+  protected getSelfRoute = () => (this.getRoute().split('#'))[1];
+  protected routeReload() {
+    const selfRoute = this.getSelfRoute().split('?');
+    let _route: string;
+    let _params: any;
+
+    if (selfRoute[0]) {
+      _route = selfRoute[0];
+    }
+    if (selfRoute[1]) {
+      const httpParams = new HttpParams({ fromString: this.getRoute().split('?')[1] });
+      const _id = Number(selfRoute[1].split('id=')[1]);
+      _params = { id: _id };
+    }
+
+    this.redirectFor(_route, _params)
+  }
 }

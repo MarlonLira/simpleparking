@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import Parking from 'app/models/parking.model';
 import { ParkingComponent } from '../parking.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FileInput } from 'ngx-material-file-input';
 
 @Component({
   selector: 'app-parking-form',
@@ -34,7 +33,6 @@ export class ParkingFormComponent extends ParkingComponent {
         this._id = params['id'];
         this.service.getById(this._id)
           .then((result: Parking) => {
-            console.log(result)
             this.onEditing();
             this.onLoadForm(result);
             this.onStopLoading();
@@ -54,52 +52,18 @@ export class ParkingFormComponent extends ParkingComponent {
     return obj;
   }
 
-  onFileSelected() {
-    const file_form: FileInput = this.form.get('file').value;
-    const file = file_form.files[0]; // in case user didn't selected multiple files
-    console.log('--> File Form')
-    console.log(file_form)
-    console.log('<--')
-    console.log('--> File')
-    console.log(file)
-    console.log('<--')
-
-    const formData = new FormData();
-    console.log('--> form Data')
-    console.log(formData)
-    console.log('<--')
-    formData.append('file', file); // attach blob to formdata / preparing the request
-    return formData;
-
-    // const inputNode: any = document.querySelector('#file');
-    // let srcResult: any;
-
-    // if (typeof (FileReader) !== 'undefined') {
-    //   const reader = new FileReader();
-
-    //   reader.onload = (e: any) => {
-    //     srcResult = e.target.result;
-    //   };
-
-    //   reader.readAsArrayBuffer(inputNode.files[0]);
-    // }
-
-    // return srcResult;
-  }
-
-
   onSubmit() {
     this.onStartLoading();
     if (!this.isEditing) {
       this.service.save(this.objectBuild())
-        .then(result => {
+        .then(requested => {
           this.onResetForm();
           this.onLoadList();
           this.onStopLoading();
-          this.onSuccessMessage('Saved Successfully!', result)
-            .then(() => this.redirectFor('/parking/list'));
+          this.onSuccessMessage('Saved Successfully!', requested['message'])
+            .then(() => this.redirectFor('/parking/edit', { id: requested['result'] }));
         }).catch(error => {
-          this.OnErrorMessage('Error', error.message);
+          this.onErrorMessage('Error', error.message);
           this.onStopLoading();
         });
     } else {
@@ -111,7 +75,7 @@ export class ParkingFormComponent extends ParkingComponent {
           this.onSuccessMessage('Saved Successfully!', result)
             .then(() => this.redirectFor('/parking/list'));
         }).catch(error => {
-          this.OnErrorMessage('Error', error.message);
+          this.onErrorMessage('Error', error.message);
           this.onStopLoading();
         });
     }
