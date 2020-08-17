@@ -1,0 +1,9 @@
+.dialog-list-item {
+  display: list-item;
+  list-style: circle;
+}
+
+#dialog-list-item {
+  display: list-item;
+  list-style: circle;
+}

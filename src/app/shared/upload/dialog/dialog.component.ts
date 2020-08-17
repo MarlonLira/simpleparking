@@ -76,8 +76,9 @@ export class DialogComponent extends UploadComponent {
         this.dialogRef.disableClose = false;
         this.uploadSuccessful = true;
         this.uploading = false;
-        this.routeReload();
         this.dialogRef.close();
+        this.onSuccessMessage('Upload Successfully!', '')
+            .then(() => this.routeReload());
       });
   }
 }

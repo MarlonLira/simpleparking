@@ -1,10 +1,17 @@
 <div *ngIf="this.id">
   <br />
-  <h4 *ngIf="this.title"><b>{{this.title}}</b></h4>
   <br />
-  <a mat-raised-button (click)="openUploadDialog()">
-    <i class="material-icons">attachment</i>
-  </a>
+  <div class="u-header">
+    <div class="u-header-title">
+      <a mat-raised-button>
+        <span></span>
+        <p class="u-header-l"><b>{{this.title ? this.title : 'Attachments'}}</b></p>
+      </a>
+    </div>
+    <a mat-raised-button (click)="openUploadDialog()">
+      <i class="material-icons">attachment</i>
+    </a>
+  </div>
 
   <div class="card">
     <div class="card-body table-responsive">
