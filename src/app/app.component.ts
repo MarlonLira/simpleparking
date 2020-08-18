@@ -147,10 +147,10 @@ export class AppComponent extends BaseComponent {
     }
   }
 
-  ngAfterViewInit() {
-
+  protected onAfterViewInit(): void {
     this.runOnRouteChange();
-
+  }
+  protected onDestroy(): void {
   }
 
   public isRoute(path) {

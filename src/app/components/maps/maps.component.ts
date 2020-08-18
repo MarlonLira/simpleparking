@@ -149,4 +149,9 @@ export class MapsComponent extends BaseComponent {
     });
   }
 
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
+  }
+
 }

@@ -12,7 +12,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent extends BaseComponent {
-
   private listTitles: any[];
   location: Location;
   mobile_menu_visible: any = 0;
@@ -30,6 +29,7 @@ export class NavbarComponent extends BaseComponent {
     this.location = location;
     this.sidebarVisible = false;
   }
+
   protected onInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
@@ -42,6 +42,11 @@ export class NavbarComponent extends BaseComponent {
         this.mobile_menu_visible = 0;
       }
     });
+  }
+
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
   }
 
   sidebarOpen() {

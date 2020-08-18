@@ -9,6 +9,11 @@
   padding-right: 10%;
 }
 
-.u-header-l {
-  display: contents;
+.u-header-label{
+  padding-top: 6px;
+  margin: 0px;
+}
+
+.m-r-10 {
+  margin-right: 10px;
 }

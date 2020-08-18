@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { DialogComponent } from './dialog/dialog.component';
 import { UploadService } from 'app/services/upload.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,6 +8,7 @@ import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 import { Utils } from 'app/commons/core/utils';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-upload',
@@ -15,6 +16,8 @@ import { Utils } from 'app/commons/core/utils';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent extends BaseComponent {
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
 
   @Input() public id: any;
   @Input() public title: string;
@@ -31,6 +34,11 @@ export class UploadComponent extends BaseComponent {
 
   protected onInit(): void {
     this.onLoadList();
+  }
+
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
   }
 
   public openUploadDialog() {
@@ -61,8 +69,17 @@ export class UploadComponent extends BaseComponent {
 
     if (Utils.isValid(this.id)) {
       this.service.toList(this.id)
-        .then((result: Upload[]) => this.uploads = result)
+        .then((result: Upload[]) => {
+          this.uploads = result;
+          this.dtTrigger.next();
+        })
         .catch((error: any) => this.toastr.error(error.message, 'Error'));
     }
   }
+
+  refreshTable(): void {
+    $('#tblUpload').DataTable().destroy();
+    this.onLoadList();
+  }
+
 }

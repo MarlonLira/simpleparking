@@ -17,7 +17,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DataTablesModule } from 'angular-datatables';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
@@ -51,6 +52,7 @@ import { EmployeeFormComponent } from './components/employee/employee-form/emplo
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
 import { DialogComponent } from './shared/upload/dialog/dialog.component';
 import { UploadComponent } from './shared/upload/upload.component';
+import { DataTableComponent } from './shared/data-table/data-table.component';
 
 @NgModule({
   imports: [
@@ -73,6 +75,7 @@ import { UploadComponent } from './shared/upload/upload.component';
     MatProgressSpinnerModule,
     MatDividerModule,
     MaterialFileInputModule,
+    DataTablesModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
@@ -105,6 +108,7 @@ import { UploadComponent } from './shared/upload/upload.component';
     EmployeeListComponent,
     DialogComponent,
     UploadComponent,
+    DataTableComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

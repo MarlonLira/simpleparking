@@ -1,4 +1,4 @@
-import { OnInit, Injectable, Optional } from '@angular/core';
+import { OnInit, Injectable, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
@@ -8,11 +8,12 @@ import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
 import Swal, { SweetAlertOptions } from 'sweetalert2'
-import { Router, ActivatedRoute, ParamMap, Params, RouterStateSnapshot, NavigationEnd } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
+import { Router, Params } from '@angular/router';
+import { Subject } from 'rxjs';
+import { DataTable } from './shared/data-table/data-table.component';
 
 @Injectable()
-export abstract class BaseComponent implements OnInit {
+export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit {
   private static timer: Array<Timer>;
   public form: FormGroup;
   public isEditing = false;
@@ -20,6 +21,9 @@ export abstract class BaseComponent implements OnInit {
   public location: Location;
   public storage: Storage;
   protected auth: Auth;
+  dtOptions: any = {};
+  dtTrigger: Subject<any> = new Subject();
+  protected dataTable: DataTable;
 
   private onConfirmMessageConfig: SweetAlertOptions = {
     title: 'Are you sure?',
@@ -39,15 +43,36 @@ export abstract class BaseComponent implements OnInit {
     this.storage = sessionStorage;
   }
 
+  ngOnDestroy(): void {
+    this.onDestroy();
+  }
+
+  ngAfterViewInit(): void {
+    this.onAfterViewInit();
+  }
+
+  protected abstract onAfterViewInit(): void;
   protected abstract onInit(): void;
+  protected abstract onDestroy(): void;
 
   ngOnInit() {
     this.onStartLoading();
     this.onShowFotter();
     this.auth = this.getAuth();
     this.timerVerify();
+    this.loadDTOptions();
     this.onInit();
     this.onStopLoading();
+  }
+
+  protected loadDTOptions() {
+    this.dtOptions = {
+      // pagingType: 'full_numbers',
+      // pageLength: 10,
+      responsive: true
+    };
+    this.dataTable = new DataTable();
+    this.dataTable.columns = new Array();
   }
 
   protected async TokenVerify(hash: string = undefined) {
@@ -154,6 +179,10 @@ export abstract class BaseComponent implements OnInit {
   protected onErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
   protected getRoute = () => window.location.toString();
   protected getSelfRoute = () => (this.getRoute().split('#'))[1];
+  protected reloadTable(id: string): void {
+    $(id).DataTable().destroy();
+    this.dtTrigger.next();
+  }
 
   // protected routeReload(uri) {
   //   this.router.navigateByUrl('#', { skipLocationChange: true })

@@ -21,6 +21,11 @@ export abstract class AuthComponent extends BaseComponent {
     this.onSafelyInit();
   }
 
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
+  }
+
   private verify() {
     if (this.auth) {
       this.redirectFor('dashboard');

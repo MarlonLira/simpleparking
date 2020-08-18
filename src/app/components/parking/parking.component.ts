@@ -64,10 +64,16 @@ export class ParkingComponent extends BaseComponent {
     this.redirectFor('parking/list');
   }
 
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
+  }
+
   protected onLoadList() {
     this.service.toList()
       .then((result: Parking[]) => {
         this.parkings = result;
+        this.dtTrigger.next();
       });
   }
 }

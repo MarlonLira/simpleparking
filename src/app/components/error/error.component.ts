@@ -38,6 +38,11 @@ export class ErrorComponent extends BaseComponent {
     this.onHideFooter();
   }
 
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
+  }
+
   onLightUp(): void {
     $('.torch').removeClass();
     delete this.labels.msg3;

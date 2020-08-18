@@ -34,4 +34,9 @@ export class UserProfileComponent extends BaseComponent {
     });
   }
 
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
+  }
+
 }

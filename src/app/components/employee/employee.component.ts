@@ -45,4 +45,9 @@ export class EmployeeComponent extends BaseComponent {
       });
   }
 
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
+  }
+
 }

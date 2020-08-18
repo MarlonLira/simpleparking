@@ -26,4 +26,9 @@ export class FooterComponent extends BaseComponent {
 
   }
 
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
+  }
+
 }

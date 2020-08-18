@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import * as Chartist from 'chartist';
 import { HttpClient } from '@angular/common/http';
 import Consts from '../../consts';
@@ -7,12 +7,20 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 
+import { Subject } from 'rxjs';
+import 'rxjs/add/operator/map';
+import { DataTable, DataTableComponent } from 'app/shared/data-table/data-table.component';
+import { DataTableDirective } from 'angular-datatables';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent extends BaseComponent {
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+
   public vehicles: any;
   public schedulings: any;
 
@@ -104,6 +112,13 @@ export class DashboardComponent extends BaseComponent {
     seq2 = 0;
   };
   onInit() {
+    this.dataTable.columns.push({ title: 'ID', data: 'id' });
+    this.dataTable.columns.push({ title: 'User', data: 'userName' });
+    this.dataTable.columns.push({ title: 'Vehicle', data: 'vehiclePlate' });
+    this.dataTable.columns.push({ title: 'Date', data: 'date' });
+    this.dataTable.columns.push({ title: 'Time', data: 'avaliableTime' });
+    this.dataTable.dataSourceUri = 'schedulings/companyid/1';
+
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
     const dataDailySalesChart: any = {
@@ -183,7 +198,7 @@ export class DashboardComponent extends BaseComponent {
 
     // start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);
-
+    this.dtTrigger = new Subject();
     this.getVehicles()
       .then(result => {
         this.vehicles = result;
@@ -192,7 +207,21 @@ export class DashboardComponent extends BaseComponent {
     this.getSchedulings()
       .then(result => {
         this.schedulings = result;
+        this.dtTrigger.next();
       });
+
+
   }
 
+  refreshTable(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    });
+  }
+
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
+  }
 }
