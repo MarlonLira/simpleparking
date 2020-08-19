@@ -10,20 +10,26 @@ import Auth from './models/auth.model';
 import Swal, { SweetAlertOptions } from 'sweetalert2'
 import { Router, Params } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DataTable } from './shared/data-table/data-table.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Injectable()
 export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit {
   private static timer: Array<Timer>;
-  public form: FormGroup;
-  public isEditing = false;
   protected isValidAuthentication: boolean;
+  protected auth: Auth;
   public location: Location;
   public storage: Storage;
-  protected auth: Auth;
-  dtOptions: any = {};
-  dtTrigger: Subject<any> = new Subject();
-  protected dataTable: DataTable;
+  public form: FormGroup;
+  public isEditing = false;
+  public dtOptions: any = {};
+  public dtTrigger: Subject<any> = new Subject();
+  displayedColumns: string[];
+  dataSource: MatTableDataSource<any>;
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   private onConfirmMessageConfig: SweetAlertOptions = {
     title: 'Are you sure?',
@@ -71,8 +77,6 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
       // pageLength: 10,
       responsive: true
     };
-    this.dataTable = new DataTable();
-    this.dataTable.columns = new Array();
   }
 
   protected async TokenVerify(hash: string = undefined) {
@@ -81,9 +85,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
       this.requestTokenTimer(hash);
       if (this.isValidAuthentication && this.isRoute('auth')) {
         this.redirectFor('dashboard')
-      } else if (!this.isValidAuthentication && !this.isRoute('auth')) {
-        this.destroyToken();
-      } else if (!this.isValidAuthentication && this.isRoute('auth')) {
+      } else if (!this.isValidAuthentication) {
         this.destroyToken();
       }
     } else {
@@ -136,6 +138,15 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     }
   }
 
+  protected tableFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   protected onEditing() {
     $('#list').removeClass('active');
     this.isEditing = true;
@@ -144,6 +155,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   protected destroyToken() {
     this.storage.clear();
     BaseComponent.timer = undefined;
+    this.toastr.info('Your connection has expired!', 'Info');
     this.redirectFor('auth/signin');
   }
 
@@ -177,42 +189,4 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   protected onConfirmMessage = () => Swal.fire(this.onConfirmMessageConfig);
   protected onSuccessMessage = (title: string, message?: string) => Swal.fire(title, message, 'success');
   protected onErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
-  protected getRoute = () => window.location.toString();
-  protected getSelfRoute = () => (this.getRoute().split('#'))[1];
-  protected reloadTable(id: string): void {
-    $(id).DataTable().destroy();
-    this.dtTrigger.next();
-  }
-
-  // protected routeReload(uri) {
-  //   this.router.navigateByUrl('#', { skipLocationChange: true })
-  //     .then(() =>
-  //       this.router.navigate([uri], {
-  //         skipLocationChange: true,
-  //         queryParamsHandling: 'merge'
-  //       }));
-  // }
-
-
-  // protected routeReload() {
-  //   const a = this.getRoute();
-  //   this.router.navigateByUrl(a, { skipLocationChange: true })
-  //     .then(() => {
-  //       const selfRoute = this.getSelfRoute().split('?');
-  //       let _route: string;
-  //       let _params: any;
-
-  //       if (selfRoute[0]) {
-  //         _route = selfRoute[0];
-  //       }
-  //       if (selfRoute[1]) {
-  //         const httpParams = new HttpParams({ fromString: this.getRoute().split('?')[1] });
-  //         const _id = Number(selfRoute[1].split('id=')[1]);
-  //         _params = { id: _id };
-  //       }
-  //       console.log(_route)
-  //       console.log(_params)
-  //       this.redirectFor(_route, { id: 1 });
-  //     })
-  // }
 }

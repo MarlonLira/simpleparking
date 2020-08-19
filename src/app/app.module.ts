@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DataTablesModule } from 'angular-datatables';
+import { MatTableModule } from '@angular/material/table';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
@@ -53,6 +54,7 @@ import { EmployeeListComponent } from './components/employee/employee-list/emplo
 import { DialogComponent } from './shared/upload/dialog/dialog.component';
 import { UploadComponent } from './shared/upload/upload.component';
 import { DataTableComponent } from './shared/data-table/data-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -76,6 +78,8 @@ import { DataTableComponent } from './shared/data-table/data-table.component';
     MatDividerModule,
     MaterialFileInputModule,
     DataTablesModule,
+    MatTableModule,
+    MatPaginatorModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({

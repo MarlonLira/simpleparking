@@ -19,7 +19,7 @@
   </div>
   <div class="card">
     <div class="card-body table-responsive">
-      <table id="tblUpload" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
+      <!-- <table id="tblUpload" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
         <thead class="text-info">
           <tr>
             <th>#ID</th>
@@ -43,7 +43,49 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
+
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="tableFilter($event)" #input>
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table mat-table class="table table-hover" [dataSource]="dataSource" matSort style="width:100%">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> #ID </th>
+            <td mat-cell *matCellDef="let row"> #{{row.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-raised-button type="button" matTooltip="View" (click)="onView(file)"
+                [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                <i class="material-icons">visibility</i>
+              </button>
+              <button mat-raised-button type="button" matTooltip="Remove" (click)="onRemove(file)"
+                [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                <i class="material-icons">close</i>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
     </div>
   </div>
-</div>

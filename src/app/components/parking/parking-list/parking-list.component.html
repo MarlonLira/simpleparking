@@ -1,35 +1,61 @@
 <div class="card">
   <div class="card-body table-responsive">
-    <table class="table table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-      <thead class="text-warning">
-        <tr>
-          <th class="bold-f">#ID</th>
-          <th class="bold-f">Name</th>
-          <th class="bold-f">Registry Code</th>
-          <th class="bold-f">Phone</th>
-          <th class="bold-f">Email</th>
-          <th class="bold-f">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let parking of parkings">
-          <td><b>#{{ parking.id}}</b></td>
-          <td>{{ parking.name}}</td>
-          <td>{{ parking.registryCode | mask: '00.000.000/0000-00'}}</td>
-          <td>{{ parking.phone | mask: '(00) 9 0000-0000'}}</td>
-          <td>{{ parking.email}}</td>
-          <td class="td-actions text-right">
-            <button mat-raised-button type="button" matTooltip="Edit" (click)="onEdit(parking)"
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="tableFilter($event)" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table class="table table-hover" [dataSource]="dataSource" matSort style="width:100%">
+
+        <ng-container matColumnDef="id">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> #ID </th>
+          <td class="bold-f" mat-cell *matCellDef="let row"> #{{row.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="registryCode">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Registry Code </th>
+          <td mat-cell *matCellDef="let row"> {{row.registryCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.phone}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-raised-button type="button" matTooltip="Edit" (click)="onEdit(row)"
               [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
               <i class="material-icons">edit</i>
             </button>
-            <button mat-raised-button type="button" matTooltip="Remove" (click)="onRemove(parking)"
+            <button mat-raised-button type="button" matTooltip="Remove" (click)="onRemove(row)"
               [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
               <i class="material-icons">close</i>
             </button>
           </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
         </tr>
-      </tbody>
-    </table>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
   </div>
 </div>

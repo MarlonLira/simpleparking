@@ -8,6 +8,7 @@ import Parking from 'app/models/parking.model';
 import { ParkingService } from 'app/services/parking.service';
 import { Router } from '@angular/router';
 import { FileValidator } from 'ngx-material-file-input';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-parking',
@@ -73,7 +74,10 @@ export class ParkingComponent extends BaseComponent {
     this.service.toList()
       .then((result: Parking[]) => {
         this.parkings = result;
-        this.dtTrigger.next();
+        this.displayedColumns = ['id', 'name', 'registryCode', 'phone', 'email', 'actions'];
+        this.dataSource = new MatTableDataSource(this.parkings);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DialogComponent } from './dialog/dialog.component';
 import { UploadService } from 'app/services/upload.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,7 +8,7 @@ import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 import { Utils } from 'app/commons/core/utils';
-import { DataTableDirective } from 'angular-datatables';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-upload',
@@ -16,12 +16,9 @@ import { DataTableDirective } from 'angular-datatables';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent extends BaseComponent {
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
 
   @Input() public id: any;
   @Input() public title: string;
-  @Input() uploads: Upload[];
 
   constructor(
     public dialog: MatDialog,
@@ -62,16 +59,14 @@ export class UploadComponent extends BaseComponent {
       });
   }
 
-  protected onLoadList(_id: number = 0) {
-    if (_id > 0) {
-      this.id = Utils.isValid(this.id) ? this.id : _id;
-    }
-
+  protected onLoadList() {
     if (Utils.isValid(this.id)) {
       this.service.toList(this.id)
         .then((result: Upload[]) => {
-          this.uploads = result;
-          this.dtTrigger.next();
+          this.displayedColumns = ['id', 'name', 'actions'];
+          this.dataSource = new MatTableDataSource(result);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         })
         .catch((error: any) => this.toastr.error(error.message, 'Error'));
     }

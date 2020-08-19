@@ -1,70 +1,51 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy, OnInit, Input } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
+
 import Consts from '../../consts';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'app/services/auth.service';
-import { Router } from '@angular/router';
-
-export interface DataTableColumn {
-  title: string;
-  data: string;
-}
-
-export class DataTable {
-  columns: DataTables.ColumnSettings[];
-  dataSourceUri: string;
-}
 
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
-export class DataTableComponent implements AfterViewInit, OnDestroy, OnInit {
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
+export class DataTableComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'userName', 'vehiclePlate', 'date', 'avaliableTime'];
+  dataSource: MatTableDataSource<any>;
 
-  @Input()
-  public source: DataTable;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
-
-  constructor(
-    public toastr: ToastrService,
-    public authService: AuthService,
-    public router: Router,
-    private http: HttpClient
-  ) { }
-
-  ngOnInit(): void {
-    this.dtOptions = {
-      ajax: (dataTablesParameters: any, callback) => {
-        this.http.get(`${Consts.API_URL}/${this.source.dataSourceUri}`)
-          .subscribe((resp: any) => callback({ data: resp.result }),
-            (error) => this.toastr.error(error, 'Error'));
-      },
-      columns: this.source.columns
-    };
+  constructor(private http: HttpClient) {
   }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
+  ngOnInit() {
+    this.getSchedulings()
+      .then((result: any) => {
+        console.log(result)
+        this.dataSource = new MatTableDataSource(result);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
   }
 
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
-  refreshTable(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next();
+  getSchedulings() {
+    return new Promise((resolve) => {
+      this.http.get(`${Consts.API_URL}/schedulings/companyid/1`)
+        .subscribe(requested => {
+          resolve(requested['result']);
+        });
     });
-    // $('#example').DataTable().destroy();
-    // this.dtTrigger.next();
   }
-
 }

@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
-import { DataTable, DataTableComponent } from 'app/shared/data-table/data-table.component';
 import { DataTableDirective } from 'angular-datatables';
 
 @Component({
@@ -112,13 +111,6 @@ export class DashboardComponent extends BaseComponent {
     seq2 = 0;
   };
   onInit() {
-    this.dataTable.columns.push({ title: 'ID', data: 'id' });
-    this.dataTable.columns.push({ title: 'User', data: 'userName' });
-    this.dataTable.columns.push({ title: 'Vehicle', data: 'vehiclePlate' });
-    this.dataTable.columns.push({ title: 'Date', data: 'date' });
-    this.dataTable.columns.push({ title: 'Time', data: 'avaliableTime' });
-    this.dataTable.dataSourceUri = 'schedulings/companyid/1';
-
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
     const dataDailySalesChart: any = {

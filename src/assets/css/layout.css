@@ -602,3 +602,12 @@ iframe {
 .mat-dialog-container {
   padding: 0px !important;
 }
+
+/* Table */
+
+.table thead tr th {
+  font-size: 1.063rem !important;
+  font-weight: 500 !important;
+  border-top-width: 0 !important;
+  border-bottom-width: 1px !important;
+}
