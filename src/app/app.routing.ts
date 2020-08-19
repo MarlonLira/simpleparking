@@ -24,21 +24,13 @@ const routes: Routes = [
   { path: 'table-list', component: TableListComponent },
   { path: 'maps', component: MapsComponent, canActivate: [GroupGuard] },
   {
-    path: 'parking',
-    component: ParkingComponent,
+    path: 'parking', component: ParkingComponent,
     children: [
-      {
-        path: 'register',
-        component: ParkingFormComponent
-      }, {
-        path: 'edit',
-        component: ParkingFormComponent
-      },
-      {
-        path: 'list',
-        component: ParkingListComponent
-      }
-    ]
+      { path: 'register', component: ParkingFormComponent },
+      { path: 'edit', component: ParkingFormComponent },
+      { path: 'list', component: ParkingListComponent }
+    ],
+    canActivate: [GroupGuard]
   },
   { path: 'employee', component: EmployeeComponent },
   { path: 'auth/signin', component: SigninComponent },
