@@ -24,7 +24,6 @@ export class DataTableComponent implements OnInit {
   ngOnInit() {
     this.getSchedulings()
       .then((result: any) => {
-        console.log(result)
         this.dataSource = new MatTableDataSource(result);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
