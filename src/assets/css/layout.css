@@ -233,12 +233,12 @@ iframe {
   padding: 177px 130px 130px 95px
 }
 
-.btn-back{
+.btn-back {
   padding-top: 15px;
   margin-bottom: -15px;
 }
 
-.btn-forward{
+.btn-forward {
   padding-top: 15px;
   margin-bottom: -15px;
 }
@@ -539,6 +539,10 @@ iframe {
   top: 29px;
 }
 
+.bold-f {
+  font-weight: bold !important;
+}
+
 /* alter card primary */
 
 .card .card-header-info .card-icon, .card .card-header-info:not(.card-header-icon):not(.card-header-text), .card .card-header-info .card-text {
@@ -591,4 +595,19 @@ iframe {
   border-radius: 50%;
   -webkit-animation: spinner-border .75s linear infinite;
   animation: spinner-border .75s linear infinite;
+}
+
+/* Dialog */
+
+.mat-dialog-container {
+  padding: 0px !important;
+}
+
+/* Table */
+
+.table thead tr th {
+  font-size: 1.063rem !important;
+  font-weight: 500 !important;
+  border-top-width: 0 !important;
+  border-bottom-width: 1px !important;
 }

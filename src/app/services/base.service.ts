@@ -34,6 +34,6 @@ export class BaseService<T> {
 
   protected onPost = (endpoint: string, body: T) => this.http.post(`${Consts.API_URL}${endpoint}`, body, { headers: this.GetHeader() });
   protected onGet = (endpoint: string) => this.http.get(`${Consts.API_URL}${endpoint}`, { headers: this.GetHeader() });
-  protected onPut = (endpoint: string, body: T) => this.http.post(`${Consts.API_URL}${endpoint}`, body, { headers: this.GetHeader() });
-  protected onDelete = (endpoint: string) => this.http.post(`${Consts.API_URL}${endpoint}`, { headers: this.GetHeader() });
+  protected onPut = (endpoint: string, body: T) => this.http.put(`${Consts.API_URL}${endpoint}`, body, { headers: this.GetHeader() });
+  protected onDelete = (endpoint: string) => this.http.delete(`${Consts.API_URL}${endpoint}`, { headers: this.GetHeader() });
 }

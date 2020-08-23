@@ -1,0 +1,19 @@
+.u-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.u-header-title {
+  display: grid;
+  min-width: 80%;
+  padding-right: 10%;
+}
+
+.u-header-label{
+  padding-top: 6px;
+  margin: 0px;
+}
+
+.m-r-10 {
+  margin-right: 10px;
+}

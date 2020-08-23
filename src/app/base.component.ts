@@ -1,4 +1,4 @@
-import { OnInit, Injectable } from '@angular/core';
+import { OnInit, Injectable, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
@@ -7,32 +7,76 @@ import { AuthService } from './services/auth.service';
 import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
+import Swal, { SweetAlertOptions } from 'sweetalert2'
+import { Router, Params } from '@angular/router';
+import { Subject } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Injectable()
-export abstract class BaseComponent implements OnInit {
+export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit {
   private static timer: Array<Timer>;
-  public form: FormGroup;
   protected isValidAuthentication: boolean;
+  protected auth: Auth;
   public location: Location;
   public storage: Storage;
-  protected auth: Auth;
+  public form: FormGroup;
+  public isEditing = false;
+  public dtOptions: any = {};
+  public dtTrigger: Subject<any> = new Subject();
+  displayedColumns: string[];
+  dataSource: MatTableDataSource<any>;
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  private onConfirmMessageConfig: SweetAlertOptions = {
+    title: 'Are you sure?',
+    text: 'You won\'t be able to revert this!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }
 
   constructor(
     public toastr: ToastrService,
+    public router: Router,
     public authService: AuthService
   ) {
     this.storage = sessionStorage;
   }
 
+  ngOnDestroy(): void {
+    this.onDestroy();
+  }
+
+  ngAfterViewInit(): void {
+    this.onAfterViewInit();
+  }
+
+  protected abstract onAfterViewInit(): void;
   protected abstract onInit(): void;
+  protected abstract onDestroy(): void;
 
   ngOnInit() {
     this.onStartLoading();
     this.onShowFotter();
     this.auth = this.getAuth();
     this.timerVerify();
+    this.loadDTOptions();
     this.onInit();
     this.onStopLoading();
+  }
+
+  protected loadDTOptions() {
+    this.dtOptions = {
+      // pagingType: 'full_numbers',
+      // pageLength: 10,
+      responsive: true
+    };
   }
 
   protected async TokenVerify(hash: string = undefined) {
@@ -41,9 +85,7 @@ export abstract class BaseComponent implements OnInit {
       this.requestTokenTimer(hash);
       if (this.isValidAuthentication && this.isRoute('auth')) {
         this.redirectFor('dashboard')
-      } else if (!this.isValidAuthentication && !this.isRoute('auth')) {
-        this.destroyToken();
-      } else if (!this.isValidAuthentication && this.isRoute('auth')) {
+      } else if (!this.isValidAuthentication) {
         this.destroyToken();
       }
     } else {
@@ -96,9 +138,24 @@ export abstract class BaseComponent implements OnInit {
     }
   }
 
+  protected tableFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  protected onEditing() {
+    $('#list').removeClass('active');
+    this.isEditing = true;
+  }
+
   protected destroyToken() {
     this.storage.clear();
     BaseComponent.timer = undefined;
+    this.toastr.info('Your connection has expired!', 'Info');
     this.redirectFor('auth/signin');
   }
 
@@ -123,10 +180,13 @@ export abstract class BaseComponent implements OnInit {
   protected returnIfValid = (value, defaultValue) => Utils.returnIfValid(value, defaultValue);
   protected isValid = (value): boolean => Utils.isValid(value);
   protected generateUUID = (): string => Utils.generateUUID();
-  protected redirectFor = (pathName): void => window.location.replace(`${window.location.origin}/#/${pathName}`);
+  protected redirectFor = (route: string, params: Params = {}) => this.router.navigate([route], { queryParams: params });
   protected signOut = (): void => this.destroyToken();
   protected onHideFooter = () => $('.footer').hide();
   protected onShowFotter = () => $('.footer').show();
   protected onStartLoading = () => $('#pn-load').removeClass('not-load');
   protected onStopLoading = () => $('#pn-load').addClass('not-load');
+  protected onConfirmMessage = () => Swal.fire(this.onConfirmMessageConfig);
+  protected onSuccessMessage = (title: string, message?: string) => Swal.fire(title, message, 'success');
+  protected onErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
 }

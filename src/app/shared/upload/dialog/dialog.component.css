@@ -1,0 +1,37 @@
+.dialog-list-item {
+  display: list-item;
+  list-style: circle;
+}
+
+#dialog-list-item {
+  display: list-item;
+  list-style: circle;
+}
+
+.u-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.u-header-title {
+  display: grid;
+  min-width: 70%;
+  padding-right: 10%;
+}
+
+.u-header-l {
+  display: contents;
+}
+
+.u-header-i {
+  margin-right: 10px;
+}
+
+.f-r {
+  float: right;
+}
+
+.t-center {
+  display: flex;
+  justify-content: center;
+}

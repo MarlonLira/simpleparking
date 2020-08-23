@@ -14,6 +14,8 @@ import { SigninComponent } from './components/auth/signin/signin.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { AccountRecoveryComponent } from './components/auth/account-recovery/account-recovery.component';
 import { ErrorComponent } from './components/error/error.component';
+import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
+import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
@@ -21,7 +23,15 @@ const routes: Routes = [
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'table-list', component: TableListComponent },
   { path: 'maps', component: MapsComponent, canActivate: [GroupGuard] },
-  { path: 'parking', component: ParkingComponent },
+  {
+    path: 'parking', component: ParkingComponent,
+    children: [
+      { path: 'register', component: ParkingFormComponent },
+      { path: 'edit', component: ParkingFormComponent },
+      { path: 'list', component: ParkingListComponent }
+    ],
+    canActivate: [GroupGuard]
+  },
   { path: 'employee', component: EmployeeComponent },
   { path: 'auth/signin', component: SigninComponent },
   { path: 'auth/signup', component: SignupComponent },

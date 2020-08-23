@@ -3,6 +3,11 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
+    "paths": {
+      "crypto": [
+        "./node_modules/crypto-js"
+      ]
+    },
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",

@@ -1,0 +1,42 @@
+<a mat-dialog-close class="f-r" (click)="closeDialog()" [attr.disabled]="!canBeClosed">
+  <i class="material-icons">cancel</i>
+</a>
+<br />
+<br />
+<div class="u-header">
+  <div class="u-header-title">
+    <a mat-raised-button>
+      <span></span>
+      <p class="u-header-l"><b>Attachments</b></p>
+    </a>
+  </div>
+  <a mat-raised-button class="u-header-i" (click)="addFiles()" [attr.disabled]="uploading">
+    <i class="material-icons">attachment</i>
+  </a>
+  <a mat-raised-button class="u-header-i" (click)="uploadFiles()" [attr.disabled]="uploading">
+    <i class="material-icons">save</i>
+  </a>
+</div>
+<input type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
+<div class="card">
+  <div class="card-body table-responsive">
+    <table class="table table-hover">
+      <thead class="text-info">
+        <th>Name</th>
+        <th>Size</th>
+        <th class="t-center">Progress</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of files">
+          <td><b>{{file.name}}</b></td>
+          <td>{{file.size | megabyte}} </td>
+          <td class="t-center">
+            <mat-progress-spinner diameter="30" *ngIf="progress" mode="determinate"
+              [value]="progress[file.name].progress | async">
+            </mat-progress-spinner>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

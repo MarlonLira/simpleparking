@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-error',
@@ -19,9 +20,10 @@ export class ErrorComponent extends BaseComponent {
 
   constructor(
     toastr: ToastrService,
-    authService: AuthService
+    authService: AuthService,
+    public router: Router
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
   }
 
   protected onInit() {
@@ -34,6 +36,11 @@ export class ErrorComponent extends BaseComponent {
 
     document.querySelector('.cont_principal').className = 'cont_principal cont_error_active';
     this.onHideFooter();
+  }
+
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
   }
 
   onLightUp(): void {

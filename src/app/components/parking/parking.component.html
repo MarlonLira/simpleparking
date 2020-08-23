@@ -4,24 +4,21 @@
       <app-tab>
         <app-tab-header>
           <li class="nav-item">
-            <a mat-button class="nav-link active" href="#list" data-toggle="tab">
+            <a id="list" mat-button class="nav-link active" routerLink="list" data-toggle="tab">
               <i class="material-icons">list</i> List
               <div class="ripple-container"></div>
             </a>
           </li>
           <li class="nav-item">
-            <a mat-button class="nav-link" href="#register" data-toggle="tab">
+            <a mat-button class="nav-link" routerLink="register" data-toggle="tab">
               <i class="material-icons">save</i> Register
               <div class="ripple-container"></div>
             </a>
           </li>
         </app-tab-header>
         <app-tab-content>
-          <app-tab-content-item class="tab-pane active" id="list">
-            <app-parking-list></app-parking-list>
-          </app-tab-content-item>
-          <app-tab-content-item class="tab-pane" id="register">
-            <app-parking-form></app-parking-form>
+          <app-tab-content-item class="tab-pane active">
+            <router-outlet></router-outlet>
           </app-tab-content-item>
         </app-tab-content>
       </app-tab>

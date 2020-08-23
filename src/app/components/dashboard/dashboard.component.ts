@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import * as Chartist from 'chartist';
 import { HttpClient } from '@angular/common/http';
 import Consts from '../../consts';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
+
+import { Subject } from 'rxjs';
+import 'rxjs/add/operator/map';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,15 +17,19 @@ import { AuthService } from 'app/services/auth.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent extends BaseComponent {
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+
   public vehicles: any;
   public schedulings: any;
 
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
-    private http: HttpClient
+    private http: HttpClient,
+    public router: Router
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
   }
 
   getVehicles() {
@@ -181,7 +190,7 @@ export class DashboardComponent extends BaseComponent {
 
     // start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);
-
+    this.dtTrigger = new Subject();
     this.getVehicles()
       .then(result => {
         this.vehicles = result;
@@ -190,7 +199,21 @@ export class DashboardComponent extends BaseComponent {
     this.getSchedulings()
       .then(result => {
         this.schedulings = result;
+        this.dtTrigger.next();
       });
+
+
   }
 
+  refreshTable(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    });
+  }
+
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
+  }
 }

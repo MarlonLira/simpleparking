@@ -24,6 +24,15 @@ export class EmployeeService extends BaseService<Employee> {
     });
   }
 
+  Save(values): Promise<any> {
+    return new Promise((resolve) => {
+      this.onPost('/employee', values)
+        .subscribe(requested => {
+          resolve(requested['message']);
+        });
+    });
+  }
+
   Update(values): Promise<any> {
     return new Promise((resolve) => {
       this.onPut('/employee', values)
@@ -31,5 +40,14 @@ export class EmployeeService extends BaseService<Employee> {
           resolve(requested)
         });
     });
+  }
+
+  GetByRegistryCode(registryCode) {
+    return new Promise((resolve) => {
+      this.onGet(`/employees/companyId/${this.auth.company.id}/registryCode/${registryCode}`)
+        .subscribe(requested => {
+          resolve(requested['result']);
+        });
+    })
   }
 }

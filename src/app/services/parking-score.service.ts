@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import UserAdress from '../models/userAdress.model';
+import ParkingScore from '../models/parking-score.model';
 import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserAdressService extends BaseService<UserAdress> {
+export class ParkingScoreService extends BaseService<ParkingScore> {
 
   constructor(
     public http: HttpClient
@@ -16,7 +16,7 @@ export class UserAdressService extends BaseService<UserAdress> {
 
   Save(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPost('/userAdress', values)
+      this.onPost('/parkingScore', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -25,7 +25,7 @@ export class UserAdressService extends BaseService<UserAdress> {
 
   Delete(id: number): Promise<any> {
     return new Promise((resolve) => {
-      this.onDelete(`/userAdress/${id}`)
+      this.onDelete(`/parkingScore/${id}`)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -34,17 +34,26 @@ export class UserAdressService extends BaseService<UserAdress> {
 
   Update(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPut('/userAdress', values)
+      this.onPut('/parkingScore', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
     });
   }
 
-  GetByUserId(userId: number): Promise<UserAdress[]> {
+  GetById(id: number): Promise<ParkingScore> {
     return new Promise((resolve) => {
-      this.onGet(`/userAdress/userId/${userId}`)
-        .subscribe((requested: UserAdress[]) => {
+      this.onGet(`/parkingScore/parkingScoreId/${id}`)
+        .subscribe((requested: ParkingScore) => {
+          resolve(requested);
+        });
+    });
+  }
+
+  ToList(parkingId): Promise<ParkingScore[]> {
+    return new Promise((resolve) => {
+      this.onGet(`/ParkingsScore/${parkingId}`)
+        .subscribe((requested: ParkingScore[]) => {
           resolve(requested);
         });
     });

@@ -12,7 +12,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent extends BaseComponent {
-
   private listTitles: any[];
   location: Location;
   mobile_menu_visible: any = 0;
@@ -24,12 +23,13 @@ export class NavbarComponent extends BaseComponent {
     public authService: AuthService,
     location: Location,
     private element: ElementRef,
-    private router: Router
+    public router: Router
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
     this.location = location;
     this.sidebarVisible = false;
   }
+
   protected onInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
@@ -42,6 +42,11 @@ export class NavbarComponent extends BaseComponent {
         this.mobile_menu_visible = 0;
       }
     });
+  }
+
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
   }
 
   sidebarOpen() {
@@ -115,18 +120,15 @@ export class NavbarComponent extends BaseComponent {
 
       body.classList.add('nav-open');
       this.mobile_menu_visible = 1;
-
     }
   };
 
   getTitle() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    if (titlee.charAt(0) === '#') {
-      titlee = titlee.slice(1);
-    }
+    const titlePart = this.location.prepareExternalUrl(this.location.path()).split('/');
+    const title = titlePart.length > 0 ? titlePart[1] : '';
 
-    for (var item = 0; item < this.listTitles.length; item++) {
-      if (this.listTitles[item].path === titlee) {
+    for (let item = 0; item < this.listTitles.length; item++) {
+      if (this.listTitles[item].name === title) {
         return this.listTitles[item].title;
       }
     }

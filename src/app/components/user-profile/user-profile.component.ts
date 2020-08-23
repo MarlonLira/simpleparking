@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,9 +14,10 @@ export class UserProfileComponent extends BaseComponent {
 
   constructor(
     public toastr: ToastrService,
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
   ) {
-    super(toastr, authService);
+    super(toastr, router, authService);
   }
 
   onInit() {
@@ -30,6 +32,11 @@ export class UserProfileComponent extends BaseComponent {
       postalCode: new FormControl(''),
       company: new FormControl({ value: 'SSTEC', disabled: true })
     });
+  }
+
+  protected onAfterViewInit(): void {
+  }
+  protected onDestroy(): void {
   }
 
 }

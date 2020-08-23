@@ -12,10 +12,19 @@ import { RouterModule } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { NgxMaskModule } from 'ngx-mask'
 import { ToastrModule } from 'ngx-toastr';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DataTablesModule } from 'angular-datatables';
+import { MatTableModule } from '@angular/material/table';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
 import { TimePipe } from './commons/pipes/timePipe';
+import { MegabytePipe } from './commons/pipes/megabytePipe';
 
 // - Routes
 import { AppRoutingModule } from './app.routing';
@@ -40,7 +49,12 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
 import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
-import { DialogComponent } from './components/dialog/dialog.component';
+import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
+import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
+import { DialogComponent } from './shared/upload/dialog/dialog.component';
+import { UploadComponent } from './shared/upload/upload.component';
+import { DataTableComponent } from './shared/data-table/data-table.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -57,6 +71,15 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatDialogModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatDividerModule,
+    MaterialFileInputModule,
+    DataTablesModule,
+    MatTableModule,
+    MatPaginatorModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
@@ -78,15 +101,21 @@ import { DialogComponent } from './components/dialog/dialog.component';
     TabContentItemComponent,
     PhonePipe,
     TimePipe,
+    MegabytePipe,
     AccountRecoveryComponent,
     SigninComponent,
     SignupComponent,
     ErrorComponent,
     ParkingFormComponent,
     ParkingListComponent,
-    DialogComponent
+    EmployeeFormComponent,
+    EmployeeListComponent,
+    DialogComponent,
+    UploadComponent,
+    DataTableComponent
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }
