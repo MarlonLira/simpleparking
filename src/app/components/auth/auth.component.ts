@@ -2,7 +2,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Injectable } from '@angular/core';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
-import Auth from 'app/models/auth.model';
 import { Router } from '@angular/router';
 
 @Injectable()

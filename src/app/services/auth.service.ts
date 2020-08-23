@@ -43,7 +43,6 @@ export class AuthService extends BaseService<Auth> {
           (e) => reject(e.error)
         );
     });
-
   }
 
   public getAuthentication = (): Auth => this.auth;

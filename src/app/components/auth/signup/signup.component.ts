@@ -50,6 +50,7 @@ export class SignupComponent extends AuthComponent {
     await this.signup(_auth)
       .then((result: string) => {
         this.onStopLoading();
+        this.redirectFor('auth/signin');
       })
       .catch(error => {
         this.onStopLoading();

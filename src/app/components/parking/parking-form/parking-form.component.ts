@@ -47,7 +47,6 @@ export class ParkingFormComponent extends ParkingComponent {
   objectBuild() {
     const obj: Parking = Object.assign({}, this._parkingAssign, this.form.value);
     obj.id = this._id;
-    obj.imgUrl = 'www.google.com.br';
     obj.companyId = this.auth.company.id;
     return obj;
   }

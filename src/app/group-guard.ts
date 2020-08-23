@@ -17,14 +17,18 @@ export class GroupGuard implements CanActivate {
   }
 
   private verify(): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve) => {
       const _auth: Auth = this.authService.getAuthentication();
-      if (_auth.authenticationLevel > 2 || !Utils.isValid(_auth.authenticationLevel)) {
-        this.toastr.warning(`The profile your user is in does not have access to that area of ​​the application.
-        If in doubt, contact your system administrator`, 'Error');
-        resolve(false);
+      if (Utils.isValid(_auth.authenticationLevel)) {
+        if (_auth.authenticationLevel > 2) {
+          this.toastr.warning(`The profile your user is in does not have access to that area of ​​the application.
+            If in doubt, contact your system administrator`, 'Error');
+          resolve(false);
+        } else {
+          resolve(true);
+        }
       } else {
-        resolve(true);
+        resolve(false);
       }
     });
   }

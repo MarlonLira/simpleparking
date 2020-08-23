@@ -4,8 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ParkingService } from 'app/services/parking.service';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
-import Parking from 'app/models/parking.model';
 
 @Component({
   selector: 'app-parking-list',
