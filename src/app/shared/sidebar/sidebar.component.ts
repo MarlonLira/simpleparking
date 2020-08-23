@@ -10,11 +10,12 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
   { name: 'dashboard', path: '/dashboard', title: 'Dashboard', icon: 'dashboard', visible: true },
-  { name: 'parking', path: '/parking/list', title: 'Parking', icon: 'local_parking', visible: true },
+  { name: 'parking', path: '/parking', title: 'Parking', icon: 'local_parking', visible: true },
   { name: 'employee', path: '/employee', title: 'Employee', icon: 'engineering', visible: true },
   { name: 'auth', path: '/auth', title: 'auth', icon: 'engineering', visible: false },
-  { name: 'user-profile', path: '/user-profile', title: 'User Profile', icon: 'person', visible: true },
   { name: 'maps', path: '/maps', title: 'Maps', icon: 'location_on', visible: true },
+  { name: 'company', path: '/company', title: 'Company', icon: 'domain', visible: true },
+  { name: 'user-profile', path: '/user-profile', title: 'User Profile', icon: 'person', visible: true },
   { name: 'error', path: '/error', title: 'Page not found', icon: 'error', visible: false },
 ];
 
