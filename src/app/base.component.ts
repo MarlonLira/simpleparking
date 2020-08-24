@@ -60,6 +60,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   protected abstract onAfterViewInit(): void;
   protected abstract onInit(): void;
   protected abstract onDestroy(): void;
+  protected formBuild(): void { };
 
   ngOnInit() {
     this.onStartLoading();

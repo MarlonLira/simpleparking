@@ -32,15 +32,12 @@ export class SigninComponent extends AuthComponent {
     this.onStartLoading();
     const _auth = new Auth();
     _auth.employee = new Employee(this.form.value);
-    await this.signin(_auth)
+    this.signin(_auth)
       .then((result: string) => {
         this.setAuth(result);
         this.onStopLoading();
+        this.TokenVerify();
       })
-      .catch(error => {
-        this.onStopLoading();
-      });
-
-    this.TokenVerify();
+      .catch(() => this.onStopLoading());
   }
 }

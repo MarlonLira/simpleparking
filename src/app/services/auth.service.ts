@@ -45,7 +45,7 @@ export class AuthService extends BaseService<Auth> {
     });
   }
 
-  public getAuthentication = (): Auth => this.auth;
+  public getAuthentication = (): Auth => this.getAuth();
 
   public verifyToken(token: string): Promise<any> {
     return new Promise((resolve, reject) => {

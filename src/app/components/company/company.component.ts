@@ -15,20 +15,26 @@ export class CompanyComponent extends BaseComponent {
 
   company: Company;
 
+
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
     public router: Router
   ) {
     super(toastr, router, authService);
-
   }
 
   protected onAfterViewInit(): void { }
 
   protected onInit(): void {
     this.company = new Company(this.auth.company);
+    this.formBuild();
+    this.onLoadForm(this.company);
+  }
 
+  protected onDestroy(): void { }
+
+  formBuild(): void {
     this.form = new FormGroup({
       name: new FormControl(''),
       registryCode: new FormControl(''),
@@ -39,9 +45,5 @@ export class CompanyComponent extends BaseComponent {
       country: new FormControl(''),
       postalCode: new FormControl(''),
     });
-
-    this.onLoadForm(this.company);
   }
-
-  protected onDestroy(): void { }
 }

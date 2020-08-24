@@ -19,8 +19,8 @@ export class GroupGuard implements CanActivate {
 
   private verify(): Promise<boolean> {
     return new Promise<boolean>(async (resolve) => {
-      const _auth: Auth = await this.authService.getAuthentication();
-      if (Utils.isValid(_auth.authenticationLevel)) {
+      const _auth: Auth = this.authService.getAuthentication();
+      if (Utils.isValid(_auth)) {
         if (_auth.authenticationLevel > 2) {
           this.toastr.warning(`The profile your user is in does not have access to that area of ​​the application.
             If in doubt, contact your system administrator`, 'Error');
@@ -29,6 +29,7 @@ export class GroupGuard implements CanActivate {
           resolve(true);
         }
       } else {
+        this.toastr.warning(`Your authentication cannot be verified, update the page and try again!`, 'Error');
         resolve(false);
       }
     });
