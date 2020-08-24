@@ -66,17 +66,8 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     this.onShowFotter();
     this.auth = this.getAuth();
     this.timerVerify();
-    this.loadDTOptions();
     this.onInit();
     this.onStopLoading();
-  }
-
-  protected loadDTOptions() {
-    this.dtOptions = {
-      // pagingType: 'full_numbers',
-      // pageLength: 10,
-      responsive: true
-    };
   }
 
   protected async TokenVerify(hash: string = undefined) {
@@ -89,7 +80,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
         this.destroyToken();
       }
     } else {
-      this.destroyToken();
+      this.destroyToken(false);
     }
   }
 
@@ -152,10 +143,14 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     this.isEditing = true;
   }
 
-  protected destroyToken() {
+  protected destroyToken(isAuthenticated = true) {
     this.storage.clear();
     BaseComponent.timer = undefined;
-    this.toastr.info('Your connection has expired!', 'Info');
+
+    if (isAuthenticated) {
+      this.toastr.info('Your connection has expired!', 'Info');
+    }
+
     this.redirectFor('auth/signin');
   }
 
@@ -181,7 +176,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   protected isValid = (value): boolean => Utils.isValid(value);
   protected generateUUID = (): string => Utils.generateUUID();
   protected redirectFor = (route: string, params: Params = {}) => this.router.navigate([route], { queryParams: params });
-  protected signOut = (): void => this.destroyToken();
+  protected signOut = (): void => this.destroyToken(false);
   protected onHideFooter = () => $('.footer').hide();
   protected onShowFotter = () => $('.footer').show();
   protected onStartLoading = () => $('#pn-load').removeClass('not-load');

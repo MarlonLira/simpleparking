@@ -19,32 +19,6 @@
   </div>
   <div class="card">
     <div class="card-body table-responsive">
-      <!-- <table id="tblUpload" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
-        <thead class="text-info">
-          <tr>
-            <th>#ID</th>
-            <th>Name</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let upload of uploads">
-            <td><b>#{{ upload.id}}</b></td>
-            <td>{{ upload.name}}</td>
-            <td class="td-actions text-right">
-              <button mat-raised-button type="button" matTooltip="View" (click)="onView(file)"
-                [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                <i class="material-icons">visibility</i>
-              </button>
-              <button mat-raised-button type="button" matTooltip="Remove" (click)="onRemove(file)"
-                [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                <i class="material-icons">close</i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
-
       <mat-form-field>
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="tableFilter($event)" #input>

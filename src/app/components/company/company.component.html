@@ -17,7 +17,8 @@
                 </div>
                 <div class="col-md-4">
                   <mat-form-field>
-                    <input matInput placeholder="Registry Code" formControlName="registryCode">
+                    <input matInput placeholder="Registry Code" formControlName="registryCode"
+                      mask="00.000.000/0000-00">
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
@@ -29,7 +30,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <mat-form-field>
-                    <input matInput placeholder="Phone" type="text" formControlName="phone">
+                    <input matInput placeholder="Phone" type="text" formControlName="phone" mask="(00) 0 0000-0000">
                   </mat-form-field>
                 </div>
               </div>
@@ -81,7 +82,7 @@
           </div>
           <div class="card-body">
             <h6 class="card-category text-gray">Company</h6>
-            <h4 class="card-title">SSTEC</h4>
+            <h4 class="card-title">{{this.company.name}}</h4>
             <p class="card-description">
               ...
             </p>

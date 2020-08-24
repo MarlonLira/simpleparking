@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
+import Company from 'app/models/company.model';
 
 @Component({
   selector: 'app-company',
@@ -12,26 +13,34 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class CompanyComponent extends BaseComponent {
 
+  company: Company;
+
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
     public router: Router
   ) {
     super(toastr, router, authService);
+
   }
+
   protected onAfterViewInit(): void { }
 
   protected onInit(): void {
+    this.company = new Company(this.auth.company);
+
     this.form = new FormGroup({
-      name: new FormControl('SSTEC'),
-      registryCode: new FormControl('54.902.513/0001-17'),
-      phone: new FormControl('(81) 9 88887777'),
-      email: new FormControl('SSTEC@gmail.com'),
+      name: new FormControl(''),
+      registryCode: new FormControl(''),
+      phone: new FormControl(''),
+      email: new FormControl(''),
       adress: new FormControl(''),
       city: new FormControl(''),
       country: new FormControl(''),
       postalCode: new FormControl(''),
     });
+
+    this.onLoadForm(this.company);
   }
 
   protected onDestroy(): void { }
