@@ -4,6 +4,7 @@ import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
+import User from 'app/models/user.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent extends BaseComponent {
+
+  user: User;
 
   constructor(
     public toastr: ToastrService,
@@ -20,12 +23,18 @@ export class UserProfileComponent extends BaseComponent {
     super(toastr, router, authService);
   }
 
-  onInit() {
+  protected onInit(): void {
+    this.user = new User(this.auth.company);
+    this.formBuild();
+    this.onLoadForm(this.user);
+  }
+
+  formBuild(): void{
     this.form = new FormGroup({
-      name: new FormControl('Marlon Lira'),
-      registryCode: new FormControl('091.773.504-80'),
-      phone: new FormControl('(81) 9 85856666'),
-      email: new FormControl('marlon@gmail.com'),
+      name: new FormControl(''),
+      registryCode: new FormControl(''),
+      phone: new FormControl(''),
+      email: new FormControl(''),
       adress: new FormControl(''),
       city: new FormControl(''),
       country: new FormControl(''),
