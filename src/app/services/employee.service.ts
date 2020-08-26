@@ -16,38 +16,52 @@ export class EmployeeService extends BaseService<Employee> {
   }
 
   ToList(): Promise<Employee[]> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.onGet(`/employees/companyId/${this.auth.company.id}`)
-        .subscribe(requested => {
-          resolve(requested['result']);
-        });
+        .subscribe(
+          (requested: Employee[]) => resolve(requested),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  Save(values): Promise<any> {
-    return new Promise((resolve) => {
+  save(values): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onPost('/employee', values)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  Update(values): Promise<any> {
-    return new Promise((resolve) => {
+  update(values): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onPut('/employee', values)
-        .subscribe(requested => {
-          resolve(requested)
-        });
+        .subscribe(
+          (requested) => resolve(requested),
+          (e) => reject(e.error)
+        );
+    });
+  }
+
+  getById(id: number): Promise<Employee> {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/employee/${id}`)
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
     });
   }
 
   GetByRegistryCode(registryCode) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.onGet(`/employees/companyId/${this.auth.company.id}/registryCode/${registryCode}`)
-        .subscribe(requested => {
-          resolve(requested['result']);
-        });
+        .subscribe(
+          (requested) => resolve(requested),
+          (e) => reject(e.error)
+        );
     })
   }
 }
