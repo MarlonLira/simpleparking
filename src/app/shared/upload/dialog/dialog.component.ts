@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { UploadService } from 'app/services/upload.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class DialogComponent extends UploadComponent {
   public static id: any;
+  public static multiple = true;
   @ViewChild('file', { static: false }) file;
 
   progress;
@@ -35,10 +36,20 @@ export class DialogComponent extends UploadComponent {
   }
 
   onFilesAdded() {
-    const files: { [key: string]: File } = this.file.nativeElement.files;
-    for (const key in files) {
-      if (!isNaN(parseInt(key, 10))) {
-        this.files.add(files[key]);
+    if (DialogComponent.multiple) {
+      const files: { [key: string]: File } = this.file.nativeElement.files;
+      for (const key in files) {
+        if (!isNaN(parseInt(key, 10))) {
+          this.files.add(files[key]);
+        }
+      }
+    } else {
+      this.files.clear();
+      const files: { [key: string]: File } = this.file.nativeElement.files;
+      for (const key in files) {
+        if (!isNaN(parseInt(key, 10))) {
+          this.files.add(files[key]);
+        }
       }
     }
   }
