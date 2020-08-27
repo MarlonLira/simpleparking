@@ -15,7 +15,8 @@ import { EmployeeService } from 'app/services/employee.service';
 })
 export class UserProfileComponent extends BaseComponent {
 
-  employee: Employee;
+  employeeAssign: Employee;
+  imageUrl: string = "./assets/img/faces/empty-profile.png";
 
   constructor(
     public toastr: ToastrService,
@@ -30,9 +31,10 @@ export class UserProfileComponent extends BaseComponent {
     this.formBuild();
     this.service.getById(this.auth.employee.id)
       .then((result: Employee) => {
-        this.employee = result;
-        this.onLoadForm(this.employee);
-        this.form.value.company = this.auth.company.name;
+        this.employeeAssign = result;
+        this.employeeAssign.company = this.auth.company.name;
+        this.imageUrl = this.returnIfValid(result.imageUrl, this.imageUrl);
+        this.onLoadForm(this.employeeAssign);
       })
   }
 
@@ -48,7 +50,7 @@ export class UserProfileComponent extends BaseComponent {
   }
 
   objectBuild() {
-    const obj: Employee = Object.assign({}, this.employee, this.form.value);
+    const obj: Employee = Object.assign({}, this.employeeAssign, this.form.value);
     return obj;
   }
 
@@ -59,12 +61,13 @@ export class UserProfileComponent extends BaseComponent {
         this.onStopLoading();
         this.onSuccessMessage('Saved Successfully!', result['message']);
       }).catch(error => {
-        this.onErrorMessage('Error', error.message);
+        this.onErrorMessage('Error', error['message']);
         this.onStopLoading();
       });
   }
 
   protected onAfterViewInit(): void {
+
   }
   protected onDestroy(): void {
   }

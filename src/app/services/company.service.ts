@@ -56,9 +56,9 @@ export class CompanyService extends BaseService<Company> {
 
   getById(id: number): Promise<Company> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/company/userId/${id}`)
+      this.onGet(`/company/${id}`)
         .subscribe(
-          (requested: Company) => resolve(requested),
+          (requested: any) => resolve(requested['result']),
           (e) => reject(e.error)
         );
     });

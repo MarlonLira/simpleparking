@@ -19,6 +19,7 @@ export class UploadComponent extends BaseComponent {
 
   @Input() public id: any;
   @Input() public title: string;
+  @Input() multiple: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -40,6 +41,7 @@ export class UploadComponent extends BaseComponent {
 
   public openUploadDialog() {
     DialogComponent.id = this.id;
+    DialogComponent.multiple = this.multiple;
     let dialogRef = this.dialog.open(DialogComponent, { width: '50%' });
   }
 

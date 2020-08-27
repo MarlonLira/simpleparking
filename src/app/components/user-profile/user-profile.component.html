@@ -17,8 +17,7 @@
                 </div>
                 <div class="col-md-4">
                   <mat-form-field>
-                    <input matInput placeholder="Registry Code" formControlName="registryCode"
-                     mask="00.000.000/0000-00">
+                    <input matInput placeholder="Registry Code" formControlName="registryCode" mask="000.000.000-00">
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
@@ -47,7 +46,8 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="onUpdate()">Update Profile</button>
+              <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="onUpdate()">Update
+                Profile</button>
               <div class="clearfix"></div>
             </form>
           </div>
@@ -57,14 +57,14 @@
         <div class="card card-profile">
           <div class="card-avatar">
             <a href="javascript:void(0)">
-              <img class="img" src="./assets/img/faces/ProfileEmerson.jpeg" />
+              <img class="img" [src]="imageUrl" />
             </a>
           </div>
-          <div class="card-body">
+          <div class="card-body" *ngIf="employeeAssign">
             <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-            <h4 class="card-title">{{this.employee.name}}</h4>
+            <h4 class="card-title">{{employeeAssign.name}}</h4>
             <p class="card-description">
-              Studying in the spare time...
+              {{employeeAssign.about}}
             </p>
           </div>
         </div>
