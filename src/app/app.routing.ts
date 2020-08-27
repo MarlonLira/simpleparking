@@ -20,7 +20,7 @@ import { CompanyComponent } from './components/company/company.component';
 const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'user-profile', component: EmployeeProfileComponent },
+  { path: 'employee-profile', component: EmployeeProfileComponent },
   { path: 'maps', component: MapsComponent, canActivate: [GroupGuard] },
   {
     path: 'parking', component: ParkingComponent,
