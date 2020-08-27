@@ -14,8 +14,8 @@ import { CompanyService } from 'app/services/company.service';
 })
 export class CompanyComponent extends BaseComponent {
 
-  company: Company;
-
+  companyAssign: Company;
+  imageUrl: string = "./assets/img/sstec.png";
 
   constructor(
     public toastr: ToastrService,
@@ -29,18 +29,25 @@ export class CompanyComponent extends BaseComponent {
   protected onAfterViewInit(): void { }
 
   protected onInit(): void {
+    this.onStartLoading();
     this.formBuild();
-    this.company = new Company(this.auth.company);
     this.service.getById(this.auth.company.id)
       .then((result: Company) => {
+        this.companyAssign = result;
+        this.imageUrl = this.returnIfValid(result.imageUrl, this.imageUrl);
         this.onLoadForm(result);
-      }).catch(error => this.toastr.error(error['message'], 'Error'));
+        this.onStopLoading();
+      }).catch(error => {
+        this.toastr.error(error['message'], 'Error');
+        this.onStopLoading();
+      });
   }
 
   protected onDestroy(): void { }
 
   formBuild(): void {
     this.form = new FormGroup({
+      id: new FormControl(0),
       name: new FormControl(''),
       registryCode: new FormControl(''),
       phone: new FormControl(''),
@@ -58,5 +65,22 @@ export class CompanyComponent extends BaseComponent {
         number: new FormControl(0),
       })
     });
+  }
+
+  objectBuild() {
+    const obj: Company = Object.assign({}, this.companyAssign, this.form.value);
+    return obj;
+  }
+
+  onUpdate() {
+    this.onStartLoading();
+    this.service.update(this.objectBuild())
+      .then(result => {
+        this.onStopLoading();
+        this.onSuccessMessage('Saved Successfully!', result['message']);
+      }).catch(error => {
+        this.onErrorMessage('Error', error['message']);
+        this.onStopLoading();
+      });
   }
 }

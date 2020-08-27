@@ -60,11 +60,11 @@
               <img class="img" [src]="imageUrl" />
             </a>
           </div>
-          <div class="card-body">
+          <div class="card-body" *ngIf="employeeAssign">
             <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-            <h4 class="card-title">{{name}}</h4>
+            <h4 class="card-title">{{employeeAssign.name}}</h4>
             <p class="card-description">
-              {{about}}
+              {{employeeAssign.about}}
             </p>
           </div>
         </div>

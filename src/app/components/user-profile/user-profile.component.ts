@@ -16,8 +16,6 @@ import { EmployeeService } from 'app/services/employee.service';
 export class UserProfileComponent extends BaseComponent {
 
   employeeAssign: Employee;
-  name: string;
-  about: string;
   imageUrl: string = "./assets/img/faces/empty-profile.png";
 
   constructor(
@@ -35,8 +33,6 @@ export class UserProfileComponent extends BaseComponent {
       .then((result: Employee) => {
         this.employeeAssign = result;
         this.employeeAssign.company = this.auth.company.name;
-        this.name = result.name;
-        this.about = result.about;
         this.imageUrl = this.returnIfValid(result.imageUrl, this.imageUrl);
         this.onLoadForm(this.employeeAssign);
       })
@@ -65,7 +61,7 @@ export class UserProfileComponent extends BaseComponent {
         this.onStopLoading();
         this.onSuccessMessage('Saved Successfully!', result['message']);
       }).catch(error => {
-        this.onErrorMessage('Error', error.message);
+        this.onErrorMessage('Error', error['message']);
         this.onStopLoading();
       });
   }

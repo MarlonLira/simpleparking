@@ -51,7 +51,7 @@
                       <input matInput placeholder="City" type="text" formControlName="city">
                     </mat-form-field>
                   </div>
-        
+
                   <div class="col-md-3">
                     <mat-form-field>
                       <input matInput placeholder="Zip Code" mask="00000-000" type="text" formControlName="zipCode">
@@ -84,7 +84,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-info pull-right">Update
+              <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="onUpdate()">Update
                 Profile</button>
               <div class="clearfix"></div>
             </form>
@@ -95,16 +95,15 @@
         <div class="card card-profile">
           <div class="card-avatar">
             <a href="javascript:void(0)">
-              <img class="img" src="./assets/img/sstec.png" />
+              <img class="img" [src]="imageUrl" />
             </a>
           </div>
-          <div class="card-body">
+          <div class="card-body" *ngIf="companyAssign">
             <h6 class="card-category text-gray">Company</h6>
-            <h4 class="card-title">{{this.company.name}}</h4>
+            <h4 class="card-title">{{companyAssign.name}}</h4>
             <p class="card-description">
-              ...
+              {{companyAssign.about}}
             </p>
-            <a href="javascript:void(0)" class="btn btn-info btn-round">Follow</a>
           </div>
         </div>
       </div>

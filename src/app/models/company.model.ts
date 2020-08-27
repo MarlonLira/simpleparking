@@ -7,6 +7,7 @@ export default class Company {
   name!: string;
   registryCode!: string;
   phone!: string;
+  email!:string;
   about: string;
   imageUrl: string;
 
@@ -19,6 +20,7 @@ export default class Company {
     this.registryCode = Utils.returnIfValid(json.registryCode);
     this.phone = Utils.returnIfValid(json.phone);
     this.about = Utils.returnIfValid(json.about);
+    this.email = Utils.returnIfValid(json.email);
     this.imageUrl = Utils.returnIfValid(json.imageUrl);
     this.adress = Utils.returnIfValid(json.adress);
   }
