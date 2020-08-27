@@ -33,7 +33,7 @@ import { AppRoutingModule } from './app.routing';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EmployeeProfileComponent } from './components/employee-profile/employee-profile.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { EmployeeComponent } from './components/employee/employee.component';
@@ -89,7 +89,7 @@ import { CompanyComponent } from './components/company/company.component';
   declarations: [
     AppComponent,
     DashboardComponent,
-    UserProfileComponent,
+    EmployeeProfileComponent,
     MapsComponent,
     ParkingComponent,
     EmployeeComponent,
