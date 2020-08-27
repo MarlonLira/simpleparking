@@ -14,48 +14,53 @@ export class CompanyService extends BaseService<Company> {
     super(http);
   }
 
-  Save(values): Promise<any> {
-    return new Promise((resolve) => {
+  save(values): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onPost('/company', values)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  Delete(id: number): Promise<any> {
-    return new Promise((resolve) => {
+  delete(id: number): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onDelete(`/company/${id}`)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  Update(values): Promise<any> {
-    return new Promise((resolve) => {
+  update(values): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onPut('/company', values)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  GetByRegistryCode(registryCode: string): Promise<Company[]> {
-    return new Promise((resolve) => {
+  getByRegistryCode(registryCode: string): Promise<Company[]> {
+    return new Promise((resolve, reject) => {
       this.onGet(`/company/registryCode/${registryCode}`)
-        .subscribe((requested: Company[]) => {
-          resolve(requested);
-        });
+        .subscribe(
+          (requested: Company[]) => resolve(requested),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  GetById(id: number): Promise<Company> {
-    return new Promise((resolve) => {
-      this.onGet(`/company/userId/${id}`)
-        .subscribe((requested: Company) => {
-          resolve(requested);
-        });
+  getById(id: number): Promise<Company> {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/company/${id}`)
+        .subscribe(
+          (requested: any) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
     });
   }
 }

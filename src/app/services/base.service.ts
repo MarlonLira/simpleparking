@@ -27,7 +27,7 @@ export class BaseService<T> {
     });
   }
 
-  private getAuth = (): Auth =>
+  protected getAuth = (): Auth =>
     Utils.isValid(this.storage.getItem('_sp_auth'))
       ? <Auth>JSON.parse(Crypto.Decrypt(this.storage.getItem('_sp_auth')))
       : undefined;

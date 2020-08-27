@@ -1,0 +1,112 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <h4 class="card-title">Edit Profile</h4>
+            <p class="card-category">Complete your profile</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="form">
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input matInput placeholder="Name" type="text" formControlName="name">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input matInput placeholder="Registry Code" formControlName="registryCode"
+                      mask="00.000.000/0000-00">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input matInput placeholder="Email address" type="email" formControlName="email">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input matInput placeholder="Phone" type="text" formControlName="phone" mask="(00) 0 0000-0000">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div formGroupName="adress">
+                <div class="row">
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <input matInput placeholder="Country" type="text" formControlName="country">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <input matInput placeholder="State" type="text" formControlName="state">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <input matInput placeholder="City" type="text" formControlName="city">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <input matInput placeholder="Zip Code" mask="00000-000" type="text" formControlName="zipCode">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field>
+                      <input matInput placeholder="District" type="text" formControlName="district">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field>
+                      <input matInput placeholder="Street" type="text" formControlName="street">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field>
+                      <input matInput placeholder="Number" type="text" formControlName="number">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <label>About Me</label>
+                  <mat-form-field>
+                    <textarea matInput formControlName="about"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="onUpdate()">Update
+                Profile</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <a href="javascript:void(0)">
+              <img class="img" [src]="imageUrl" />
+            </a>
+          </div>
+          <div class="card-body" *ngIf="companyAssign">
+            <h6 class="card-category text-gray">Company</h6>
+            <h4 class="card-title">{{companyAssign.name}}</h4>
+            <p class="card-description">
+              {{companyAssign.about}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

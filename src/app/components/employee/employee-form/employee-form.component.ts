@@ -42,7 +42,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
     const _value = new Employee(this.form.value);
     _value.companyId = this.authService.getAuthentication().company.id;
     const __value = { 'employee': _value };
-    this.employeeService.Save(__value)
+    this.employeeService.save(__value)
       .then(result => {
         this.toastr.info(result, '');
         this.onStopLoading();

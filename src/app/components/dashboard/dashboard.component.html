@@ -122,34 +122,5 @@
     <div>
       <app-data-table></app-data-table>
     </div>
-
-    <div class="card">
-      <div class="card-header card-header-danger">
-        <h4 class="card-title">Schedulings Stats</h4>
-        <p class="card-category">New scheguling today</p>
-      </div>
-      <div class="card-body table-responsive">
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-hover">
-          <thead class="text-primary">
-            <tr>
-              <th>ID</th>
-              <th>User</th>
-              <th>Vehicle Plate</th>
-              <th>Date</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let scheduling of schedulings">
-              <td>#{{ scheduling.id}}</td>
-              <td>{{ scheduling.userName}}</td>
-              <td>{{ scheduling.vehiclePlate}}</td>
-              <td>{{ scheduling.date}}</td>
-              <td>{{ scheduling.avaliableTime | time}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
 </div>

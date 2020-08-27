@@ -34,7 +34,6 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { TableListComponent } from './components/table-list/table-list.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { EmployeeComponent } from './components/employee/employee.component';
@@ -55,6 +54,7 @@ import { DialogComponent } from './shared/upload/dialog/dialog.component';
 import { UploadComponent } from './shared/upload/upload.component';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { CompanyComponent } from './components/company/company.component';
 
 @NgModule({
   imports: [
@@ -90,7 +90,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AppComponent,
     DashboardComponent,
     UserProfileComponent,
-    TableListComponent,
     MapsComponent,
     ParkingComponent,
     EmployeeComponent,
@@ -112,7 +111,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     EmployeeListComponent,
     DialogComponent,
     UploadComponent,
-    DataTableComponent
+    DataTableComponent,
+    CompanyComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

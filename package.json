@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "install:clean": "npm rm -rf node_modules/ && npm rm -rf package-lock.json && npm install && ng serve --open"
+    "install:clean": "npm rm -rf node_modules/ && npm rm -rf package-lock.json && npm install && ng serve --open",
+    "postinstall": "node patch.conf.js"
   },
   "engines": {
     "node": "6.11.1",

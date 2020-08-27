@@ -52,6 +52,7 @@ export abstract class Utils {
     if (isString(value)) {
       return value !== '' ? true : false;
     }
+    
     return (!isNullOrUndefined(value)) ? true : false;
   }
 

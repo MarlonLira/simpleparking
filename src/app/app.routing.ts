@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { GroupGuard } from './group-guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { TableListComponent } from './components/table-list/table-list.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { EmployeeComponent } from './components/employee/employee.component';
@@ -16,12 +15,12 @@ import { AccountRecoveryComponent } from './components/auth/account-recovery/acc
 import { ErrorComponent } from './components/error/error.component';
 import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
 import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
+import { CompanyComponent } from './components/company/company.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'user-profile', component: UserProfileComponent },
-  { path: 'table-list', component: TableListComponent },
   { path: 'maps', component: MapsComponent, canActivate: [GroupGuard] },
   {
     path: 'parking', component: ParkingComponent,
@@ -33,6 +32,7 @@ const routes: Routes = [
     canActivate: [GroupGuard]
   },
   { path: 'employee', component: EmployeeComponent },
+  { path: 'company', component: CompanyComponent },
   { path: 'auth/signin', component: SigninComponent },
   { path: 'auth/signup', component: SignupComponent },
   { path: 'auth/account-recovery', component: AccountRecoveryComponent },

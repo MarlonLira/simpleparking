@@ -28,6 +28,7 @@ export class ParkingFormComponent extends ParkingComponent {
 
   onInit(): void {
     this.onStartLoading();
+    this.formBuild();
     this.route.queryParams.subscribe(params => {
       if (params['id']) {
         this._id = params['id'];

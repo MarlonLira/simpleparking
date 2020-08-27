@@ -7,6 +7,9 @@ export default class Employee {
   public registryCode!: string;
   public phone!: string;
   public email!: string;
+  public about!: string;
+  public company: string;
+  public imageUrl: string;
   public password: string;
   public parkingId!: number;
   public companyId!: number;
@@ -20,6 +23,9 @@ export default class Employee {
     this.password = Utils.returnIfValid(json.password);
     this.phone = Utils.returnIfValid(json.phone);
     this.email = Utils.returnIfValid(json.email);
+    this.about = Utils.returnIfValid(json.about);
+    this.company = Utils.returnIfValid(json.company);
+    this.imageUrl = Utils.returnIfValid(json.imageUrl);
     this.parkingId = Utils.returnIfValid(json.parkingId);
     this.companyId = Utils.returnIfValid(json.companyId);
     this.ruleId = Utils.returnIfValid(json.ruleId);
