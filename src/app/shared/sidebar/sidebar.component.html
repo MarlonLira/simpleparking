@@ -20,14 +20,6 @@
       </span>
     </form>
     <ul class="nav navbar-nav nav-mobile-menu">
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0)">
-          <i class="material-icons">dashboard</i>
-          <p>
-            <span class="d-lg-none d-md-block">Stats</span>
-          </p>
-        </a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link" href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -52,9 +44,17 @@
           </p>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item">Marlon Lira</a>
-          <a class="dropdown-item" href="#">Sign Out</a>
+          <a class="dropdown-item">{{this.auth ? this.auth.employee.name : ''}}</a>
+          <a class="dropdown-item" (click)="signOut()">Sign Out</a>
         </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/company">
+          <i class="material-icons">domain</i>
+          <p>
+            <span class="d-lg-none d-md-block">Company</span>
+          </p>
+        </a>
       </li>
     </ul>
   </div>
