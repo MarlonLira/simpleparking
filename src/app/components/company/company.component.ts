@@ -5,6 +5,7 @@ import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import Company from 'app/models/company.model';
+import { CompanyService } from 'app/services/company.service';
 
 @Component({
   selector: 'app-company',
@@ -19,7 +20,8 @@ export class CompanyComponent extends BaseComponent {
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    public service: CompanyService
   ) {
     super(toastr, router, authService);
   }
@@ -27,9 +29,12 @@ export class CompanyComponent extends BaseComponent {
   protected onAfterViewInit(): void { }
 
   protected onInit(): void {
-    this.company = new Company(this.auth.company);
     this.formBuild();
-    this.onLoadForm(this.company);
+    this.company = new Company(this.auth.company);
+    this.service.getById(this.auth.company.id)
+      .then((result: Company) => {
+        this.onLoadForm(result);
+      }).catch(error => this.toastr.error(error['message'], 'Error'));
   }
 
   protected onDestroy(): void { }
@@ -40,10 +45,18 @@ export class CompanyComponent extends BaseComponent {
       registryCode: new FormControl(''),
       phone: new FormControl(''),
       email: new FormControl(''),
-      adress: new FormControl(''),
-      city: new FormControl(''),
-      country: new FormControl(''),
-      postalCode: new FormControl(''),
+      about: new FormControl(''),
+      adress: new FormGroup({
+        id: new FormControl(0),
+        city: new FormControl(''),
+        country: new FormControl(''),
+        state: new FormControl(''),
+        street: new FormControl(''),
+        district: new FormControl(''),
+        complement: new FormControl(''),
+        zipCode: new FormControl(''),
+        number: new FormControl(0),
+      })
     });
   }
 }
