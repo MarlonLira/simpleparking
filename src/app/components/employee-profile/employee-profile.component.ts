@@ -4,16 +4,15 @@ import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
-import User from 'app/models/user.model';
 import Employee from 'app/models/employee.model';
 import { EmployeeService } from 'app/services/employee.service';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-employee-profile',
+  templateUrl: './employee-profile.component.html',
+  styleUrls: ['./employee-profile.component.css']
 })
-export class UserProfileComponent extends BaseComponent {
+export class EmployeeProfileComponent extends BaseComponent {
 
   employeeAssign: Employee;
   imageUrl: string = "./assets/img/faces/empty-profile.png";

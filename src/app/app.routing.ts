@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { GroupGuard } from './group-guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EmployeeProfileComponent } from './components/employee-profile/employee-profile.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { EmployeeComponent } from './components/employee/employee.component';
@@ -20,7 +20,7 @@ import { CompanyComponent } from './components/company/company.component';
 const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'user-profile', component: UserProfileComponent },
+  { path: 'employee-profile', component: EmployeeProfileComponent },
   { path: 'maps', component: MapsComponent, canActivate: [GroupGuard] },
   {
     path: 'parking', component: ParkingComponent,
