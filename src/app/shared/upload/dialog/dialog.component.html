@@ -13,7 +13,7 @@
   <a mat-raised-button class="u-header-i" (click)="addFiles()" [attr.disabled]="uploading">
     <i class="material-icons">attachment</i>
   </a>
-  <a mat-raised-button class="u-header-i" (click)="uploadFiles()" [attr.disabled]="uploading">
+  <a mat-raised-button class="u-header-i" (click)="uploadFiles()" [attr.disabled]="uploading && this.files.size > 0">
     <i class="material-icons">save</i>
   </a>
 </div>
