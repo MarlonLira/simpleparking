@@ -19,7 +19,7 @@ export class EmployeeService extends BaseService<Employee> {
     return new Promise((resolve, reject) => {
       this.onGet(`/employees/companyId/${this.auth.company.id}`)
         .subscribe(
-          (requested: Employee[]) => resolve(requested),
+          (requested) => resolve(requested['result']),
           (e) => reject(e.error)
         );
     });
