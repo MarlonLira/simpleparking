@@ -24,17 +24,15 @@ export class ParkingSpaceFormComponent extends ParkingSpaceComponent {
     { 'value': 'BOTH', 'name': 'BOTH' },
   ]
 
-  public parkings: Parking[];
-
   constructor(
     public toastr: ToastrService,
     public service: ParkingSpaceService,
     public authService: AuthService,
     private route: ActivatedRoute,
     public router: Router,
-    public parkingService: ParkingService,
+    public parkingService: ParkingService
   ) {
-    super(toastr, router, authService, service);
+    super(toastr, router, authService, service, parkingService );
   }
 
   onInit(): void {
