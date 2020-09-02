@@ -55,6 +55,9 @@ import { UploadComponent } from './shared/upload/upload.component';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CompanyComponent } from './components/company/company.component';
+import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
+import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
+import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
 
 @NgModule({
   imports: [
@@ -112,7 +115,10 @@ import { CompanyComponent } from './components/company/company.component';
     DialogComponent,
     UploadComponent,
     DataTableComponent,
-    CompanyComponent
+    CompanyComponent,
+    ParkingSpaceComponent,
+    ParkingSpaceFormComponent,
+    ParkingSpaceListComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
