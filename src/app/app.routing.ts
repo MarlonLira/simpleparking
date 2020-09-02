@@ -16,6 +16,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
 import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
 import { CompanyComponent } from './components/company/company.component';
+import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
+import { SchedulingComponent } from './components/scheduling/scheduling.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
@@ -28,6 +30,13 @@ const routes: Routes = [
       { path: 'register', component: ParkingFormComponent },
       { path: 'edit', component: ParkingFormComponent },
       { path: 'list', component: ParkingListComponent }
+    ],
+    canActivate: [GroupGuard]
+  },
+  {
+    path: 'scheduling', component: SchedulingComponent,
+    children: [
+      { path: 'list', component: SchedulingListComponent }
     ],
     canActivate: [GroupGuard]
   },

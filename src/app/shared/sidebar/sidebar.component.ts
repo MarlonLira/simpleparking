@@ -16,6 +16,7 @@ export const ROUTES: RouteInfo[] = [
   { name: 'dashboard', path: '/dashboard', title: 'Dashboard', icon: 'dashboard', visible: true },
   { name: 'parking', path: '/parking/list', title: 'Parking', icon: 'local_parking', visible: true },
   { name: 'employee', path: '/employee', title: 'Employee', icon: 'engineering', visible: true },
+  { name: 'scheduling', path: '/scheduling/list', title: 'Scheduling', icon: 'bookmarks', visible: true },
   { name: 'auth', path: '/auth', title: 'auth', icon: 'engineering', visible: false },
   { name: 'maps', path: '/maps', title: 'Maps', icon: 'location_on', visible: true },
   { name: 'company', path: '/company', title: 'Company', icon: 'domain', visible: false },

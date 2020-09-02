@@ -55,6 +55,8 @@ import { UploadComponent } from './shared/upload/upload.component';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CompanyComponent } from './components/company/company.component';
+import { SchedulingComponent } from './components/scheduling/scheduling.component';
+import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 
 @NgModule({
   imports: [
@@ -112,7 +114,9 @@ import { CompanyComponent } from './components/company/company.component';
     DialogComponent,
     UploadComponent,
     DataTableComponent,
-    CompanyComponent
+    CompanyComponent,
+    SchedulingComponent,
+    SchedulingListComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
