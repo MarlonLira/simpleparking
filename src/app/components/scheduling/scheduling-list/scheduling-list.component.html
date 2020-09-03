@@ -41,13 +41,9 @@
         <ng-container matColumnDef="actions">
           <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
           <td mat-cell *matCellDef="let row">
-            <button mat-raised-button type="button" matTooltip="Edit" (click)="onEdit(row)"
+            <button mat-raised-button type="button" matTooltip="View" (click)="onView(row)"
               [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-              <i class="material-icons">edit</i>
-            </button>
-            <button mat-raised-button type="button" matTooltip="Remove" (click)="onRemove(row)"
-              [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-              <i class="material-icons">close</i>
+              <i class="material-icons">visibility</i>
             </button>
           </td>
         </ng-container>

@@ -25,4 +25,8 @@ export class SchedulingListComponent extends SchedulingComponent {
     this.onLoadList();
   }
 
+  onView(row){
+    
+  }
+
 }
