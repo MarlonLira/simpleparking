@@ -19,6 +19,8 @@ import { CompanyComponent } from './components/company/company.component';
 import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
 import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
 import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
+import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
+import { SchedulingComponent } from './components/scheduling/scheduling.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
@@ -42,6 +44,11 @@ const routes: Routes = [
       { path: 'list', component: ParkingSpaceListComponent }
     ],
     canActivate: [GroupGuard]
+  },
+  {
+    path: 'scheduling', component: SchedulingComponent,
+    children: [
+      { path: 'list', component: SchedulingListComponent }
   },
   { path: 'employee', component: EmployeeComponent },
   { path: 'company', component: CompanyComponent },

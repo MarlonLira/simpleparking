@@ -58,6 +58,8 @@ import { CompanyComponent } from './components/company/company.component';
 import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
 import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
 import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
+import { SchedulingComponent } from './components/scheduling/scheduling.component';
+import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 
 @NgModule({
   imports: [
@@ -119,6 +121,8 @@ import { ParkingSpaceListComponent } from './components/parking-space/parking-sp
     ParkingSpaceComponent,
     ParkingSpaceFormComponent,
     ParkingSpaceListComponent
+    SchedulingComponent,
+    SchedulingListComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
