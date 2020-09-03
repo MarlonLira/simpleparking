@@ -55,6 +55,9 @@ import { UploadComponent } from './shared/upload/upload.component';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CompanyComponent } from './components/company/company.component';
+import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
+import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
+import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 
@@ -115,6 +118,9 @@ import { SchedulingListComponent } from './components/scheduling/scheduling-list
     UploadComponent,
     DataTableComponent,
     CompanyComponent,
+    ParkingSpaceComponent,
+    ParkingSpaceFormComponent,
+    ParkingSpaceListComponent
     SchedulingComponent,
     SchedulingListComponent
   ],

@@ -16,6 +16,9 @@ import { ErrorComponent } from './components/error/error.component';
 import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
 import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
 import { CompanyComponent } from './components/company/company.component';
+import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
+import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
+import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
 import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 
@@ -34,11 +37,18 @@ const routes: Routes = [
     canActivate: [GroupGuard]
   },
   {
+    path: 'parking-space', component: ParkingSpaceComponent,
+    children: [
+      { path: 'register', component: ParkingSpaceFormComponent },
+      { path: 'edit', component: ParkingSpaceFormComponent },
+      { path: 'list', component: ParkingSpaceListComponent }
+    ],
+    canActivate: [GroupGuard]
+  },
+  {
     path: 'scheduling', component: SchedulingComponent,
     children: [
       { path: 'list', component: SchedulingListComponent }
-    ],
-    canActivate: [GroupGuard]
   },
   { path: 'employee', component: EmployeeComponent },
   { path: 'company', component: CompanyComponent },
