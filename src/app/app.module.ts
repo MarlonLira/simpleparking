@@ -120,7 +120,7 @@ import { SchedulingListComponent } from './components/scheduling/scheduling-list
     CompanyComponent,
     ParkingSpaceComponent,
     ParkingSpaceFormComponent,
-    ParkingSpaceListComponent
+    ParkingSpaceListComponent,
     SchedulingComponent,
     SchedulingListComponent
   ],

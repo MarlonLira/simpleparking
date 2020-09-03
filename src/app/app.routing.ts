@@ -49,6 +49,7 @@ const routes: Routes = [
     path: 'scheduling', component: SchedulingComponent,
     children: [
       { path: 'list', component: SchedulingListComponent }
+    ]
   },
   { path: 'employee', component: EmployeeComponent },
   { path: 'company', component: CompanyComponent },
