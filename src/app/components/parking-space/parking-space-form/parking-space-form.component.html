@@ -37,7 +37,7 @@
       </div>
 
       <br />
-      <button mat-raised-button type="submit" class="btn btn-info pull-right">Save</button>
+      <button mat-raised-button type="submit" [disabled]="!this.form.valid" class="btn btn-info pull-right">Save</button>
 
     </form>
     <br />

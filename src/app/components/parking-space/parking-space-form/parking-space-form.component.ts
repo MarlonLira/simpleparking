@@ -32,21 +32,20 @@ export class ParkingSpaceFormComponent extends ParkingSpaceComponent {
     public router: Router,
     public parkingService: ParkingService
   ) {
-    super(toastr, router, authService, service, parkingService );
+    super(toastr, router, authService, service, parkingService);
   }
 
   onInit(): void {
     this.formBuild();
     this.parkingService.toList()
-    .then(result => {
-      this.parkings = result;
-    })
+      .then(result => {
+        this.parkings = result;
+      })
   }
 
   objectBuild() {
     const obj: ParkingSpace = Object.assign({}, this._parkingSpaceAssign, this.form.value);
     obj.id = this._id;
-    console.log(obj)
     return obj;
   }
 
@@ -56,10 +55,8 @@ export class ParkingSpaceFormComponent extends ParkingSpaceComponent {
       this.service.save(this.objectBuild())
         .then(requested => {
           this.onResetForm();
-          // this.onLoadList();
           this.onStopLoading();
-          this.onSuccessMessage('Saved Successfully!', requested['message'])
-            .then(() => this.redirectFor('/parking-space/edit', { id: requested['result'] }));
+          this.onSuccessMessage('Saved Successfully!', requested['message']);
         }).catch(error => {
           this.onErrorMessage('Error', error.message);
           this.onStopLoading();
@@ -68,7 +65,6 @@ export class ParkingSpaceFormComponent extends ParkingSpaceComponent {
       this.service.update(this.objectBuild())
         .then(result => {
           this.onResetForm();
-          // this.onLoadList();
           this.onStopLoading();
           this.onSuccessMessage('Saved Successfully!', result)
             .then(() => this.redirectFor('/parking-space/list'));

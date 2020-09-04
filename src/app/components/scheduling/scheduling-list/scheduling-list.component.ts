@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { SchedulingService } from 'app/services/scheduling.service';
+import { ParkingService } from 'app/services/parking.service';
+import { ParkingSpaceService } from 'app/services/parking-space.service';
 
 @Component({
   selector: 'app-scheduling-list',
@@ -16,17 +18,18 @@ export class SchedulingListComponent extends SchedulingComponent {
     public toastr: ToastrService,
     public router: Router,
     public authService: AuthService,
-    public service: SchedulingService
+    public service: SchedulingService,
+    public parkingService: ParkingService,
+    public parkingSpaceService: ParkingSpaceService
   ) {
-    super(toastr, router, authService, service);
+    super(toastr, router, authService, service, parkingService, parkingSpaceService);
   }
 
-  onInit(): void {
-    this.onLoadList();
+  onView(row) {
+
   }
 
-  onView(row){
-    
+  onChange(parkingId) {
+    this.onLoadList(parkingId);
   }
-
 }

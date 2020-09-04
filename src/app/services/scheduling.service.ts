@@ -23,4 +23,14 @@ export class SchedulingService extends BaseService<Scheduling> {
         );
     });
   }
+
+  getByParkingId(id: number) {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/schedulings/parkingId/${id}`)
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
+    });
+  }
 }

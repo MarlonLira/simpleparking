@@ -27,15 +27,13 @@ export class ParkingSpaceListComponent extends ParkingSpaceComponent {
 
   onInit(): void {
     this.parkingService.toList()
-    .then((result: Parking[]) => {
-      this.parkings = result;
-      this.onLoadList(result[0].id);
-    })
-   }
+      .then((result: Parking[]) => {
+        this.parkings = result;
+      });
+  }
 
-   onChange(parking){
-     console.log(parking);
-    this.onLoadList(parking.id);
-   }
+  onChange(parkingId) {
+    this.onLoadList(parkingId);
+  }
 
 }

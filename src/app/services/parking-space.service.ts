@@ -44,7 +44,7 @@ export class ParkingSpaceService extends BaseService<ParkingSpace> {
     });
   }
 
-  toList(parkingId): Promise<ParkingSpace[]> {
+  getByParkingId(parkingId): Promise<ParkingSpace[]> {
     return new Promise((resolve, reject) => {
       this.onGet(`/parkingspace/parkingId/${parkingId}`)
         .subscribe(

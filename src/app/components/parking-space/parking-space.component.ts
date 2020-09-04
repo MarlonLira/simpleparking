@@ -31,15 +31,15 @@ export class ParkingSpaceComponent extends BaseComponent {
 
   protected onInit(): void {
     this.parkingService.toList()
-    .then(result => {
-      this.parkings = result;
-    })
-   }
+      .then(result => {
+        this.parkings = result;
+      })
+  }
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }
 
   protected onLoadList(id: number) {
-    this.service.toList(id)
+    this.service.getByParkingId(id)
       .then((result: ParkingSpace[]) => {
         this.parkingSpaces = result;
         this.displayedColumns = ['type', 'value', 'amount', 'actions'];
