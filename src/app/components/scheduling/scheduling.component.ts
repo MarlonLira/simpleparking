@@ -20,6 +20,8 @@ export class SchedulingComponent extends BaseComponent {
 
   public schedulings: any[];
   public parkings: Parking[];
+  public parkingSpaces: ParkingSpace[];
+  public selected;
   public vacancies = 0;
   public occupiedVacancies = 0;
 
@@ -35,32 +37,38 @@ export class SchedulingComponent extends BaseComponent {
   }
 
   protected onInit(): void {
-    this.parkingService.toList()
-      .then((result: Parking[]) => {
-        this.parkings = result;
-      });
+    this.onLoadList();
   }
 
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }
 
-  protected onLoadList(parkingId: number) {
-    this.service.getByParkingId(parkingId)
-      .then((schedulings: Scheduling[]) => {
-        this.schedulings = schedulings;
-        this.displayedColumns = ['id', 'userName', 'vehiclePlate', 'date', 'avaliableTime', 'unavailableTime', 'actions'];
-        this.dataSource = new MatTableDataSource(this.schedulings);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.parkingSpaceService.getByParkingId(parkingId)
-          .then((parkingSpaces: ParkingSpace[]) => {
-            let _vacancies = 0;
-            parkingSpaces.forEach((item: ParkingSpace) => {
-              _vacancies += item.amount;
-            });
-            this.vacancies = _vacancies;
-            this.occupiedVacancies = schedulings.length;
-          });
-      });
+  protected async onLoadList(id: number = 0) {
+    this.onStartLoading();
+    this.parkings = await this.parkingService.toList();
+
+    if (this.isValid(id) && id === 0) {
+      if (this.isValid(this.auth.employee.parkingId)) {
+        this.selected = this.auth.employee.parkingId;
+      } else if (this.parkings.length > 0) {
+        this.selected = this.parkings[0].id;
+      }
+      id = this.selected;
+    }
+
+    this.schedulings = await this.service.getByParkingId(id);
+    this.displayedColumns = ['id', 'userName', 'vehiclePlate', 'date', 'avaliableTime', 'unavailableTime', 'actions'];
+    this.dataSource = new MatTableDataSource(this.schedulings);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.parkingSpaces = await this.parkingSpaceService.getByParkingId(id);
+    let _vacancies = 0;
+
+    this.parkingSpaces.forEach((item: ParkingSpace) => {
+      _vacancies += item.amount;
+    });
+    this.vacancies = _vacancies;
+    this.occupiedVacancies = this.schedulings.length;
+    this.onStopLoading();
   }
 }

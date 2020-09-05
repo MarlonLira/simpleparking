@@ -24,7 +24,7 @@ export class SchedulingService extends BaseService<Scheduling> {
     });
   }
 
-  getByParkingId(id: number) {
+  getByParkingId(id: number): Promise<Scheduling[]> {
     return new Promise((resolve, reject) => {
       this.onGet(`/schedulings/parkingId/${id}`)
         .subscribe(

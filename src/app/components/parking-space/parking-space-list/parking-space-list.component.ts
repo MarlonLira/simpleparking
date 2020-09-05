@@ -5,7 +5,6 @@ import { AuthService } from 'app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ParkingSpaceService } from 'app/services/parking-space.service';
 import { ParkingService } from 'app/services/parking.service';
-import Parking from 'app/models/parking.model';
 
 @Component({
   selector: 'app-parking-space-list',
@@ -23,13 +22,6 @@ export class ParkingSpaceListComponent extends ParkingSpaceComponent {
     public parkingService: ParkingService
   ) {
     super(toastr, router, authService, service, parkingService);
-  }
-
-  onInit(): void {
-    this.parkingService.toList()
-      .then((result: Parking[]) => {
-        this.parkings = result;
-      });
   }
 
   onChange(parkingId) {

@@ -18,6 +18,7 @@ import { ParkingService } from 'app/services/parking.service';
 export class ParkingSpaceComponent extends BaseComponent {
   parkingSpaces: ParkingSpace[];
   public parkings: Parking[];
+  public selected;
 
   constructor(
     public toastr: ToastrService,
@@ -30,23 +31,31 @@ export class ParkingSpaceComponent extends BaseComponent {
   }
 
   protected onInit(): void {
-    this.parkingService.toList()
-      .then(result => {
-        this.parkings = result;
-      })
+    this.onLoadList();
   }
+
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }
 
-  protected onLoadList(id: number) {
-    this.service.getByParkingId(id)
-      .then((result: ParkingSpace[]) => {
-        this.parkingSpaces = result;
-        this.displayedColumns = ['type', 'value', 'amount', 'actions'];
-        this.dataSource = new MatTableDataSource(this.parkingSpaces);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+  protected async onLoadList(id: number = 0) {
+    this.onStartLoading();
+    this.parkings = await this.parkingService.toList();
+
+    if (this.isValid(id) && id === 0) {
+      if (this.isValid(this.auth.employee.parkingId)) {
+        this.selected = this.auth.employee.parkingId;
+      } else if (this.parkings.length > 0) {
+        this.selected = this.parkings[0].id;
+      }
+      id = this.selected;
+    }
+
+    this.parkingSpaces = await this.service.getByParkingId(id);
+    this.displayedColumns = ['type', 'value', 'amount', 'actions'];
+    this.dataSource = new MatTableDataSource(this.parkingSpaces);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.onStopLoading();
   }
 
   formBuild(): void {
