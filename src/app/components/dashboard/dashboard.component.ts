@@ -11,7 +11,6 @@ import { Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { DataTableDirective } from 'angular-datatables';
 import { ParkingSpaceService } from 'app/services/parking-space.service';
-import Parking from 'app/models/parking.model';
 import { ParkingService } from 'app/services/parking.service';
 
 @Component({
@@ -26,34 +25,11 @@ export class DashboardComponent extends BaseComponent {
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
-    private http: HttpClient,
     public router: Router,
     public parkingSpaceService: ParkingSpaceService,
     public parkingService: ParkingService
   ) {
     super(toastr, router, authService);
-  }
-
-  getVehicles() {
-    return new Promise((resolve) => {
-      this.http.get(`${Consts.API_URL}/vehicles/userid/1`)
-        .subscribe(requested => {
-          resolve(requested['result']);
-        });
-    });
-  }
-
-  getSchedulings() {
-    return new Promise((resolve) => {
-      this.http.get(`${Consts.API_URL}/schedulings/companyid/1`)
-        .subscribe(requested => {
-          resolve(requested['result']);
-        });
-    });
-  }
-
-  SeletectedRow(row) {
-    console.log(row);
   }
 
   startAnimationForLineChart(chart) {
@@ -193,14 +169,6 @@ export class DashboardComponent extends BaseComponent {
 
     // start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);
-    this.dtTrigger = new Subject();
-  }
-
-  refreshTable(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next();
-    });
   }
 
   protected onAfterViewInit(): void {

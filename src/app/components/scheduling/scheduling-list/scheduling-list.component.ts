@@ -26,7 +26,7 @@ export class SchedulingListComponent extends SchedulingComponent {
   }
 
   onView(row) {
-
+    this.onErrorMessage('Error', 'Method not implemented!');
   }
 
   onChange(parkingId) {
