@@ -22,35 +22,57 @@ export class EmployeeFormComponent extends EmployeeComponent {
   ]
 
   public parkings: Parking[];
+  public employeeAssign: Employee;
 
   constructor(
     public toastr: ToastrService,
-    public employeeService: EmployeeService,
+    public service: EmployeeService,
     public parkingService: ParkingService,
     public authService: AuthService,
     public router: Router
   ) {
-    super(toastr, employeeService, authService, router);
-    parkingService.toList()
+    super(toastr, service, authService, router);
+  }
+
+  onInit() {
+    this.formBuild();
+    this.parkingService.toList()
       .then(result => {
         this.parkings = result;
       })
   }
 
+  objectBuild() {
+    const obj: Employee = Object.assign({}, this.employeeAssign, this.form.value);
+   obj.companyId = this.auth.company.id;
+    return obj;
+  }
+
+
   onSubmit() {
     this.onStartLoading();
-    const _value = new Employee(this.form.value);
-    _value.companyId = this.authService.getAuthentication().company.id;
-    const __value = { 'employee': _value };
-    this.employeeService.save(__value)
-      .then(result => {
-        this.toastr.info(result, '');
-        this.onStopLoading();
-        this.onResetForm();
-      }).catch(error => {
-        this.toastr.error(error, '');
-        this.onStopLoading();
-      })
+    if (!this.isEditing) {
+      this.service.save(this.objectBuild())
+        .then(requested => {
+          this.onResetForm();
+          this.onStopLoading();
+          this.onSuccessMessage('Saved Successfully!', requested['message']);
+        }).catch(error => {
+          this.onErrorMessage('Error', error.message);
+          this.onStopLoading();
+        });
+    } else {
+      this.service.update(this.objectBuild())
+        .then(result => {
+          this.onResetForm();
+          this.onStopLoading();
+          this.onSuccessMessage('Saved Successfully!', result)
+            .then(() => this.redirectFor('/parking-space/list'));
+        }).catch(error => {
+          this.onErrorMessage('Error', error.message);
+          this.onStopLoading();
+        });
+    }
   }
 
 }

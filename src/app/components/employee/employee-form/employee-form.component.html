@@ -2,17 +2,17 @@
   <div class="card-body">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Id" formControlName="id" disabled>
           </mat-form-field>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Name" formControlName="name">
           </mat-form-field>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Registry Code" mask="000.000.000-00" type="text"
               formControlName="registryCode">
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Phone" mask="(00) 0 0000-0000" type="text" formControlName="phone">
           </mat-form-field>
@@ -33,12 +33,12 @@
 
       </div>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Password" type="password" formControlName="password">
           </mat-form-field>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-4">
           <mat-form-field>
             <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword">
           </mat-form-field>

@@ -7,6 +7,7 @@ import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-employee',
@@ -14,19 +15,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent extends BaseComponent {
+  private static _selectedEmployee: Employee;
   employees: Employee[];
-
-  form = new FormGroup({
-    id: new FormControl({ value: 0, disabled: true }),
-    name: new FormControl(''),
-    registryCode: new FormControl(''),
-    phone: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl(''),
-    ruleId: new FormControl(''),
-    parkingId: new FormControl(''),
-  });
 
   constructor(
     public toastr: ToastrService,
@@ -38,16 +28,36 @@ export class EmployeeComponent extends BaseComponent {
     super(toastr, router, authService);
   }
 
-  protected onInit() {
-    this.employeeService.ToList()
+  protected onSelectedEmployee = (employee: Employee) => EmployeeComponent._selectedEmployee = employee;
+  protected SelectedEmployee = () => EmployeeComponent._selectedEmployee;
+  protected onAfterViewInit(): void { }
+  protected onDestroy(): void { }
+  protected onInit() { }
+
+  protected onLoadList() {
+    this.employeeService.toList()
       .then((result: Employee[]) => {
+        console.log(result);
         this.employees = result;
+        this.displayedColumns = ['id', 'name', 'registryCode', 'phone', 'email', 'actions'];
+        this.dataSource = new MatTableDataSource(this.employees);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
   }
 
-  protected onAfterViewInit(): void {
-  }
-  protected onDestroy(): void {
+  formBuild(): void {
+    this.form = new FormGroup({
+      id: new FormControl({ value: 0, disabled: true }),
+      name: new FormControl(''),
+      registryCode: new FormControl(''),
+      phone: new FormControl(''),
+      email: new FormControl(''),
+      password: new FormControl(''),
+      confirmPassword: new FormControl(''),
+      ruleId: new FormControl(''),
+      parkingId: new FormControl(''),
+    });
   }
 
 }
