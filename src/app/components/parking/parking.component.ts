@@ -15,7 +15,6 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./parking.component.css']
 })
 export class ParkingComponent extends BaseComponent {
-  private static _selectedParking: Parking;
   parkings: Parking[];
 
   constructor(
@@ -27,8 +26,6 @@ export class ParkingComponent extends BaseComponent {
     super(toastr, router, authService);
   }
 
-  protected onSelectedParking = (parking: Parking) => ParkingComponent._selectedParking = parking;
-  protected SelectedParking = () => ParkingComponent._selectedParking;
   protected onInit(): void { }
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }

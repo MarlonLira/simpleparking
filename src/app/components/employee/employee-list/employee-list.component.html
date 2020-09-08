@@ -23,14 +23,19 @@
           <td mat-cell *matCellDef="let row"> {{row.registryCode | mask:'000.000.000-00'}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="phone">
-          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
-          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.phone | mask:'(00) 0 0000-0000'}} </td>
-        </ng-container>
-
         <ng-container matColumnDef="email">
           <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
           <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="rule">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Rule </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.rule.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="parking">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Parking </th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.parking.name}} </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
@@ -51,7 +56,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="6">No data matching the filter "{{input.value}}"</td>
+          <td class="mat-cell" colspan="7">No data matching the filter "{{input.value}}"</td>
         </tr>
       </table>
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

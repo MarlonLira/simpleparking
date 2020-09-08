@@ -8,9 +8,7 @@ import { BaseService } from './base.service';
 })
 export class ParkingService extends BaseService<Parking> {
 
-  constructor(
-    public http: HttpClient
-  ) {
+  constructor(public http: HttpClient) {
     super(http);
   }
 

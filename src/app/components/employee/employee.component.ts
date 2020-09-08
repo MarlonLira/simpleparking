@@ -8,6 +8,11 @@ import { AuthService } from 'app/services/auth.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import Parking from 'app/models/parking.model';
+import Rule from 'app/models/rule.model';
+import { RuleService } from 'app/services/rule.service';
+import { ParkingService } from 'app/services/parking.service';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-employee',
@@ -15,35 +20,42 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent extends BaseComponent {
-  private static _selectedEmployee: Employee;
-  employees: Employee[];
+  public employees: Employee[];
+  public parkings: Parking[];
+  public rules: Rule[];
 
   constructor(
     public toastr: ToastrService,
-    public employeeService: EmployeeService,
+    public service: EmployeeService,
     public authService: AuthService,
+    public parkingService: ParkingService,
+    public ruleService: RuleService,
     public router: Router
 
   ) {
     super(toastr, router, authService);
   }
 
-  protected onSelectedEmployee = (employee: Employee) => EmployeeComponent._selectedEmployee = employee;
-  protected SelectedEmployee = () => EmployeeComponent._selectedEmployee;
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }
   protected onInit() { }
 
-  protected onLoadList() {
-    this.employeeService.toList()
-      .then((result: Employee[]) => {
-        console.log(result);
-        this.employees = result;
-        this.displayedColumns = ['id', 'name', 'registryCode', 'phone', 'email', 'actions'];
-        this.dataSource = new MatTableDataSource(this.employees);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+  protected async onLoadList() {
+    this.onStartLoading();
+    this.employees = await this.service.toList();
+    this.rules = await this.ruleService.toList();
+    this.parkings = await this.parkingService.toList();
+
+    this.employees.forEach((employee: Employee) => {
+      employee.rule = this.rules.find(r => r.id === employee.ruleId);
+      employee.parking = this.returnIfValid(this.parkings.find(p => p.id === employee.parkingId), new Parking({ 'name': 'N/A' }));
+    });
+
+    this.displayedColumns = ['id', 'name', 'registryCode', 'email', 'rule', 'parking', 'actions'];
+    this.dataSource = new MatTableDataSource(this.employees);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.onStopLoading();
   }
 
   formBuild(): void {
