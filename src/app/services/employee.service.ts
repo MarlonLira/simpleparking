@@ -15,7 +15,7 @@ export class EmployeeService extends BaseService<Employee> {
     super(http);
   }
 
-  ToList(): Promise<Employee[]> {
+  toList(): Promise<Employee[]> {
     return new Promise((resolve, reject) => {
       this.onGet(`/employees/companyId/${this.auth.company.id}`)
         .subscribe(
@@ -50,6 +50,16 @@ export class EmployeeService extends BaseService<Employee> {
       this.onGet(`/employee/${id}`)
         .subscribe(
           (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
+    });
+  }
+
+  delete(id: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.onDelete(`/employee/${id}`)
+        .subscribe(
+          (requested) => resolve(requested['message']),
           (e) => reject(e.error)
         );
     });
