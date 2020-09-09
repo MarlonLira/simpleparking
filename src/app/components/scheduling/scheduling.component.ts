@@ -10,6 +10,7 @@ import { ParkingSpaceService } from 'app/services/parking-space.service';
 import ParkingSpace from 'app/models/parking-space.model';
 import { ParkingService } from 'app/services/parking.service';
 import Parking from 'app/models/parking.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-scheduling',
@@ -18,7 +19,7 @@ import Parking from 'app/models/parking.model';
 })
 export class SchedulingComponent extends BaseComponent {
 
-  public schedulings: any[];
+  public schedulings: Scheduling[];
   public parkings: Parking[];
   public parkingSpaces: ParkingSpace[];
   public selected;
@@ -67,8 +68,23 @@ export class SchedulingComponent extends BaseComponent {
     this.parkingSpaces.forEach((item: ParkingSpace) => {
       _vacancies += item.amount;
     });
+
     this.vacancies = _vacancies;
     this.occupiedVacancies = this.schedulings.length;
     this.onStopLoading();
+  }
+
+  formBuild(): void {
+    this.form = new FormGroup({
+      id: new FormControl({ value: 0, disabled: true }),
+      userName: new FormControl({ value: '', disabled: true }),
+      cardNumber: new FormControl({ value: '', disabled: true }),
+      vehiclePlate: new FormControl({ value: '', disabled: true }),
+      vehicleType: new FormControl({ value: '', disabled: true }),
+      value: new FormControl({ value: 0, disabled: true }),
+      date: new FormControl({ value: undefined, disabled: true }),
+      avaliableTime: new FormControl({ value: undefined, disabled: true }),
+      unavailableTime: new FormControl({ value: undefined, disabled: true }),
+    });
   }
 }

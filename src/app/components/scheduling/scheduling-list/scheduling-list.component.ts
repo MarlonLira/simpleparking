@@ -6,6 +6,8 @@ import { AuthService } from 'app/services/auth.service';
 import { SchedulingService } from 'app/services/scheduling.service';
 import { ParkingService } from 'app/services/parking.service';
 import { ParkingSpaceService } from 'app/services/parking-space.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SchedulingViewDialogComponent } from '../scheduling-view-dialog/scheduling-view-dialog.component';
 
 @Component({
   selector: 'app-scheduling-list',
@@ -15,6 +17,7 @@ import { ParkingSpaceService } from 'app/services/parking-space.service';
 export class SchedulingListComponent extends SchedulingComponent {
 
   constructor(
+    public dialog: MatDialog,
     public toastr: ToastrService,
     public router: Router,
     public authService: AuthService,
@@ -26,7 +29,8 @@ export class SchedulingListComponent extends SchedulingComponent {
   }
 
   onView(row) {
-    this.onErrorMessage('Error', 'Method not implemented!');
+    SchedulingViewDialogComponent.scheduling = row;
+    let dialogRef = this.dialog.open(SchedulingViewDialogComponent, { width: '50%' });
   }
 
   onChange(parkingId) {
