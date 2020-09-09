@@ -80,7 +80,6 @@ export class DialogComponent extends UploadComponent {
     this.uploading = true;
     this.canBeClosed = false;
     this.dialogRef.disableClose = true;
-    console.log(this.files)
     this.progress = this.uploadService.parkingUpload(this.files, DialogComponent.id);
 
     const allProgressObservables = [];

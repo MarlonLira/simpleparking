@@ -1,0 +1,78 @@
+<a mat-dialog-close class="f-r" (click)="closeDialog()">
+  <i class="material-icons">cancel</i>
+</a>
+<br />
+<div class="u-header">
+  <div class="u-header-title">
+    <a mat-raised-button>
+      <span></span>
+      <p class="u-header-l"><b>Scheduling</b></p>
+    </a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" ngNativeValidate>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Id" formControlName="id">
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="User" formControlName="userName">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Card Number" formControlName="cardNumber">
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Vehicle Plate" type="text" formControlName="vehiclePlate">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Vehicle Type" type="text" formControlName="vehicleType">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Value" type="text" formControlName="value">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Date" type="text" formControlName="date">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Avaliable Time" type="text" formControlName="avaliableTime">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+          <mat-form-field>
+            <input matInput placeholder="Unavailable Time" type="text" formControlName="unavailableTime">
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <br />
+    <div class="clearfix"></div>
+  </div>
+</div>

@@ -60,6 +60,7 @@ import { ParkingSpaceFormComponent } from './components/parking-space/parking-sp
 import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
+import { SchedulingViewDialogComponent } from './components/scheduling/scheduling-view-dialog/scheduling-view-dialog.component';
 
 @NgModule({
   imports: [
@@ -122,7 +123,8 @@ import { SchedulingListComponent } from './components/scheduling/scheduling-list
     ParkingSpaceFormComponent,
     ParkingSpaceListComponent,
     SchedulingComponent,
-    SchedulingListComponent
+    SchedulingListComponent,
+    SchedulingViewDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
