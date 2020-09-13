@@ -61,7 +61,7 @@ export class ParkingComponent extends BaseComponent {
         number: new FormControl(0),
         latitude: new FormControl(0),
         longitude: new FormControl(0),
-      })
+      }, Validators.compose([Validators.required]))
     });
   }
 }

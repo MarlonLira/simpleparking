@@ -52,6 +52,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
 
   objectBuild() {
     const obj: Employee = Object.assign({}, this.employeeAssign, this.form.value);
+    obj.id = this._id;
     obj.companyId = this.auth.company.id;
     return obj;
   }
