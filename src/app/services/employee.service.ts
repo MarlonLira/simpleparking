@@ -65,9 +65,9 @@ export class EmployeeService extends BaseService<Employee> {
     });
   }
 
-  GetByRegistryCode(registryCode) {
+  getByRegistryCode(registryCode) {
     return new Promise((resolve, reject) => {
-      this.onGet(`/employees/companyId/${this.auth.company.id}/registryCode/${registryCode}`)
+      this.onGet(`/employees//registryCode/${registryCode}`)
         .subscribe(
           (requested) => resolve(requested),
           (e) => reject(e.error)
