@@ -1,6 +1,6 @@
 {
   "name": "simple-parking",
-  "version": "2.1.0",
+  "version": "2.5.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -13,8 +13,8 @@
     "postinstall": "node patch.conf.js"
   },
   "engines": {
-    "node": "6.11.1",
-    "npm": "3.10.9"
+    "node": "12.18.4",
+    "npm": "6.14.7"
   },
   "private": true,
   "dependencies": {
