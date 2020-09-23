@@ -15,11 +15,11 @@ export class EmployeeService extends BaseService<Employee> {
     super(http);
   }
 
-  ToList(): Promise<Employee[]> {
+  toList(): Promise<Employee[]> {
     return new Promise((resolve, reject) => {
       this.onGet(`/employees/companyId/${this.auth.company.id}`)
         .subscribe(
-          (requested: Employee[]) => resolve(requested),
+          (requested) => resolve(requested['result']),
           (e) => reject(e.error)
         );
     });
@@ -55,9 +55,19 @@ export class EmployeeService extends BaseService<Employee> {
     });
   }
 
-  GetByRegistryCode(registryCode) {
+  delete(id: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/employees/companyId/${this.auth.company.id}/registryCode/${registryCode}`)
+      this.onDelete(`/employee/${id}`)
+        .subscribe(
+          (requested) => resolve(requested['message']),
+          (e) => reject(e.error)
+        );
+    });
+  }
+
+  getByRegistryCode(registryCode) {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/employees//registryCode/${registryCode}`)
         .subscribe(
           (requested) => resolve(requested),
           (e) => reject(e.error)

@@ -611,3 +611,7 @@ iframe {
   border-top-width: 0 !important;
   border-bottom-width: 1px !important;
 }
+
+.card-stats .card-body {
+  text-align: left !important;
+}

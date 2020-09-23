@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { GroupGuard } from './group-guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EmployeeProfileComponent } from './components/employee-profile/employee-profile.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { EmployeeComponent } from './components/employee/employee.component';
@@ -16,11 +16,18 @@ import { ErrorComponent } from './components/error/error.component';
 import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
 import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
 import { CompanyComponent } from './components/company/company.component';
+import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
+import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
+import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
+import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
+import { SchedulingComponent } from './components/scheduling/scheduling.component';
+import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
+import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'user-profile', component: UserProfileComponent },
+  { path: 'employee-profile', component: EmployeeProfileComponent },
   { path: 'maps', component: MapsComponent, canActivate: [GroupGuard] },
   {
     path: 'parking', component: ParkingComponent,
@@ -31,7 +38,30 @@ const routes: Routes = [
     ],
     canActivate: [GroupGuard]
   },
-  { path: 'employee', component: EmployeeComponent },
+  {
+    path: 'parking-space', component: ParkingSpaceComponent,
+    children: [
+      { path: 'register', component: ParkingSpaceFormComponent },
+      { path: 'edit', component: ParkingSpaceFormComponent },
+      { path: 'list', component: ParkingSpaceListComponent }
+    ],
+    canActivate: [GroupGuard]
+  },
+  {
+    path: 'scheduling', component: SchedulingComponent,
+    children: [
+      { path: 'list', component: SchedulingListComponent }
+    ]
+  },
+  {
+    path: 'employee', component: EmployeeComponent,
+    children: [
+      { path: 'register', component: EmployeeFormComponent},
+      { path: 'edit', component:  EmployeeFormComponent},
+      { path: 'list', component: EmployeeListComponent }
+    ],
+    canActivate: [GroupGuard]
+  },
   { path: 'company', component: CompanyComponent },
   { path: 'auth/signin', component: SigninComponent },
   { path: 'auth/signup', component: SignupComponent },

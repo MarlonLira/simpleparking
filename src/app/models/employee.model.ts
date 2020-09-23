@@ -1,4 +1,6 @@
 import { Utils } from '../commons/core/utils';
+import Rule from './rule.model';
+import Parking from './parking.model';
 
 export default class Employee {
   public id!: number;
@@ -15,6 +17,9 @@ export default class Employee {
   public companyId!: number;
   public ruleId!: number;
 
+  public rule: Rule;
+  public parking: Parking;
+
   constructor(json?: any) {
     this.id = Utils.returnIfValid(json.id);
     this.name = Utils.returnIfValid(json.name);
@@ -27,8 +32,10 @@ export default class Employee {
     this.company = Utils.returnIfValid(json.company);
     this.imageUrl = Utils.returnIfValid(json.imageUrl);
     this.parkingId = Utils.returnIfValid(json.parkingId);
+    this.parking = Utils.returnIfValid(json.parking);
     this.companyId = Utils.returnIfValid(json.companyId);
     this.ruleId = Utils.returnIfValid(json.ruleId);
+    this.rule = Utils.returnIfValid(json.rule);
   }
 
 }

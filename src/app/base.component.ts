@@ -23,10 +23,9 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   public storage: Storage;
   public form: FormGroup;
   public isEditing = false;
-  public dtOptions: any = {};
-  public dtTrigger: Subject<any> = new Subject();
-  displayedColumns: string[];
-  dataSource: MatTableDataSource<any>;
+
+  public displayedColumns: string[];
+  public dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

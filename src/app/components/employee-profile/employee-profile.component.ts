@@ -4,16 +4,16 @@ import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
-import User from 'app/models/user.model';
 import Employee from 'app/models/employee.model';
 import { EmployeeService } from 'app/services/employee.service';
+import { Utils } from 'app/commons/core/utils';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-employee-profile',
+  templateUrl: './employee-profile.component.html',
+  styleUrls: ['./employee-profile.component.css']
 })
-export class UserProfileComponent extends BaseComponent {
+export class EmployeeProfileComponent extends BaseComponent {
 
   employeeAssign: Employee;
   imageUrl: string = "./assets/img/faces/empty-profile.png";
@@ -44,6 +44,7 @@ export class UserProfileComponent extends BaseComponent {
       registryCode: new FormControl(''),
       phone: new FormControl(''),
       email: new FormControl(''),
+      password: new FormControl(''),
       about: new FormControl(''),
       company: new FormControl({ value: '', disabled: true })
     });
@@ -51,6 +52,9 @@ export class UserProfileComponent extends BaseComponent {
 
   objectBuild() {
     const obj: Employee = Object.assign({}, this.employeeAssign, this.form.value);
+    if(!Utils.isValid(obj.password)){
+      delete obj.password;  
+    }
     return obj;
   }
 

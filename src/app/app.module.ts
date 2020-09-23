@@ -33,7 +33,7 @@ import { AppRoutingModule } from './app.routing';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EmployeeProfileComponent } from './components/employee-profile/employee-profile.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { EmployeeComponent } from './components/employee/employee.component';
@@ -55,6 +55,12 @@ import { UploadComponent } from './shared/upload/upload.component';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CompanyComponent } from './components/company/company.component';
+import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
+import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
+import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
+import { SchedulingComponent } from './components/scheduling/scheduling.component';
+import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
+import { SchedulingViewDialogComponent } from './components/scheduling/scheduling-view-dialog/scheduling-view-dialog.component';
 
 @NgModule({
   imports: [
@@ -89,7 +95,7 @@ import { CompanyComponent } from './components/company/company.component';
   declarations: [
     AppComponent,
     DashboardComponent,
-    UserProfileComponent,
+    EmployeeProfileComponent,
     MapsComponent,
     ParkingComponent,
     EmployeeComponent,
@@ -112,7 +118,13 @@ import { CompanyComponent } from './components/company/company.component';
     DialogComponent,
     UploadComponent,
     DataTableComponent,
-    CompanyComponent
+    CompanyComponent,
+    ParkingSpaceComponent,
+    ParkingSpaceFormComponent,
+    ParkingSpaceListComponent,
+    SchedulingComponent,
+    SchedulingListComponent,
+    SchedulingViewDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent],

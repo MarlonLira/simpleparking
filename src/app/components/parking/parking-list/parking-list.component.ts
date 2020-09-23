@@ -26,7 +26,6 @@ export class ParkingListComponent extends ParkingComponent {
   }
 
   onEdit(parking) {
-    this.onSelectedParking(parking);
     this.redirectFor('/parking/edit', { id: parking.id });
   }
 

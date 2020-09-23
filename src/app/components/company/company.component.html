@@ -10,27 +10,27 @@
           <div class="card-body">
             <form [formGroup]="form">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <mat-form-field>
                     <input matInput placeholder="Name" type="text" formControlName="name">
                   </mat-form-field>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <mat-form-field>
                     <input matInput placeholder="Registry Code" formControlName="registryCode"
                       mask="00.000.000/0000-00">
                   </mat-form-field>
                 </div>
-                <div class="col-md-4">
-                  <mat-form-field>
-                    <input matInput placeholder="Email address" type="email" formControlName="email">
-                  </mat-form-field>
-                </div>
               </div>
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                   <mat-form-field>
                     <input matInput placeholder="Phone" type="text" formControlName="phone" mask="(00) 0 0000-0000">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field>
+                    <input matInput placeholder="Email address" type="email" formControlName="email">
                   </mat-form-field>
                 </div>
               </div>

@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" ngNativeValidate>
+      <div class="row">
+        <div class="col-md-5">
+          <mat-form-field>
+            <input matInput placeholder="Amount" type="number" formControlName="amount">
+          </mat-form-field>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field>
+            <input matInput placeholder="Value" type="number" step="any" min="0" formControlName="value">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <mat-form-field appearance="fill">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="type">
+              <mat-option *ngFor="let type of types" [value]="type.value">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field appearance="fill">
+            <mat-label>Parking</mat-label>
+            <mat-select formControlName="parkingId">
+              <mat-option *ngFor="let parking of parkings" [value]="parking.id">
+                {{parking.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <br />
+      <button mat-raised-button type="submit" [disabled]="!this.form.valid" class="btn btn-info pull-right">Save</button>
+
+    </form>
+    <br />
+    <div>
+      <app-upload title="Images" id='{{this._id}}' multiple="{{false}}"></app-upload>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
