@@ -8,22 +8,32 @@ import {
 import { Subject, Observable } from 'rxjs';
 import { BaseService } from './base.service';
 import Consts from '../consts';
-import Upload from 'app/models/upload.model';
+import ParkingFile from 'app/models/parking-file.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UploadService extends BaseService<File> {
+export class UploadService extends BaseService<ParkingFile> {
 
   constructor(public http: HttpClient) {
     super(http);
   }
 
-  public toList(id: number): Promise<Upload[]> {
+  public toList(id: number): Promise<ParkingFile[]> {
     return new Promise((resolve, reject) => {
       this.onGet(`/uploads/parkingId/${id}`)
         .subscribe(
           (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
+    });
+  }
+
+  save(values: ParkingFile): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.onPost('/parkingFile', values)
+        .subscribe(
+          (requested) => resolve(requested),
           (e) => reject(e.error)
         );
     });
@@ -57,4 +67,31 @@ export class UploadService extends BaseService<File> {
     });
     return status;
   }
+
+  public encodeImages(files: Set<File>, id: number) {
+    return new Promise((resolve, reject) => {
+      let result: any;
+      files.forEach((file: File) => {
+        const upload = new ParkingFile();
+        upload.encoded = file;
+        upload.name = file.name;
+        upload.type = file.type;
+        upload.parkingId = id;
+        this.save(upload)
+          .then(result => resolve(result))
+          .catch(error => reject(error))
+      });
+      resolve(result);
+    });
+  }
+
+  public toBase64(file: File) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.toString());
+      reader.onerror = error => reject(error);
+    })
+  };
+
 }
