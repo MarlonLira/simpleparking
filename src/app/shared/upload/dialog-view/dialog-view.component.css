@@ -1,0 +1,27 @@
+.f-r {
+  float: right;
+}
+
+.u-header {
+  display: flex;
+  justify-content: center;
+}
+
+.u-header-l {
+  display: contents;
+}
+
+.u-header-title {
+  display: grid;
+  min-width: 70%;
+}
+
+.u-content {
+  display: flex;
+  justify-content: center;
+}
+
+.u-header-label{
+  padding-top: 6px;
+  margin: 0px;
+}

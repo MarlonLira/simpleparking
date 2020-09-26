@@ -1,14 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { DialogComponent } from './dialog/dialog.component';
-import { UploadService } from 'app/services/upload.service';
+import { Component, Input, ViewChild } from '@angular/core';
+import { ParkingFileService } from 'app/services/parking-file.service';
 import { MatDialog } from '@angular/material/dialog';
-import Upload from 'app/models/upload.model';
 import { ToastrService } from 'ngx-toastr';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 import { Utils } from 'app/commons/core/utils';
 import { MatTableDataSource } from '@angular/material/table';
+import ParkingFile from 'app/models/parking-file.model';
+import { DialogViewComponent } from './dialog-view/dialog-view.component';
 
 @Component({
   selector: 'app-upload',
@@ -16,6 +16,8 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent extends BaseComponent {
+  @ViewChild('file', { static: false }) file;
+  public files: Set<File> = new Set();
 
   @Input() public id: any;
   @Input() public title: string;
@@ -23,7 +25,7 @@ export class UploadComponent extends BaseComponent {
 
   constructor(
     public dialog: MatDialog,
-    public service: UploadService,
+    public service: ParkingFileService,
     public toastr: ToastrService,
     public authService: AuthService,
     public router: Router) {
@@ -34,38 +36,14 @@ export class UploadComponent extends BaseComponent {
     this.onLoadList();
   }
 
-  protected onAfterViewInit(): void {
-  }
-  protected onDestroy(): void {
-  }
-
-  public openUploadDialog() {
-    DialogComponent.id = this.id;
-    DialogComponent.multiple = this.multiple;
-    let dialogRef = this.dialog.open(DialogComponent, { width: '50%' });
-  }
-
-  onView(file: Upload) {
-    this.onErrorMessage('Error', 'Method not implemented!')
-  }
-
-  onRemove(file: Upload) {
-    this.onConfirmMessage()
-      .then((btn) => {
-        if (btn.isConfirmed) {
-          this.onStartLoading();
-          this.onLoadList();
-          this.onStopLoading();
-          this.onErrorMessage('Error', 'Method not implemented!')
-        }
-      });
-  }
+  protected onAfterViewInit(): void { }
+  protected onDestroy(): void { }
 
   protected onLoadList() {
     if (Utils.isValid(this.id)) {
-      this.service.toList(this.id)
-        .then((result: Upload[]) => {
-          this.displayedColumns = ['id', 'name', 'actions'];
+      this.service.getByParkingId(this.id)
+        .then((result: ParkingFile[]) => {
+          this.displayedColumns = ['id', 'name', 'type', 'actions'];
           this.dataSource = new MatTableDataSource(result);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -74,9 +52,93 @@ export class UploadComponent extends BaseComponent {
     }
   }
 
-  refreshTable(): void {
-    $('#tblUpload').DataTable().destroy();
-    this.onLoadList();
+  async onView(file: ParkingFile) {
+    this.setImageForViewing(file);
+    let dialogRef = this.dialog.open(DialogViewComponent, { width: '50%', });
   }
 
+  onRemove(file: ParkingFile) {
+    this.onConfirmMessage()
+      .then((btn) => {
+        if (btn.isConfirmed) {
+          this.onStartLoading();
+          this.service.delete(file.id)
+            .then(result => {
+              this.onLoadList();
+              this.onStopLoading();
+              this.onSuccessMessage('Deleted!', result);
+            });
+        }
+      });
+  }
+
+  onFilesAdded() {
+    const selectedFiles: { [key: string]: File } = this.file.nativeElement.files;
+    for (const key in selectedFiles) {
+      if (!isNaN(parseInt(key, 10))) {
+        this.files.add(selectedFiles[key]);
+      }
+    }
+    this.checkFileType(this.files);
+  }
+
+  checkFileType(files: Set<File>) {
+    files.forEach(async file => {
+      var fileName = file.name;
+      var idxDot = fileName.lastIndexOf('.') + 1;
+      var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+      if (extFile == 'jpg' || extFile == 'jpeg' || extFile == 'png' || extFile == 'gif') {
+        await this.uploadFiles();
+      } else {
+        this.files.delete(file);
+        this.toastr.error('Only jpg/jpeg/gif and png files are allowed!', 'Error')
+      }
+    })
+  }
+
+  addFiles() {
+    this.onStartLoading();
+    this.file.nativeElement.click();
+  }
+
+  uploadFiles() {
+    return new Promise((resolve, reject) => {
+      let count = 0;
+      this.files.forEach(async (file: File) => {
+        count++;
+        const upload = new ParkingFile();
+        upload.encoded = await this.toBase64(file);
+        upload.name = file.name;
+        upload.type = file.type;
+        upload.parkingId = this.id;
+        this.service.save(upload)
+          .then((requested: any) => {
+            if (count == this.files.size) {
+              this.files.clear();
+              this.onLoadList();
+              this.onSuccessMessage('Saved Successfully!', requested['message']);
+              this.onStopLoading();
+              resolve(requested);
+            }
+          }).catch((error: any) => {
+            this.files.clear();
+            this.onErrorMessage('Error', error.message);
+            this.onStopLoading();
+            reject(error);
+          })
+      });
+    });
+  }
+
+  public toBase64(file): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.toString());
+      reader.onerror = error => reject(error);
+    })
+  };
+
+  protected setImageForViewing = (image) => this.storage.setItem('_sp_img_viewing', JSON.stringify(image));
+  protected getImageForViewing = (): ParkingFile => new ParkingFile(JSON.parse(this.storage.getItem('_sp_img_viewing')));
 }
