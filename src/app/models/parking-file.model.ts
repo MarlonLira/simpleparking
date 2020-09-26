@@ -3,7 +3,7 @@ import { Utils } from '../commons/core/utils';
 export default class ParkingFile {
   id: number;
   name: string;
-  encoded: File;
+  encoded: any;
   type: string;
   parkingId: number;
 
@@ -16,4 +16,5 @@ export default class ParkingFile {
       this.parkingId = Utils.returnIfValid(json.parkingId);
     }
   }
+  public toLink = () => `${atob(this.encoded)}`;
 }

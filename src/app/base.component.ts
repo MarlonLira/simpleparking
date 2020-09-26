@@ -184,4 +184,6 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   protected onConfirmMessage = () => Swal.fire(this.onConfirmMessageConfig);
   protected onSuccessMessage = (title: string, message?: string) => Swal.fire(title, message, 'success');
   protected onErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
+  protected encodedToLink = (file: any): string => atob(file.encoded);
+  
 }

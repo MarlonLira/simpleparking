@@ -1,0 +1,25 @@
+<a mat-dialog-close class="f-r" (click)="closeDialog()">
+  <i class="material-icons">cancel</i>
+</a>
+<br />
+<div class="u-header">
+  <div class="u-header-title">
+    <a mat-raised-button>
+      <span></span>
+      <p class="u-header-label"><b>Image View</b></p>
+    </a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="card-content">
+      <p>Name: {{name}}</p>
+      <div class="u-content">
+        <img [src]="imageUrl" />
+      </div>
+      <br />
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>

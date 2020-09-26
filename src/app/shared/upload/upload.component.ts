@@ -1,7 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { UploadService } from 'app/services/upload.service';
+import { ParkingFileService } from 'app/services/parking-file.service';
 import { MatDialog } from '@angular/material/dialog';
-import Upload from 'app/models/parking-file.model';
 import { ToastrService } from 'ngx-toastr';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
@@ -9,6 +8,7 @@ import { Router } from '@angular/router';
 import { Utils } from 'app/commons/core/utils';
 import { MatTableDataSource } from '@angular/material/table';
 import ParkingFile from 'app/models/parking-file.model';
+import { DialogViewComponent } from './dialog-view/dialog-view.component';
 
 @Component({
   selector: 'app-upload',
@@ -25,24 +25,11 @@ export class UploadComponent extends BaseComponent {
 
   constructor(
     public dialog: MatDialog,
-    public service: UploadService,
+    public service: ParkingFileService,
     public toastr: ToastrService,
     public authService: AuthService,
-    public uploadService: UploadService,
     public router: Router) {
     super(toastr, router, authService);
-  }
-
-  onRemove(file: Upload) {
-    this.onConfirmMessage()
-      .then((btn) => {
-        if (btn.isConfirmed) {
-          this.onStartLoading();
-          this.onLoadList();
-          this.onStopLoading();
-          this.onErrorMessage('Error', 'Method not implemented!')
-        }
-      });
   }
 
   protected onInit(): void {
@@ -54,7 +41,7 @@ export class UploadComponent extends BaseComponent {
 
   protected onLoadList() {
     if (Utils.isValid(this.id)) {
-      this.service.toList(this.id)
+      this.service.getByParkingId(this.id)
         .then((result: ParkingFile[]) => {
           this.displayedColumns = ['id', 'name', 'type', 'actions'];
           this.dataSource = new MatTableDataSource(result);
@@ -65,11 +52,24 @@ export class UploadComponent extends BaseComponent {
     }
   }
 
-  onView(file: ParkingFile) {
-    var binaryData = [];
-    binaryData.push(file.encoded);
-    const url = window.URL.createObjectURL(new Blob(binaryData, { type: file.type }));
-    console.log(url);
+  async onView(file: ParkingFile) {
+    this.setImageForViewing(file);
+    let dialogRef = this.dialog.open(DialogViewComponent, { width: '50%', });
+  }
+
+  onRemove(file: ParkingFile) {
+    this.onConfirmMessage()
+      .then((btn) => {
+        if (btn.isConfirmed) {
+          this.onStartLoading();
+          this.service.delete(file.id)
+            .then(result => {
+              this.onLoadList();
+              this.onStopLoading();
+              this.onSuccessMessage('Deleted!', result);
+            });
+        }
+      });
   }
 
   onFilesAdded() {
@@ -107,19 +107,21 @@ export class UploadComponent extends BaseComponent {
       this.files.forEach(async (file: File) => {
         count++;
         const upload = new ParkingFile();
-        upload.encoded = file;
+        upload.encoded = await this.toBase64(file);
         upload.name = file.name;
         upload.type = file.type;
         upload.parkingId = this.id;
-        this.uploadService.save(upload)
+        this.service.save(upload)
           .then((requested: any) => {
             if (count == this.files.size) {
+              this.files.clear();
               this.onLoadList();
               this.onSuccessMessage('Saved Successfully!', requested['message']);
               this.onStopLoading();
               resolve(requested);
             }
           }).catch((error: any) => {
+            this.files.clear();
             this.onErrorMessage('Error', error.message);
             this.onStopLoading();
             reject(error);
@@ -137,53 +139,6 @@ export class UploadComponent extends BaseComponent {
     })
   };
 
-
-  public blobToBase64(blob: Blob) {
-    console.log(blob)
-    const reader = new FileReader();
-    reader.readAsDataURL(blob);
-    return new Promise(resolve => {
-      reader.onloadend = () => {
-        resolve(reader.result);
-      };
-    });
-  };
-
-  toBlob(file: File): Promise<Blob> {
-    return new Promise((resolve, reject) => {
-      this.toBase64(file)
-        .then(b64 => {
-          console.log(b64)
-          this.b64toBlob(b64)
-            .then((blob: Blob) => resolve(blob))
-            .catch(error => reject(error));
-        }).catch(error => reject(error));
-    })
-
-  }
-
-  public b64toBlob(base64Image): Promise<Blob> {
-    return new Promise((resolve) => {
-      const parts = base64Image.split(';base64,');
-
-      // Hold the content type
-      const imageType = parts[0].split(':')[1];
-
-      // Decode Base64 string
-      const decodedData = window.atob(parts[1]);
-
-      // Create UNIT8ARRAY of size same as row data length
-      const uInt8Array = new Uint8Array(decodedData.length);
-
-      // Insert all character code into uInt8Array
-      for (let i = 0; i < decodedData.length; ++i) {
-        uInt8Array[i] = decodedData.charCodeAt(i);
-      }
-
-      // Return BLOB image after conversion
-      resolve(new Blob([uInt8Array], { type: imageType }));
-    })
-  }
-
-
+  protected setImageForViewing = (image) => this.storage.setItem('_sp_img_viewing', JSON.stringify(image));
+  protected getImageForViewing = (): ParkingFile => new ParkingFile(JSON.parse(this.storage.getItem('_sp_img_viewing')));
 }
