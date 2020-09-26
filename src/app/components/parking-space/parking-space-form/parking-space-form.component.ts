@@ -15,8 +15,8 @@ import { ParkingSpaceService } from 'app/services/parking-space.service';
 })
 export class ParkingSpaceFormComponent extends ParkingSpaceComponent {
 
-  private parkingSpaceAssign: ParkingSpace;
-  private id: number;
+  private _parkingSpaceAssign: ParkingSpace;
+  private _id: number;
 
   public types: any = [
     { 'value': 'CAR', 'name': 'CAR' },
@@ -37,15 +37,20 @@ export class ParkingSpaceFormComponent extends ParkingSpaceComponent {
 
   onInit(): void {
     this.formBuild();
-    this.parkingService.toList()
-      .then(result => {
-        this.parkings = result;
-      })
+    this.route.queryParams.subscribe(params => {
+      this.parkings = this.getParkings();
+
+      if (params['parkingId']) {
+        this.isEditing = true;
+        this._parkingSpaceAssign = new ParkingSpace(params)
+        this.onLoadForm(this._parkingSpaceAssign);
+      }
+    });
   }
 
   objectBuild() {
-    const obj: ParkingSpace = Object.assign({}, this.parkingSpaceAssign, this.form.value);
-    obj.id = this.id;
+    const obj: ParkingSpace = Object.assign({}, this._parkingSpaceAssign, this.form.value);
+    obj.id = this._id;
     return obj;
   }
 
