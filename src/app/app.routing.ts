@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { GroupGuard } from './group-guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { EmployeeProfileComponent } from './components/employee-profile/employee-profile.component';
+import { EmployeeProfileComponent } from './components/employee/employee-profile/employee-profile.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { EmployeeComponent } from './components/employee/employee.component';
