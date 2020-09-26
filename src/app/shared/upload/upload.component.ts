@@ -2,26 +2,24 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { ParkingFileService } from 'app/services/parking-file.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 import { Utils } from 'app/commons/core/utils';
 import { MatTableDataSource } from '@angular/material/table';
 import ParkingFile from 'app/models/parking-file.model';
 import { DialogViewComponent } from './dialog-view/dialog-view.component';
+import { BaseUploadComponent } from '../base-upload.component';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css']
 })
-export class UploadComponent extends BaseComponent {
+export class UploadComponent extends BaseUploadComponent {
   @ViewChild('file', { static: false }) file;
-  public files: Set<File> = new Set();
 
   @Input() public id: any;
   @Input() public title: string;
-  @Input() multiple: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -29,7 +27,7 @@ export class UploadComponent extends BaseComponent {
     public toastr: ToastrService,
     public authService: AuthService,
     public router: Router) {
-    super(toastr, router, authService);
+    super(toastr, authService, router);
   }
 
   protected onInit(): void {
@@ -72,36 +70,7 @@ export class UploadComponent extends BaseComponent {
       });
   }
 
-  onFilesAdded() {
-    const selectedFiles: { [key: string]: File } = this.file.nativeElement.files;
-    for (const key in selectedFiles) {
-      if (!isNaN(parseInt(key, 10))) {
-        this.files.add(selectedFiles[key]);
-      }
-    }
-    this.checkFileType(this.files);
-  }
-
-  checkFileType(files: Set<File>) {
-    files.forEach(async file => {
-      var fileName = file.name;
-      var idxDot = fileName.lastIndexOf('.') + 1;
-      var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-      if (extFile == 'jpg' || extFile == 'jpeg' || extFile == 'png' || extFile == 'gif') {
-        await this.uploadFiles();
-      } else {
-        this.files.delete(file);
-        this.toastr.error('Only jpg/jpeg/gif and png files are allowed!', 'Error')
-      }
-    })
-  }
-
-  addFiles() {
-    this.onStartLoading();
-    this.file.nativeElement.click();
-  }
-
-  uploadFiles() {
+  protected onUploadFile() {
     return new Promise((resolve, reject) => {
       let count = 0;
       this.files.forEach(async (file: File) => {
@@ -129,15 +98,6 @@ export class UploadComponent extends BaseComponent {
       });
     });
   }
-
-  public toBase64(file): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result.toString());
-      reader.onerror = error => reject(error);
-    })
-  };
 
   protected setImageForViewing = (image) => this.storage.setItem('_sp_img_viewing', JSON.stringify(image));
   protected getImageForViewing = (): ParkingFile => new ParkingFile(JSON.parse(this.storage.getItem('_sp_img_viewing')));
