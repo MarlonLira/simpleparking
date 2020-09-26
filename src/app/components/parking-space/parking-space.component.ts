@@ -40,6 +40,7 @@ export class ParkingSpaceComponent extends BaseComponent {
   protected async onLoadList(id: number = 0) {
     this.onStartLoading();
     this.parkings = await this.parkingService.toList();
+    this.setParkings(this.parkings);
 
     if (this.isValid(id) && id === 0) {
       if (this.isValid(this.auth.employee.parkingId)) {
@@ -67,5 +68,8 @@ export class ParkingSpaceComponent extends BaseComponent {
       amount: new FormControl(0, Validators.compose([Validators.required])),
     });
   }
+
+  protected setParkings = (parkings) => this.storage.setItem('_sp_parkings', JSON.stringify(parkings));
+  protected getParkings = (): Parking[] => JSON.parse(this.storage.getItem('_sp_parkings')) as Parking[];
 
 }

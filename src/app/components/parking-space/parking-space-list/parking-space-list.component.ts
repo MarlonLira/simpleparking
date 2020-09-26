@@ -5,6 +5,7 @@ import { AuthService } from 'app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ParkingSpaceService } from 'app/services/parking-space.service';
 import { ParkingService } from 'app/services/parking.service';
+import ParkingSpace from 'app/models/parking-space.model';
 
 @Component({
   selector: 'app-parking-space-list',
@@ -26,6 +27,11 @@ export class ParkingSpaceListComponent extends ParkingSpaceComponent {
 
   onChange(parkingId) {
     this.onLoadList(parkingId);
+  }
+
+  onEdit(parkingSpace: ParkingSpace) {
+    this.redirectFor('/parking-space/edit',
+      { type: parkingSpace.type, amount: parkingSpace.amount, parkingId: parkingSpace.parkingId, value: parkingSpace.value });
   }
 
 }
