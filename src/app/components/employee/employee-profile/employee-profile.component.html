@@ -61,9 +61,10 @@
         </div>
       </div>
       <div class="col-md-4">
+        <input type="file" #file style="display: none" (change)="onFilesAdded()" accept="image/*" />
         <div class="card card-profile">
           <div class="card-avatar">
-            <a href="javascript:void(0)">
+            <a href="javascript:void(0)" (click)="addFiles()">
               <img class="img" [src]="imageUrl" />
             </a>
           </div>

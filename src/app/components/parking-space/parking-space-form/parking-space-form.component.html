@@ -13,7 +13,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!this.isEditing">
         <div class="col-md-5">
           <mat-form-field appearance="fill">
             <mat-label>Type</mat-label>

@@ -9,7 +9,7 @@ export default class Company {
   phone!: string;
   email!:string;
   about: string;
-  imageUrl: string;
+  image: string;
 
   adress: CompanyAdress;
 
@@ -21,7 +21,7 @@ export default class Company {
     this.phone = Utils.returnIfValid(json.phone);
     this.about = Utils.returnIfValid(json.about);
     this.email = Utils.returnIfValid(json.email);
-    this.imageUrl = Utils.returnIfValid(json.imageUrl);
+    this.image = Utils.returnIfValid(json.image);
     this.adress = Utils.returnIfValid(json.adress);
   }
 }

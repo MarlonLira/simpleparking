@@ -9,7 +9,6 @@ import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
 import Swal, { SweetAlertOptions } from 'sweetalert2'
 import { Router, Params } from '@angular/router';
-import { Subject } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -184,4 +183,5 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   protected onConfirmMessage = () => Swal.fire(this.onConfirmMessageConfig);
   protected onSuccessMessage = (title: string, message?: string) => Swal.fire(title, message, 'success');
   protected onErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
+  protected encodedToLink = (encoded: any): string => atob(encoded);
 }
