@@ -49,7 +49,7 @@ export class EmployeeProfileComponent extends BaseUploadComponent {
     this.files.forEach((file: File) => {
       this.toBase64(file)
         .then(async result => {
-          this.employeeAssign.image = result;
+          this.imageUrl = result;
           await this.onUpdate();
           this.files.clear();
         }).catch((error: any) => this.toastr.error(error, 'Error'));
@@ -70,6 +70,7 @@ export class EmployeeProfileComponent extends BaseUploadComponent {
 
   objectBuild() {
     const obj: Employee = Object.assign({}, this.employeeAssign, this.form.value);
+    obj.image = this.imageUrl
     if (!Utils.isValid(obj.password)) {
       delete obj.password;
     }

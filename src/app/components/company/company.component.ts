@@ -52,7 +52,7 @@ export class CompanyComponent extends BaseUploadComponent {
     this.files.forEach((file: File) => {
       this.toBase64(file)
         .then(async result => {
-          this.companyAssign.image = result;
+          this.imageUrl = result;
           await this.onUpdate();
           this.files.clear();
         }).catch((error: any) => this.toastr.error(error, 'Error'));
@@ -83,6 +83,7 @@ export class CompanyComponent extends BaseUploadComponent {
 
   objectBuild() {
     const obj: Company = Object.assign({}, this.companyAssign, this.form.value);
+    obj.image = this.imageUrl
     return obj;
   }
 

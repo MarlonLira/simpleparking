@@ -75,7 +75,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
           this.onResetForm();
           this.onStopLoading();
           this.onSuccessMessage('Saved Successfully!', result)
-            .then(() => this.redirectFor('/parking-space/list'));
+            .then(() => this.redirectFor('/employee/list'));
         }).catch(error => {
           this.onErrorMessage('Error', error.message);
           this.onStopLoading();
