@@ -34,5 +34,10 @@ export class DialogViewComponent extends UploadComponent {
     this.name = file.name;
   }
 
+  expand() {
+    var newTab = window.open();
+    newTab.document.body.innerHTML = `<img src="${this.imageUrl}" >`;
+  }
+
   closeDialog = () => this.dialogRef.close();
 }

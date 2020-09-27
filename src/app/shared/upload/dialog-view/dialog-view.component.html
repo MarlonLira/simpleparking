@@ -15,8 +15,9 @@
   <div class="card-body">
     <div class="card-content">
       <p>Name: {{name}}</p>
+      <p>Expand: <a href="{{imageUrl}}" (click)="expand()"> Link</a></p>
       <div class="u-content">
-        <img [src]="imageUrl" />
+        <img [src]="imageUrl" height="100%" width="100%" />
       </div>
       <br />
     </div>

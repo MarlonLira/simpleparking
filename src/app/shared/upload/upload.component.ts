@@ -52,7 +52,7 @@ export class UploadComponent extends BaseUploadComponent {
 
   async onView(file: ParkingFile) {
     this.setImageForViewing(file);
-    let dialogRef = this.dialog.open(DialogViewComponent, { width: '50%', });
+    let dialogRef = this.dialog.open(DialogViewComponent, { width: '50%',  height: '90%'});
   }
 
   onRemove(file: ParkingFile) {
