@@ -33,7 +33,7 @@ import { AppRoutingModule } from './app.routing';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { EmployeeProfileComponent } from './components/employee-profile/employee-profile.component';
+import { EmployeeProfileComponent } from './components/employee/employee-profile/employee-profile.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { ParkingComponent } from './components/parking/parking.component';
 import { EmployeeComponent } from './components/employee/employee.component';
@@ -50,7 +50,6 @@ import { ParkingFormComponent } from './components/parking/parking-form/parking-
 import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
 import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
-import { DialogComponent } from './shared/upload/dialog/dialog.component';
 import { UploadComponent } from './shared/upload/upload.component';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -115,7 +114,6 @@ import { SchedulingViewDialogComponent } from './components/scheduling/schedulin
     ParkingListComponent,
     EmployeeFormComponent,
     EmployeeListComponent,
-    DialogComponent,
     UploadComponent,
     DataTableComponent,
     CompanyComponent,
@@ -127,7 +125,6 @@ import { SchedulingViewDialogComponent } from './components/scheduling/schedulin
     SchedulingViewDialogComponent
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [DialogComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
