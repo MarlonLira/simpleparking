@@ -137,9 +137,14 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     }
   }
 
-  protected onEditing() {
+  protected onEditing(disabledFields = []) {
     $('#list').removeClass('active');
     this.isEditing = true;
+    if (disabledFields.length > 0) {
+      disabledFields.forEach((value) => {
+        this.form.controls[value].disable();
+      })
+    }
   }
 
   protected destroyToken(isAuthenticated = true) {
