@@ -1,0 +1,34 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ this.title }}
+      </mat-panel-title>
+      <mat-panel-description>
+        Choose the access level of the {{ this.title }} page
+        <i class="material-icons">{{ this.icon }}</i>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field>
+          <input matInput placeholder="Route" formControlName="route">
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Rule</mat-label>
+          <mat-select formControlName="ruleId">
+            <mat-option *ngFor="let rule of rules" [value]="rule.id">
+              {{rule.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-action-row>
+      <button mat-button color="primary" (click)="teste(parking)">Save</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</form>

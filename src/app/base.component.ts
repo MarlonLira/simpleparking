@@ -47,18 +47,13 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     this.storage = sessionStorage;
   }
 
-  ngOnDestroy(): void {
-    this.onDestroy();
-  }
-
-  ngAfterViewInit(): void {
-    this.onAfterViewInit();
-  }
-
   protected abstract onAfterViewInit(): void;
   protected abstract onInit(): void;
   protected abstract onDestroy(): void;
   protected formBuild(): void { };
+
+  ngOnDestroy = (): void => this.onDestroy();
+  ngAfterViewInit = (): void =>  this.onAfterViewInit();
 
   ngOnInit() {
     this.onStartLoading();

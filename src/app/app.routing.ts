@@ -23,8 +23,10 @@ import { SchedulingListComponent } from './components/scheduling/scheduling-list
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { SettingsListComponent } from './components/settings/settings-list/settings-list.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'employee-profile', component: EmployeeProfileComponent },
@@ -32,9 +34,9 @@ const routes: Routes = [
   {
     path: 'parking', component: ParkingComponent,
     children: [
-      { path: 'register', component: ParkingFormComponent },
-      { path: 'edit', component: ParkingFormComponent },
-      { path: 'list', component: ParkingListComponent }
+      { path: 'register', component: ParkingFormComponent, canActivate: [GroupGuard] },
+      { path: 'edit', component: ParkingFormComponent, canActivate: [GroupGuard] },
+      { path: 'list', component: ParkingListComponent, canActivate: [GroupGuard] }
     ],
     canActivate: [GroupGuard]
   },
@@ -54,10 +56,16 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'settings', component: SettingsComponent,
+    children: [
+      { path: 'list', component: SettingsListComponent }
+    ]
+  },
+  {
     path: 'employee', component: EmployeeComponent,
     children: [
-      { path: 'register', component: EmployeeFormComponent},
-      { path: 'edit', component:  EmployeeFormComponent},
+      { path: 'register', component: EmployeeFormComponent },
+      { path: 'edit', component: EmployeeFormComponent },
       { path: 'list', component: EmployeeListComponent }
     ],
     canActivate: [GroupGuard]

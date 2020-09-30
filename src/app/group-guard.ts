@@ -14,10 +14,11 @@ export class GroupGuard implements CanActivate {
     public toastr: ToastrService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-    // console.log('route')
-    // console.log(route.routeConfig)
-    // console.log('state')
-    // console.log(state.url)
+    console.log(this.authService.getAuthentication())
+    console.log('route')
+    console.log(route)
+    console.log('state')
+    console.log(state)
     return this.verify();
   }
 
