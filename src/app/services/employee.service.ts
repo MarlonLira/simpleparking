@@ -29,7 +29,7 @@ export class EmployeeService extends BaseService<Employee> {
     return new Promise((resolve, reject) => {
       this.onPost('/employee', values)
         .subscribe(
-          (requested) => resolve(requested),
+          (requested) => resolve(requested['message']),
           (e) => reject(e.error)
         );
     });
@@ -39,7 +39,7 @@ export class EmployeeService extends BaseService<Employee> {
     return new Promise((resolve, reject) => {
       this.onPut('/employee', values)
         .subscribe(
-          (requested) => resolve(requested),
+          (requested) => resolve(requested['message']),
           (e) => reject(e.error)
         );
     });

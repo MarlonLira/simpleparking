@@ -18,7 +18,7 @@ export class RouteSecurityService extends BaseService<RouteSecurity> {
     return new Promise((resolve, reject) => {
       this.onPost('/routeSecurity', values)
         .subscribe(
-          (requested) => resolve(requested),
+          (requested) => resolve(requested['message']),
           (e) => reject(e.error)
         );
     });
@@ -47,6 +47,16 @@ export class RouteSecurityService extends BaseService<RouteSecurity> {
   toList(): Promise<RouteSecurity[]> {
     return new Promise((resolve, reject) => {
       this.onGet('/routeSecurity')
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
+    });
+  }
+
+  getByCompanyId(): Promise<RouteSecurity[]> {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/routeSecurity/companyId/${this.auth.company.id}`)
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)

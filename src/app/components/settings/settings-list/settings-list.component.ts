@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import RouteSecurity from 'app/models/route-security.model';
 import { AuthService } from 'app/services/auth.service';
 import { RouteSecurityService } from 'app/services/route-security.service';
 import { RuleService } from 'app/services/rule.service';
@@ -12,8 +13,6 @@ import { SettingsComponent } from '../settings.component';
   styleUrls: ['./settings-list.component.css']
 })
 export class SettingsListComponent extends SettingsComponent {
-  panelOpenState = false;
-  step = 0;
 
   constructor(
     public toastr: ToastrService,
@@ -25,20 +24,37 @@ export class SettingsListComponent extends SettingsComponent {
     super(toastr, router, authService, service, ruleService);
   }
 
-  setStep(index: number) {
-    this.step = index;
+  onSave(item: RouteSecurity) {
+    this.onStartLoading();
+    if (!this.isValid(item.id) || item.id == 0) {
+      this.service.save(item)
+        .then(result => {
+          this.onLoadList();
+          this.onStopLoading();
+          this.onSuccessMessage('Saved Successfully!', result);
+        }).catch(error => {
+          this.onErrorMessage('Error', error.message);
+          this.onStopLoading();
+        });
+    } else {
+      this.service.update(item)
+        .then(result => {
+          this.onLoadList();
+          this.onStopLoading();
+          this.onSuccessMessage('Saved Successfully!', result);
+        }).catch(error => {
+          this.onErrorMessage('Error', error.message);
+          this.onStopLoading();
+        });
+    }
   }
 
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
-
-  teste(row){
-    console.log(row)
+  onChange(row, ruleId) {
+    const routeSecurity = new RouteSecurity(row);
+    routeSecurity.ruleId = ruleId;
+    routeSecurity.companyId = this.auth.company.id;
+    delete routeSecurity.rule;
+    this.onSave(routeSecurity);
   }
 
 }

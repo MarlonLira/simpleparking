@@ -62,7 +62,6 @@ import { SchedulingListComponent } from './components/scheduling/scheduling-list
 import { SchedulingViewDialogComponent } from './components/scheduling/scheduling-view-dialog/scheduling-view-dialog.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SettingsListComponent } from './components/settings/settings-list/settings-list.component';
-import { SettingsItemComponent } from './components/settings/settings-item/settings-item.component';
 
 @NgModule({
   imports: [
@@ -128,7 +127,6 @@ import { SettingsItemComponent } from './components/settings/settings-item/setti
     SchedulingViewDialogComponent,
     SettingsComponent,
     SettingsListComponent,
-    SettingsItemComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

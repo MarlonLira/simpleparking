@@ -64,7 +64,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
         .then(requested => {
           this.onResetForm();
           this.onStopLoading();
-          this.onSuccessMessage('Saved Successfully!', requested['message']);
+          this.onSuccessMessage('Saved Successfully!', requested);
         }).catch(error => {
           this.onErrorMessage('Error', error.message);
           this.onStopLoading();

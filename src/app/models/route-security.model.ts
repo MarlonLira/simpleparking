@@ -3,7 +3,7 @@ import Company from './company.model';
 import Rule from './rule.model';
 
 export default class RouteSecurity {
-  id: number;
+  id!: number;
   route: string;
   ruleId!: number;
   companyId: number;
@@ -12,11 +12,13 @@ export default class RouteSecurity {
   company: Company;
 
   constructor(json?: any) {
-    this.id = Utils.returnIfValid(json.id);
-    this.route = Utils.returnIfValid(json.route);
-    this.ruleId = Utils.returnIfValid(json.ruleId);
-    this.companyId = Utils.returnIfValid(json.companyId);
-    this.rule = Utils.returnIfValid(json.rule);
-    this.company = Utils.returnIfValid(json.company);
+    if (json) {
+      this.id = Utils.returnIfValid(json.id);
+      this.route = Utils.returnIfValid(json.route);
+      this.ruleId = Utils.returnIfValid(json.ruleId);
+      this.companyId = Utils.returnIfValid(json.companyId);
+      this.rule = Utils.returnIfValid(json.rule);
+      this.company = Utils.returnIfValid(json.company);
+    }
   }
 }
