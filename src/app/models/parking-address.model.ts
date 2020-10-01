@@ -1,6 +1,6 @@
 import { Utils } from '../commons/core/utils';
 
-export default class ParkingAdress {
+export default class ParkingAddress {
   id!: number;
   status!: string;
   country!: string;

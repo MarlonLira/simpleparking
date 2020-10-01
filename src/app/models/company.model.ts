@@ -1,5 +1,5 @@
 import { Utils } from '../commons/core/utils';
-import CompanyAdress from './company-adress.model';
+import CompanyAddress from './company-address.model';
 
 export default class Company {
   id!: number;
@@ -11,7 +11,7 @@ export default class Company {
   about: string;
   image: string;
 
-  adress: CompanyAdress;
+  address: CompanyAddress;
 
   constructor(json?: any) {
     this.id = Utils.returnIfValid(json.id);
@@ -22,6 +22,6 @@ export default class Company {
     this.about = Utils.returnIfValid(json.about);
     this.email = Utils.returnIfValid(json.email);
     this.image = Utils.returnIfValid(json.image);
-    this.adress = Utils.returnIfValid(json.adress);
+    this.address = Utils.returnIfValid(json.address);
   }
 }

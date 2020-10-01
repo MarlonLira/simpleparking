@@ -42,7 +42,7 @@ export class SettingsComponent extends BaseComponent {
 
   protected async onLoadList() {
     this.rules = await this.ruleService.toList();
-    this.routeSecurity = await this.service.toList();;
+    this.routeSecurity = await this.service.getByCompanyId();
     let obj: any = [];
     let objAssign: any = [];
 
@@ -56,18 +56,19 @@ export class SettingsComponent extends BaseComponent {
     this.routes.forEach((item: Route) => {
       if (this.routeSecurity.find(x => x.route === `/${item.path}`) == undefined) {
         obj.push(new RouteSecurity({ 'id': 0, 'ruleId': 4, 'companyId': 0, 'route': `/${item.path}` }));
-        if (item.children) {
-          item.children.forEach((child: Route) => {
-            if (this.routeSecurity.find(x => x.route === `/${item.path}/${child.path}`) == undefined) {
-              obj.push(new RouteSecurity({ 'id': 0, 'ruleId': 4, 'companyId': 0, 'route': `/${item.path}/${child.path}` }));
-            }
-          });
-        }
+      }
+
+      if (item.children) {
+        item.children.forEach((child: Route) => {
+          if (this.routeSecurity.find(x => x.route === `/${item.path}/${child.path}`) == undefined) {
+            obj.push(new RouteSecurity({ 'id': 0, 'ruleId': 4, 'companyId': 0, 'route': `/${item.path}/${child.path}` }));
+          }
+        });
       }
     });
 
     Object.assign(objAssign, obj, this.routeSecurity);
-    
+
     this.displayedColumns = ['route', 'rule'];
     this.dataSource = new MatTableDataSource(objAssign);
     this.dataSource.paginator = this.paginator;

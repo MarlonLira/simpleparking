@@ -1,6 +1,6 @@
 import { Utils } from '../commons/core/utils';
 
-export default class UserAdress {
+export default class UserAddress {
 
   id!: number;
   status!: string;

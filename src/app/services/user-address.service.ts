@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import UserAdress from '../models/user-adress.model';
+import UserAddress from '../models/user-address.model';
 import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserAdressService extends BaseService<UserAdress> {
+export class UserAddressService extends BaseService<UserAddress> {
 
   constructor(
     public http: HttpClient
@@ -16,7 +16,7 @@ export class UserAdressService extends BaseService<UserAdress> {
 
   Save(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPost('/userAdress', values)
+      this.onPost('/userAddress', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -25,7 +25,7 @@ export class UserAdressService extends BaseService<UserAdress> {
 
   Delete(id: number): Promise<any> {
     return new Promise((resolve) => {
-      this.onDelete(`/userAdress/${id}`)
+      this.onDelete(`/userAddress/${id}`)
         .subscribe(requested => {
           resolve(requested['message']);
         });
@@ -34,17 +34,17 @@ export class UserAdressService extends BaseService<UserAdress> {
 
   Update(values): Promise<any> {
     return new Promise((resolve) => {
-      this.onPut('/userAdress', values)
+      this.onPut('/userAddress', values)
         .subscribe(requested => {
           resolve(requested['message']);
         });
     });
   }
 
-  GetByUserId(userId: number): Promise<UserAdress[]> {
+  GetByUserId(userId: number): Promise<UserAddress[]> {
     return new Promise((resolve) => {
-      this.onGet(`/userAdress/userId/${userId}`)
-        .subscribe((requested: UserAdress[]) => {
+      this.onGet(`/userAddress/userId/${userId}`)
+        .subscribe((requested: UserAddress[]) => {
           resolve(requested);
         });
     });

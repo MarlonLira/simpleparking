@@ -67,7 +67,7 @@ export class CompanyComponent extends BaseUploadComponent {
       phone: new FormControl(''),
       email: new FormControl(''),
       about: new FormControl(''),
-      adress: new FormGroup({
+      address: new FormGroup({
         id: new FormControl(0),
         city: new FormControl(''),
         country: new FormControl(''),

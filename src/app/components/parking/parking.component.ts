@@ -49,7 +49,7 @@ export class ParkingComponent extends BaseComponent {
       phone: new FormControl(''),
       email: new FormControl(''),
       imgUrl: new FormControl(''),
-      adress: new FormGroup({
+      address: new FormGroup({
         id: new FormControl(0),
         city: new FormControl(''),
         country: new FormControl(''),

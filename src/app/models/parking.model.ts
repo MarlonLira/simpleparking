@@ -1,5 +1,5 @@
 import { Utils } from '../commons/core/utils';
-import ParkingAdress from './parking-adress.model';
+import ParkingAddress from './parking-address.model';
 import Company from './company.model';
 
 export default class Parking {
@@ -12,7 +12,7 @@ export default class Parking {
   imgUrl: string;
   companyId: number;
 
-  adress: ParkingAdress;
+  address: ParkingAddress;
   company: Company;
 
   constructor(json?: any) {
@@ -25,7 +25,7 @@ export default class Parking {
     this.email = Utils.returnIfValid(json.email);
     this.imgUrl = Utils.returnIfValid(json.imgUrl);
     this.companyId = Utils.returnIfValid(json.companyId);
-    this.adress = Utils.returnIfValid(json.adress);
+    this.address = Utils.returnIfValid(json.address);
     this.company = Utils.returnIfValid(json.company);
   }
 }
