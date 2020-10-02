@@ -42,19 +42,27 @@ export class SignupComponent extends AuthComponent {
     });
   }
 
-  public async onSubmit() {
+  public onSubmit() {
     this.onStartLoading();
-    const _auth = new Auth();
-    _auth.company = new Company(this.form.controls['company'].value);
-    _auth.employee = new Employee(this.form.controls['employee'].value);
-    await this.signup(_auth)
-      .then((result: string) => {
-        this.onStopLoading();
-        this.redirectFor('auth/signin');
-      })
-      .catch(error => {
-        this.onStopLoading();
-      });
+    let isValidate = false;
+    isValidate = this.form.controls['employee'].value.password === this.form.controls['employee'].value.confirmPassword;
+
+    if (isValidate) {
+      const _auth = new Auth();
+      _auth.company = new Company(this.form.controls['company'].value);
+      _auth.employee = new Employee(this.form.controls['employee'].value);
+      this.signup(_auth)
+        .then((result: string) => {
+          this.onStopLoading();
+          this.redirectFor('auth/signin');
+        })
+        .catch(error => {
+          this.onStopLoading();
+        });
+    } else {
+      this.onErrorMessage('Erro', 'Senhas não coincidem.');
+      this.onStopLoading();
+    }
   }
 
 }
