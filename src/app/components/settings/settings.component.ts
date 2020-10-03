@@ -72,8 +72,6 @@ export class SettingsComponent extends BaseComponent {
       }
     });
 
-    console.log(obj)
-
     this.displayedColumns = ['route', 'rule'];
     this.dataSource = new MatTableDataSource(obj);
     this.dataSource.paginator = this.paginator;

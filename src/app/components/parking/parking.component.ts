@@ -31,10 +31,8 @@ export class ParkingComponent extends BaseComponent {
   protected onDestroy(): void { }
 
   protected onLoadList() {
-    console.log('hedaj')
     this.service.toList()
       .then((result: Parking[]) => {
-        console.log(result)
         this.parkings = result;
         this.displayedColumns = ['name', 'registryCode', 'phone', 'email', 'address', 'actions'];
         this.dataSource = new MatTableDataSource(this.parkings);
