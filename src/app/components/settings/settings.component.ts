@@ -44,7 +44,6 @@ export class SettingsComponent extends BaseComponent {
     this.rules = await this.ruleService.toList();
     this.routeSecurity = await this.service.getByCompanyId();
     let obj: any = [];
-    let objAssign: any = [];
 
     this.routes = this.routes.filter(x => Utils.isValid(x.path)
       && x.path != '**'
@@ -54,23 +53,29 @@ export class SettingsComponent extends BaseComponent {
       && x.path != 'auth/signin');
 
     this.routes.forEach((item: Route) => {
-      if (this.routeSecurity.find(x => x.route === `/${item.path}`) == undefined) {
+      let foundItem = this.routeSecurity.find(x => x.route === `/${item.path}`);
+      if (foundItem == undefined) {
         obj.push(new RouteSecurity({ 'id': 0, 'ruleId': 4, 'companyId': 0, 'route': `/${item.path}` }));
+      } else {
+        obj.push(new RouteSecurity(foundItem));
       }
 
       if (item.children) {
         item.children.forEach((child: Route) => {
-          if (this.routeSecurity.find(x => x.route === `/${item.path}/${child.path}`) == undefined) {
+          let foundChild = this.routeSecurity.find(x => x.route === `/${item.path}/${child.path}`);
+          if (foundChild == undefined) {
             obj.push(new RouteSecurity({ 'id': 0, 'ruleId': 4, 'companyId': 0, 'route': `/${item.path}/${child.path}` }));
+          } else {
+            obj.push(new RouteSecurity(foundChild));
           }
         });
       }
     });
 
-    Object.assign(objAssign, obj, this.routeSecurity);
+    console.log(obj)
 
     this.displayedColumns = ['route', 'rule'];
-    this.dataSource = new MatTableDataSource(objAssign);
+    this.dataSource = new MatTableDataSource(obj);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

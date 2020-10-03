@@ -60,7 +60,7 @@ export class SignupComponent extends AuthComponent {
           this.onStopLoading();
         });
     } else {
-      this.onErrorMessage('Erro', 'Senhas não coincidem.');
+      this.onErrorMessage('Erro', 'As senhas não coincidem.');
       this.onStopLoading();
     }
   }
