@@ -53,7 +53,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   protected formBuild(): void { };
 
   ngOnDestroy = (): void => this.onDestroy();
-  ngAfterViewInit = (): void =>  this.onAfterViewInit();
+  ngAfterViewInit = (): void => this.onAfterViewInit();
 
   ngOnInit() {
     this.onStartLoading();
@@ -132,13 +132,22 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     }
   }
 
-  protected onEditing(disabledFields = []) {
+  protected onEditing(disabledFields = [], companyId = 0) {
+    let isValid = true;
+    if (companyId > 0) {
+      isValid = this.auth.company.id === companyId ? true : false;
+      if (!isValid) {
+        this.toastr.error('Error!', 'Oops !. The internet address you are trying to access is not part of your company!');
+        this.redirectFor('/error');
+      }
+    }
+
     $('#list').removeClass('active');
     this.isEditing = true;
     if (disabledFields.length > 0) {
       disabledFields.forEach((value) => {
         this.form.controls[value].disable();
-      })
+      });
     }
   }
 

@@ -34,7 +34,7 @@ export class ParkingFormComponent extends ParkingComponent {
         this._id = params['id'];
         this.service.getById(this._id)
           .then((result: Parking) => {
-            this.onEditing();
+            this.onEditing([], result.companyId);
             this.onLoadForm(result);
             this.onStopLoading();
           }).catch(error => {

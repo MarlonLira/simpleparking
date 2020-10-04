@@ -39,7 +39,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
         this._id = params['id'];
         this.service.getById(this._id)
           .then((result: Employee) => {
-            this.onEditing();
+            this.onEditing([], result.companyId);
             this.onLoadForm(result);
             this.onStopLoading();
           }).catch(error => {
