@@ -5,6 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import Parking from 'app/models/parking.model';
 import { ParkingComponent } from '../parking.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GenericAddressService } from 'app/services/generic-address.service';
+import GenericAddress from 'app/models/generic-address.model';
+import ParkingAddress from 'app/models/parking-address.model';
 
 @Component({
   selector: 'app-parking-form',
@@ -20,6 +23,7 @@ export class ParkingFormComponent extends ParkingComponent {
     public toastr: ToastrService,
     public service: ParkingService,
     public authService: AuthService,
+    public genericAdressService: GenericAddressService,
     private route: ActivatedRoute,
     public router: Router
   ) {
@@ -50,6 +54,23 @@ export class ParkingFormComponent extends ParkingComponent {
     obj.id = this._id;
     obj.companyId = this.auth.company.id;
     return obj;
+  }
+
+  searchAddress(zipCode) {
+    if (this.form.controls.address.get('zipCode').valid) {
+      this.genericAdressService.getByZipCode(zipCode)
+        .then((result: GenericAddress) => {
+          let _address = new ParkingAddress();
+          _address.zipCode = result.cep;
+          _address.city = result.localidade;
+          _address.district = result.bairro;
+          _address.country = 'Brasil';
+          _address.complement = result.complemento;
+          _address.street = result.logradouro;
+          _address.state = result.uf;
+          this.form.controls.address.patchValue(_address);
+        }).catch(error => this.toastr.error(error, 'Error'));
+    }
   }
 
   onSubmit() {

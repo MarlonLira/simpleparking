@@ -6,6 +6,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import Company from 'app/models/company.model';
 import { CompanyService } from 'app/services/company.service';
 import { BaseUploadComponent } from 'app/shared/base-upload.component';
+import GenericAddress from 'app/models/generic-address.model';
+import CompanyAddress from 'app/models/company-address.model';
+import { GenericAddressService } from 'app/services/generic-address.service';
 
 @Component({
   selector: 'app-company',
@@ -20,6 +23,7 @@ export class CompanyComponent extends BaseUploadComponent {
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
+    public genericAdressService: GenericAddressService,
     public router: Router,
     public service: CompanyService
   ) {
@@ -85,6 +89,23 @@ export class CompanyComponent extends BaseUploadComponent {
     const obj: Company = Object.assign({}, this.companyAssign, this.form.value);
     obj.image = this.imageUrl
     return obj;
+  }
+
+  searchAddress(zipCode) {
+    if (this.form.controls.address.get('zipCode').valid) {
+      this.genericAdressService.getByZipCode(zipCode)
+        .then((result: GenericAddress) => {
+          let _address = new CompanyAddress();
+          _address.zipCode = result.cep;
+          _address.city = result.localidade;
+          _address.district = result.bairro;
+          _address.country = 'Brasil';
+          _address.complement = result.complemento;
+          _address.street = result.logradouro;
+          _address.state = result.uf;
+          this.form.controls.address.patchValue(_address);
+        }).catch(error => this.toastr.error(error, 'Error'));
+    }
   }
 
   onUpdate() {

@@ -43,18 +43,18 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field>
+                      <input matInput #zipcode placeholder="Zip Code" mask="00000-000" type="text"
+                        formControlName="zipCode" (change)="searchAddress(zipcode.value)">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field>
                       <input matInput placeholder="State" type="text" formControlName="state">
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field>
                       <input matInput placeholder="City" type="text" formControlName="city">
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-md-3">
-                    <mat-form-field>
-                      <input matInput placeholder="Zip Code" mask="00000-000" type="text" formControlName="zipCode">
                     </mat-form-field>
                   </div>
                 </div>

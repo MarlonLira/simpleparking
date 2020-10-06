@@ -42,6 +42,12 @@
           </div>
           <div class="col-md-3">
             <mat-form-field>
+              <input matInput #zipcode placeholder="Zip Code" mask="00000-000" type="text" formControlName="zipCode"
+                (change)="searchAddress(zipcode.value)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
               <input matInput placeholder="State" type="text" formControlName="state">
             </mat-form-field>
           </div>
@@ -51,11 +57,6 @@
             </mat-form-field>
           </div>
 
-          <div class="col-md-3">
-            <mat-form-field>
-              <input matInput placeholder="Zip Code" mask="00000-000" type="text" formControlName="zipCode">
-            </mat-form-field>
-          </div>
         </div>
         <div class="row">
           <div class="col-md-4">
@@ -75,7 +76,8 @@
           </div>
         </div>
       </div>
-      <button mat-raised-button type="submit" [disabled]="!this.form.valid" class="btn btn-info pull-right">Save</button>
+      <button mat-raised-button type="submit" [disabled]="!this.form.valid"
+        class="btn btn-info pull-right">Save</button>
 
     </form>
     <br />
