@@ -29,7 +29,6 @@ export class SettingsListComponent extends SettingsComponent {
     if (!this.isValid(item.id) || item.id == 0) {
       this.service.save(item)
         .then(result => {
-          this.onLoadList();
           this.onStopLoading();
           this.onSuccessMessage('Saved Successfully!', result);
         }).catch(error => {
@@ -39,7 +38,6 @@ export class SettingsListComponent extends SettingsComponent {
     } else {
       this.service.update(item)
         .then(result => {
-          this.onLoadList();
           this.onStopLoading();
           this.onSuccessMessage('Saved Successfully!', result);
         }).catch(error => {
