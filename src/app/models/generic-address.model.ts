@@ -11,6 +11,7 @@ export default class GenericAddress {
   gia!: string;
   ddd: string;
   siafi: string;
+  erro: boolean;
 
   constructor(json?: any) {
     this.cep = Utils.returnIfValid(json.cep);
@@ -23,5 +24,6 @@ export default class GenericAddress {
     this.gia = Utils.returnIfValid(json.gia);
     this.ddd = Utils.returnIfValid(json.ddd);
     this.siafi = Utils.returnIfValid(json.siafi);
+    this.erro = Utils.returnIfValid(json.erro);
   }
 }

@@ -58,18 +58,28 @@ export class ParkingFormComponent extends ParkingComponent {
 
   searchAddress(zipCode) {
     if (this.form.controls.address.get('zipCode').valid) {
+      this.onStartLoading();
       this.genericAdressService.getByZipCode(zipCode)
         .then((result: GenericAddress) => {
-          let _address = new ParkingAddress();
-          _address.zipCode = result.cep;
-          _address.city = result.localidade;
-          _address.district = result.bairro;
-          _address.country = 'Brasil';
-          _address.complement = result.complemento;
-          _address.street = result.logradouro;
-          _address.state = result.uf;
-          this.form.controls.address.patchValue(_address);
-        }).catch(error => this.toastr.error(error, 'Error'));
+          if (!result.erro) {
+            let _address = new ParkingAddress();
+            _address.zipCode = this.genericAdressService.formatterZipCode(result.cep);
+            _address.city = result.localidade;
+            _address.district = result.bairro;
+            _address.country = 'Brasil';
+            _address.complement = result.complemento;
+            _address.street = result.logradouro;
+            _address.state = result.uf;
+            this.form.controls.address.patchValue(_address);
+            this.onStopLoading();
+          } else {
+            this.toastr.warning('The address was not found with that zip code!', 'Not Found');
+            this.onStopLoading();
+          }
+        }).catch(error => {
+          this.toastr.error(error, 'Error');
+          this.onStopLoading();
+        });
     }
   }
 
