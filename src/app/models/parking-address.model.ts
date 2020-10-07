@@ -10,8 +10,8 @@ export default class ParkingAddress {
   street!: string;
   number: number;
   zipCode!: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   complement: string;
   parkingId!: number;
 

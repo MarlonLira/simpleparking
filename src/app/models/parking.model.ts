@@ -16,16 +16,17 @@ export default class Parking {
   company: Company;
 
   constructor(json?: any) {
-
-    this.id = Utils.returnIfValid(json.id);
-    this.status = Utils.returnIfValid(json.status);
-    this.name = Utils.returnIfValid(json.name);
-    this.registryCode = Utils.returnIfValid(json.registryCode);
-    this.phone = Utils.returnIfValid(json.phone);
-    this.email = Utils.returnIfValid(json.email);
-    this.imgUrl = Utils.returnIfValid(json.imgUrl);
-    this.companyId = Utils.returnIfValid(json.companyId);
-    this.address = Utils.returnIfValid(json.address);
-    this.company = Utils.returnIfValid(json.company);
+    if (json) {
+      this.id = Utils.returnIfValid(json.id);
+      this.status = Utils.returnIfValid(json.status);
+      this.name = Utils.returnIfValid(json.name);
+      this.registryCode = Utils.returnIfValid(json.registryCode);
+      this.phone = Utils.returnIfValid(json.phone);
+      this.email = Utils.returnIfValid(json.email);
+      this.imgUrl = Utils.returnIfValid(json.imgUrl);
+      this.companyId = Utils.returnIfValid(json.companyId);
+      this.address = Utils.returnIfValid(json.address);
+      this.company = Utils.returnIfValid(json.company);
+    }
   }
 }

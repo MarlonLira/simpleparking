@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
-
-declare const google: any;
+import { } from 'googlemaps';
+import { ParkingService } from 'app/services/parking.service';
+import Parking from 'app/models/parking.model';
+import { Utils } from 'app/commons/core/utils';
 
 interface Marker {
   lat: number;
@@ -12,6 +14,12 @@ interface Marker {
   label?: string;
   draggable?: boolean;
 }
+
+interface MapContent {
+  position: google.maps.LatLng;
+  parking: Parking;
+}
+
 @Component({
   selector: 'app-maps',
   templateUrl: './maps.component.html',
@@ -22,19 +30,92 @@ export class MapsComponent extends BaseComponent {
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
+    public parkingService: ParkingService,
     public router: Router
   ) { super(toastr, router, authService) }
 
-  onInit() {
-    const myLatlng = [
-      [new google.maps.LatLng(-8.05428, -34.8813), 'Estacionamento do Seu zé'],
-      [new google.maps.LatLng(-8.11208, -35.0154), 'Estacionamento de Dona Marieta'],
-      [new google.maps.LatLng(-8.02044, -34.9817), 'Estacionamento Gusgay']
-    ];
-    const mapOptions = {
+  protected onAfterViewInit(): void { }
+  protected onDestroy(): void { }
+
+  protected onInit() {
+    this.onLoadList()
+      .then((mapContents: MapContent[]) => {
+        if (mapContents.length > 0) {
+          const mapOptions: google.maps.MapOptions = this.onLoadMapOptions(mapContents);
+          const shape: google.maps.MarkerShape = this.onLoadMapShape();
+          const map: google.maps.Map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+          mapContents.forEach((mapContent: MapContent) => {
+
+            const infowindow = new google.maps.InfoWindow({
+              content: mapContent.parking.name
+            });
+
+            const marker = new google.maps.Marker({
+              position: mapContent.position,
+              map: map,
+              shape: shape,
+              animation: google.maps.Animation.DROP,
+              draggable: true,
+              title: mapContent.parking.name
+            });
+
+            marker.addListener('dragend', () => {
+              let parking = new Parking(mapContent.parking);
+              parking.address.latitude = marker.getPosition().toJSON().lat;
+              parking.address.longitude = marker.getPosition().toJSON().lng;
+              let a = marker.getPosition();
+              console.log(a);
+              this.save(parking);
+            });
+
+            marker.addListener('click', function () {
+              infowindow.open(map, marker);
+            });
+
+          });
+        }
+      });
+  }
+
+  private onLoadMapShape(): google.maps.MarkerShape {
+    return {
+      coords: [1, 1, 1, 20, 18, 20, 18, 1],
+      type: 'poly'
+    };
+  }
+
+
+  private onLoadList() {
+    return new Promise((resolve, reject) => {
+      let mapContents: MapContent[] = [];
+      this.parkingService.toList()
+        .then((result: Parking[]) => {
+          result.forEach((parking: Parking) => {
+            if (Utils.isValid(parking.address)) {
+              let latitude = parking.address.latitude;
+              let longitude = parking.address.longitude;
+              if (latitude != 0 && longitude != 0) {
+                mapContents.push(
+                  {
+                    position: new google.maps.LatLng(latitude, longitude),
+                    parking: parking
+                  }
+                );
+              }
+            }
+          });
+
+          resolve(mapContents);
+        }).catch(error => reject(this.toastr.error(error, 'Error')));
+    });
+  }
+
+  private onLoadMapOptions(mapContents: MapContent[]): google.maps.MapOptions {
+    return {
       zoom: 13,
-      center: myLatlng[0][0],
-      scrollwheel: false, // we disable de scroll over the map, it is a really annoing when you scroll through page
+      center: mapContents[0].position,
+      scrollwheel: false,
       styles: [{
         'featureType': 'water',
         'stylers': [{
@@ -121,37 +202,28 @@ export class MapsComponent extends BaseComponent {
         }]
       }]
     };
-
-    const shape = {
-      coords: [1, 1, 1, 20, 18, 20, 18, 1],
-      type: 'poly'
-    };
-    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-    myLatlng.forEach(position => {
-
-      const infowindow = new google.maps.InfoWindow({
-        content: position[1]
-      });
-
-      const marker = new google.maps.Marker({
-        position: position[0],
-        map: map,
-        shape: shape,
-        animation: google.maps.Animation.DROP,
-        draggable: true,
-        title: 'Estacionamento do seu zé'
-      });
-
-      marker.addListener('click', function () {
-        infowindow.open(map, marker);
-      });
-    });
   }
 
-  protected onAfterViewInit(): void {
-  }
-  protected onDestroy(): void {
+  public save(parking: Parking) {
+    this.onBuildConfirmMessage({
+      title: 'Are you sure?',
+      text: `The parking location '${parking.name}' will be changed!`,
+      confirmButtonText: 'Yes, do it!',
+      icon: 'question'
+    })
+      .then((btn) => {
+        if (btn.isConfirmed) {
+          this.onStartLoading();
+          this.parkingService.update(parking)
+            .then(result => {
+              this.onStopLoading();
+              this.onSuccessMessage('Saved Successfully!', result);
+            }).catch(error => {
+              this.onErrorMessage('Error', error.message);
+              this.onStopLoading();
+            });
+        }
+      });
   }
 
 }
