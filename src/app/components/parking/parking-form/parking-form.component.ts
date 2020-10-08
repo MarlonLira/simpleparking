@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GenericAddressService } from 'app/services/generic-address.service';
 import GenericAddress from 'app/models/generic-address.model';
 import ParkingAddress from 'app/models/parking-address.model';
+import { Utils } from 'app/commons/core/utils';
 
 @Component({
   selector: 'app-parking-form',
@@ -18,6 +19,7 @@ export class ParkingFormComponent extends ParkingComponent {
 
   private _parkingAssign: Parking;
   private _id: number;
+  public isLatLong = true;
 
   constructor(
     public toastr: ToastrService,
@@ -56,6 +58,14 @@ export class ParkingFormComponent extends ParkingComponent {
     return obj;
   }
 
+  onPatchAddressValue(value: ParkingAddress) {
+    this.isLatLong = (this.isValid(value.latitude) && this.isValid(value.longitude))
+      ? ((value.latitude !== 0 && value.longitude !== 0) ? true : false)
+      : false;
+
+    this.form.controls.address.patchValue(value);
+  }
+
   searchAddress(zipCode) {
     if (this.form.controls.address.get('zipCode').valid) {
       this.onStartLoading();
@@ -70,7 +80,9 @@ export class ParkingFormComponent extends ParkingComponent {
             _address.complement = result.complemento;
             _address.street = result.logradouro;
             _address.state = result.uf;
-            this.form.controls.address.patchValue(_address);
+            _address.longitude = result.longitude;
+            _address.latitude = result.latitude;
+            this.onPatchAddressValue(_address);
             this.onStopLoading();
           } else {
             this.toastr.warning('The address was not found with that zip code!', 'Not Found');

@@ -26,7 +26,6 @@ interface MapContent {
   styleUrls: ['./maps.component.css']
 })
 export class MapsComponent extends BaseComponent {
-
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
@@ -54,18 +53,18 @@ export class MapsComponent extends BaseComponent {
             const marker = new google.maps.Marker({
               position: mapContent.position,
               map: map,
-              shape: shape,
               animation: google.maps.Animation.DROP,
               draggable: true,
-              title: mapContent.parking.name
+              title: mapContent.parking.name,
+              icon: '../../../assets/img/favicon.ico',
             });
+
+            infowindow.open(map, marker);
 
             marker.addListener('dragend', () => {
               let parking = new Parking(mapContent.parking);
               parking.address.latitude = marker.getPosition().toJSON().lat;
               parking.address.longitude = marker.getPosition().toJSON().lng;
-              let a = marker.getPosition();
-              console.log(a);
               this.save(parking);
             });
 

@@ -11,6 +11,8 @@ export default class GenericAddress {
   gia!: string;
   ddd: string;
   siafi: string;
+  latitude: number;
+  longitude: number;
   erro: boolean;
 
   constructor(json?: any) {
