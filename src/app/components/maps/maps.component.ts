@@ -46,8 +46,20 @@ export class MapsComponent extends BaseComponent {
 
           mapContents.forEach((mapContent: MapContent) => {
 
+            let _content = '<div id="iw-container">' +
+              `<div class="iw-title">${mapContent.parking.name}</div>` +
+              '<div class="iw-content">' +
+              '<br>' +
+              '<div class="iw-subTitle">Contact</div>' +
+              `<p>${mapContent.parking.address.street}, <br>${mapContent.parking.address.district} - ${mapContent.parking.address.country}<br>` +
+              `<br>Tel. ${mapContent.parking.phone}<br>email: ${mapContent.parking.email}</p>` +
+              '</div>' +
+              '<div class="iw-bottom-gradient"></div>' +
+              '</div>';
+
             const infowindow = new google.maps.InfoWindow({
-              content: mapContent.parking.name
+              content: _content,
+              maxWidth: 350
             });
 
             const marker = new google.maps.Marker({
@@ -59,8 +71,6 @@ export class MapsComponent extends BaseComponent {
               icon: '../../../assets/img/favicon.ico',
             });
 
-            infowindow.open(map, marker);
-
             marker.addListener('dragend', () => {
               let parking = new Parking(mapContent.parking);
               parking.address.latitude = marker.getPosition().toJSON().lat;
@@ -70,6 +80,33 @@ export class MapsComponent extends BaseComponent {
 
             marker.addListener('click', function () {
               infowindow.open(map, marker);
+            });
+
+            google.maps.event.addListener(infowindow, 'domready', function () {
+
+              // Referência ao DIV que agrupa o fundo da infowindow
+              var iwOuter = $('.gm-style-iw');
+              var iwBackground = iwOuter.prev();
+
+              // Remover o div da sombra do fundo
+              iwBackground.children(':nth-child(2)').css({ 'display': 'none' });
+
+              // Remover o div de fundo branco
+              iwBackground.children(':nth-child(4)').css({ 'display': 'none' });
+
+              // Desloca a sombra da seta a 76px da margem esquerda 
+              iwBackground.children(':nth-child(1)').attr('style', function (i, s) { return s + 'left: 76px !important;' });
+
+              // Desloca a seta a 76px da margem esquerda 
+              iwBackground.children(':nth-child(3)').attr('style', function (i, s) { return s + 'left: 76px !important;' });
+
+              // Altera a cor desejada para a sombra da cauda
+              iwBackground.children(':nth-child(3)').find('div').children().css({ 'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index': '1' });
+
+              // Se o conteúdo da infowindow não ultrapassar a altura máxima definida, então o gradiente é removido.
+              if ($('.iw-content').height() < 140) {
+                $('.iw-bottom-gradient').css({ display: 'none' });
+              }
             });
 
           });
