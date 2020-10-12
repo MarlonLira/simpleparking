@@ -69,7 +69,7 @@
             </a>
           </div>
           <div class="card-body" *ngIf="employeeAssign">
-            <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+            <h6 class="card-category text-gray">{{employeeAssign.rule?.name}}</h6>
             <h4 class="card-title">{{employeeAssign.name}}</h4>
             <p class="card-description">
               {{employeeAssign.about}}
