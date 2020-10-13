@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserAdressService } from './user-adress.service';
+import { RouteSecurityService } from './route-security.service';
 
-describe('userAdressService', () => {
-  let service: UserAdressService;
+describe('RouteSecurityService', () => {
+  let service: RouteSecurityService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserAdressService);
+    service = TestBed.inject(RouteSecurityService);
   });
 
   it('should be created', () => {

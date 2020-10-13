@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import Employee from '../models/employee.model';
+import { Injectable } from '@angular/core';
+import RouteSecurity from 'app/models/route-security.model';
 import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService extends BaseService<Employee> {
+export class RouteSecurityService extends BaseService<RouteSecurity> {
 
   constructor(
     public http: HttpClient
@@ -15,19 +14,19 @@ export class EmployeeService extends BaseService<Employee> {
     super(http);
   }
 
-  toList(): Promise<Employee[]> {
+  save(values): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/employees/companyId/${this.auth.company.id}`)
+      this.onPost('/routeSecurity', values)
         .subscribe(
-          (requested) => resolve(requested['result']),
+          (requested) => resolve(requested['message']),
           (e) => reject(e.error)
         );
     });
   }
 
-  save(values): Promise<any> {
+  delete(id: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onPost('/employee', values)
+      this.onDelete(`/routeSecurity/${id}`)
         .subscribe(
           (requested) => resolve(requested['message']),
           (e) => reject(e.error)
@@ -37,7 +36,7 @@ export class EmployeeService extends BaseService<Employee> {
 
   update(values): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onPut('/employee', values)
+      this.onPut('/routeSecurity', values)
         .subscribe(
           (requested) => resolve(requested['message']),
           (e) => reject(e.error)
@@ -45,9 +44,9 @@ export class EmployeeService extends BaseService<Employee> {
     });
   }
 
-  getById(id: number): Promise<Employee> {
+  toList(): Promise<RouteSecurity[]> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/employee/${id}`)
+      this.onGet('/routeSecurity')
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)
@@ -55,23 +54,14 @@ export class EmployeeService extends BaseService<Employee> {
     });
   }
 
-  delete(id: number): Promise<any> {
+  getByCompanyId(): Promise<RouteSecurity[]> {
     return new Promise((resolve, reject) => {
-      this.onDelete(`/employee/${id}`)
+      this.onGet(`/routeSecurity/companyId/${this.auth.company.id}`)
         .subscribe(
-          (requested) => resolve(requested['message']),
+          (requested) => resolve(requested['result']),
           (e) => reject(e.error)
         );
     });
   }
 
-  getByRegistryCode(registryCode) {
-    return new Promise((resolve, reject) => {
-      this.onGet(`/employees//registryCode/${registryCode}`)
-        .subscribe(
-          (requested) => resolve(requested),
-          (e) => reject(e.error)
-        );
-    })
-  }
 }

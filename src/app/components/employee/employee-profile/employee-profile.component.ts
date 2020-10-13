@@ -39,7 +39,7 @@ export class EmployeeProfileComponent extends BaseUploadComponent {
     this.service.getById(this.auth.employee.id)
       .then((result: Employee) => {
         this.employeeAssign = result;
-        this.employeeAssign.company = this.auth.company.name;
+        this.employeeAssign.companyName = this.auth.company.name;
         this.imageUrl = result.image ? this.encodedToLink(result.image) : this.imageUrl;
         this.onLoadForm(this.employeeAssign);
       });
@@ -49,7 +49,7 @@ export class EmployeeProfileComponent extends BaseUploadComponent {
     this.files.forEach((file: File) => {
       this.toBase64(file)
         .then(async result => {
-          this.employeeAssign.image = result;
+          this.imageUrl = result;
           await this.onUpdate();
           this.files.clear();
         }).catch((error: any) => this.toastr.error(error, 'Error'));
@@ -64,12 +64,13 @@ export class EmployeeProfileComponent extends BaseUploadComponent {
       email: new FormControl(''),
       password: new FormControl(''),
       about: new FormControl(''),
-      company: new FormControl({ value: '', disabled: true })
+      companyName: new FormControl({ value: '', disabled: true })
     });
   }
 
   objectBuild() {
     const obj: Employee = Object.assign({}, this.employeeAssign, this.form.value);
+    obj.image = this.imageUrl
     if (!Utils.isValid(obj.password)) {
       delete obj.password;
     }

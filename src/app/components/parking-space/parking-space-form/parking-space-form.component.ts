@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ParkingService } from 'app/services/parking.service';
 import { AuthService } from 'app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import Parking from 'app/models/parking.model';
 import ParkingSpace from 'app/models/parking-space.model';
 import { ParkingSpaceService } from 'app/services/parking-space.service';
 
@@ -36,15 +35,16 @@ export class ParkingSpaceFormComponent extends ParkingSpaceComponent {
   }
 
   onInit(): void {
+    this.onStartLoading();
+    this.onLoadList();
     this.formBuild();
     this.route.queryParams.subscribe(params => {
-      this.parkings = this.getParkings();
-
       if (params['parkingId']) {
-        this.isEditing = true;
-        this._parkingSpaceAssign = new ParkingSpace(params)
+        this.onEditing(['parkingId', 'type']);
+        this._parkingSpaceAssign = new ParkingSpace(params);
         this.onLoadForm(this._parkingSpaceAssign);
       }
+      this.onStopLoading();
     });
   }
 

@@ -57,14 +57,17 @@ export class SchedulingComponent extends BaseComponent {
       id = this.selected;
     }
 
-    this.schedulings = await this.service.getByParkingId(id);
+    if (this.isValid(id) && id > 0) {
+      this.schedulings = await this.service.getByParkingId(id);
+      this.parkingSpaces = await this.parkingSpaceService.getByParkingId(id);
+    }
+
     this.displayedColumns = ['id', 'userName', 'vehiclePlate', 'date', 'avaliableTime', 'unavailableTime', 'actions'];
     this.dataSource = new MatTableDataSource(this.schedulings);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.parkingSpaces = await this.parkingSpaceService.getByParkingId(id);
-    let _vacancies = 0;
 
+    let _vacancies = 0;
     this.parkingSpaces.forEach((item: ParkingSpace) => {
       _vacancies += item.amount;
     });

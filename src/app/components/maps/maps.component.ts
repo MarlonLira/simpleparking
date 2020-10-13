@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
-
-declare const google: any;
+import { } from 'googlemaps';
+import { ParkingService } from 'app/services/parking.service';
+import Parking from 'app/models/parking.model';
+import { Utils } from 'app/commons/core/utils';
 
 interface Marker {
   lat: number;
@@ -12,29 +14,144 @@ interface Marker {
   label?: string;
   draggable?: boolean;
 }
+
+interface MapContent {
+  position: google.maps.LatLng;
+  parking: Parking;
+}
+
 @Component({
   selector: 'app-maps',
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.css']
 })
 export class MapsComponent extends BaseComponent {
-
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
+    public parkingService: ParkingService,
     public router: Router
   ) { super(toastr, router, authService) }
 
-  onInit() {
-    const myLatlng = [
-      [new google.maps.LatLng(-8.05428, -34.8813), 'Estacionamento do Seu zé'],
-      [new google.maps.LatLng(-8.11208, -35.0154), 'Estacionamento de Dona Marieta'],
-      [new google.maps.LatLng(-8.02044, -34.9817), 'Estacionamento Gusgay']
-    ];
-    const mapOptions = {
+  protected onAfterViewInit(): void { }
+  protected onDestroy(): void { }
+
+  protected onInit() {
+    this.onLoadList()
+      .then((mapContents: MapContent[]) => {
+        if (mapContents.length > 0) {
+          const mapOptions: google.maps.MapOptions = this.onLoadMapOptions(mapContents);
+          const shape: google.maps.MarkerShape = this.onLoadMapShape();
+          const map: google.maps.Map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+          mapContents.forEach((mapContent: MapContent) => {
+
+            let _content = '<div id="iw-container">' +
+              `<div class="iw-title">${mapContent.parking.name}</div>` +
+              '<div class="iw-content">' +
+              '<br>' +
+              '<div class="iw-subTitle">Contact</div>' +
+              `<p>${mapContent.parking.address.street}, <br>${mapContent.parking.address.district} - ${mapContent.parking.address.country}<br>` +
+              `<br>Tel. ${mapContent.parking.phone}<br>email: ${mapContent.parking.email}</p>` +
+              '</div>' +
+              '<div class="iw-bottom-gradient"></div>' +
+              '</div>';
+
+            const infowindow = new google.maps.InfoWindow({
+              content: _content,
+              maxWidth: 350
+            });
+
+            const marker = new google.maps.Marker({
+              position: mapContent.position,
+              map: map,
+              animation: google.maps.Animation.DROP,
+              draggable: true,
+              title: mapContent.parking.name,
+              icon: '../../../assets/img/favicon.ico',
+            });
+
+            marker.addListener('dragend', () => {
+              let parking = new Parking(mapContent.parking);
+              parking.address.latitude = marker.getPosition().toJSON().lat;
+              parking.address.longitude = marker.getPosition().toJSON().lng;
+              this.save(parking);
+            });
+
+            marker.addListener('click', function () {
+              infowindow.open(map, marker);
+            });
+
+            google.maps.event.addListener(infowindow, 'domready', function () {
+
+              // Referência ao DIV que agrupa o fundo da infowindow
+              var iwOuter = $('.gm-style-iw');
+              var iwBackground = iwOuter.prev();
+
+              // Remover o div da sombra do fundo
+              iwBackground.children(':nth-child(2)').css({ 'display': 'none' });
+
+              // Remover o div de fundo branco
+              iwBackground.children(':nth-child(4)').css({ 'display': 'none' });
+
+              // Desloca a sombra da seta a 76px da margem esquerda 
+              iwBackground.children(':nth-child(1)').attr('style', function (i, s) { return s + 'left: 76px !important;' });
+
+              // Desloca a seta a 76px da margem esquerda 
+              iwBackground.children(':nth-child(3)').attr('style', function (i, s) { return s + 'left: 76px !important;' });
+
+              // Altera a cor desejada para a sombra da cauda
+              iwBackground.children(':nth-child(3)').find('div').children().css({ 'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index': '1' });
+
+              // Se o conteúdo da infowindow não ultrapassar a altura máxima definida, então o gradiente é removido.
+              if ($('.iw-content').height() < 140) {
+                $('.iw-bottom-gradient').css({ display: 'none' });
+              }
+            });
+
+          });
+        }
+      });
+  }
+
+  private onLoadMapShape(): google.maps.MarkerShape {
+    return {
+      coords: [1, 1, 1, 20, 18, 20, 18, 1],
+      type: 'poly'
+    };
+  }
+
+
+  private onLoadList() {
+    return new Promise((resolve, reject) => {
+      let mapContents: MapContent[] = [];
+      this.parkingService.toList()
+        .then((result: Parking[]) => {
+          result.forEach((parking: Parking) => {
+            if (Utils.isValid(parking.address)) {
+              let latitude = parking.address.latitude;
+              let longitude = parking.address.longitude;
+              if (latitude != 0 && longitude != 0) {
+                mapContents.push(
+                  {
+                    position: new google.maps.LatLng(latitude, longitude),
+                    parking: parking
+                  }
+                );
+              }
+            }
+          });
+
+          resolve(mapContents);
+        }).catch(error => reject(this.toastr.error(error, 'Error')));
+    });
+  }
+
+  private onLoadMapOptions(mapContents: MapContent[]): google.maps.MapOptions {
+    return {
       zoom: 13,
-      center: myLatlng[0][0],
-      scrollwheel: false, // we disable de scroll over the map, it is a really annoing when you scroll through page
+      center: mapContents[0].position,
+      scrollwheel: false,
       styles: [{
         'featureType': 'water',
         'stylers': [{
@@ -121,37 +238,28 @@ export class MapsComponent extends BaseComponent {
         }]
       }]
     };
-
-    const shape = {
-      coords: [1, 1, 1, 20, 18, 20, 18, 1],
-      type: 'poly'
-    };
-    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-    myLatlng.forEach(position => {
-
-      const infowindow = new google.maps.InfoWindow({
-        content: position[1]
-      });
-
-      const marker = new google.maps.Marker({
-        position: position[0],
-        map: map,
-        shape: shape,
-        animation: google.maps.Animation.DROP,
-        draggable: true,
-        title: 'Estacionamento do seu zé'
-      });
-
-      marker.addListener('click', function () {
-        infowindow.open(map, marker);
-      });
-    });
   }
 
-  protected onAfterViewInit(): void {
-  }
-  protected onDestroy(): void {
+  public save(parking: Parking) {
+    this.onBuildConfirmMessage({
+      title: 'Are you sure?',
+      text: `The parking location '${parking.name}' will be changed!`,
+      confirmButtonText: 'Yes, do it!',
+      icon: 'question'
+    })
+      .then((btn) => {
+        if (btn.isConfirmed) {
+          this.onStartLoading();
+          this.parkingService.update(parking)
+            .then(result => {
+              this.onStopLoading();
+              this.onSuccessMessage('Saved Successfully!', result);
+            }).catch(error => {
+              this.onErrorMessage('Error', error.message);
+              this.onStopLoading();
+            });
+        }
+      });
   }
 
 }

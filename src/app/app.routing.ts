@@ -23,8 +23,10 @@ import { SchedulingListComponent } from './components/scheduling/scheduling-list
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { SettingsListComponent } from './components/settings/settings-list/settings-list.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'employee-profile', component: EmployeeProfileComponent },
@@ -32,37 +34,43 @@ const routes: Routes = [
   {
     path: 'parking', component: ParkingComponent,
     children: [
-      { path: 'register', component: ParkingFormComponent },
-      { path: 'edit', component: ParkingFormComponent },
-      { path: 'list', component: ParkingListComponent }
+      { path: 'register', component: ParkingFormComponent, canActivate: [GroupGuard] },
+      { path: 'edit', component: ParkingFormComponent, canActivate: [GroupGuard] },
+      { path: 'list', component: ParkingListComponent, canActivate: [GroupGuard] }
     ],
     canActivate: [GroupGuard]
   },
   {
     path: 'parking-space', component: ParkingSpaceComponent,
     children: [
-      { path: 'register', component: ParkingSpaceFormComponent },
-      { path: 'edit', component: ParkingSpaceFormComponent },
-      { path: 'list', component: ParkingSpaceListComponent }
+      { path: 'register', component: ParkingSpaceFormComponent, canActivate: [GroupGuard] },
+      { path: 'edit', component: ParkingSpaceFormComponent, canActivate: [GroupGuard] },
+      { path: 'list', component: ParkingSpaceListComponent, canActivate: [GroupGuard] }
     ],
     canActivate: [GroupGuard]
   },
   {
     path: 'scheduling', component: SchedulingComponent,
     children: [
-      { path: 'list', component: SchedulingListComponent }
+      { path: 'list', component: SchedulingListComponent, canActivate: [GroupGuard] }
+    ]
+  },
+  {
+    path: 'settings', component: SettingsComponent,
+    children: [
+      { path: 'list', component: SettingsListComponent, canActivate: [GroupGuard] }
     ]
   },
   {
     path: 'employee', component: EmployeeComponent,
     children: [
-      { path: 'register', component: EmployeeFormComponent},
-      { path: 'edit', component:  EmployeeFormComponent},
-      { path: 'list', component: EmployeeListComponent }
+      { path: 'register', component: EmployeeFormComponent, canActivate: [GroupGuard] },
+      { path: 'edit', component: EmployeeFormComponent, canActivate: [GroupGuard] },
+      { path: 'list', component: EmployeeListComponent, canActivate: [GroupGuard] }
     ],
     canActivate: [GroupGuard]
   },
-  { path: 'company', component: CompanyComponent },
+  { path: 'company', component: CompanyComponent, canActivate: [GroupGuard] },
   { path: 'auth/signin', component: SigninComponent },
   { path: 'auth/signup', component: SignupComponent },
   { path: 'auth/account-recovery', component: AccountRecoveryComponent },

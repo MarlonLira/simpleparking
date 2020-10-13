@@ -50,12 +50,12 @@ export class UploadComponent extends BaseUploadComponent {
     }
   }
 
-  async onView(file: ParkingFile) {
+  public async onView(file: ParkingFile) {
     this.setImageForViewing(file);
     let dialogRef = this.dialog.open(DialogViewComponent, { width: '50%',  height: '90%'});
   }
 
-  onRemove(file: ParkingFile) {
+  public onRemove(file: ParkingFile) {
     this.onConfirmMessage()
       .then((btn) => {
         if (btn.isConfirmed) {
