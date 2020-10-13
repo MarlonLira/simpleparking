@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
-  HttpRequest,
-  HttpEventType,
-  HttpResponse,
 } from '@angular/common/http';
-import { Subject, Observable } from 'rxjs';
 import { BaseService } from './base.service';
-import Consts from '../consts';
 import ParkingFile from 'app/models/parking-file.model';
-import { Buffer } from 'buffer';
 
 @Injectable({
   providedIn: 'root'
@@ -55,11 +49,6 @@ export class ParkingFileService extends BaseService<ParkingFile> {
       let result: any;
       files.forEach(async (file: File) => {
         const upload = new ParkingFile();
-        const base64 = await this.toBase64(file);
-        const buffer = Buffer.from(base64, 'base64')
-        console.log(buffer);
-        // const blobPart = new blobPart()
-        // const blob = new Blob(,);
         upload.encoded = file;
         upload.name = file.name;
         upload.type = file.type;

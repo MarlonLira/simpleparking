@@ -39,7 +39,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
         this._id = params['id'];
         this.service.getById(this._id)
           .then((result: Employee) => {
-            this.onEditing();
+            this.onEditing([], result.companyId);
             this.onLoadForm(result);
             this.onStopLoading();
           }).catch(error => {
@@ -64,7 +64,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
         .then(requested => {
           this.onResetForm();
           this.onStopLoading();
-          this.onSuccessMessage('Saved Successfully!', requested['message']);
+          this.onSuccessMessage('Saved Successfully!', requested);
         }).catch(error => {
           this.onErrorMessage('Error', error.message);
           this.onStopLoading();
@@ -75,7 +75,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
           this.onResetForm();
           this.onStopLoading();
           this.onSuccessMessage('Saved Successfully!', result)
-            .then(() => this.redirectFor('/parking-space/list'));
+            .then(() => this.redirectFor('/employee/list'));
         }).catch(error => {
           this.onErrorMessage('Error', error.message);
           this.onStopLoading();

@@ -12,6 +12,7 @@ declare interface RouteInfo {
   icon: string;
   visible: boolean;
 }
+
 export const ROUTES: RouteInfo[] = [
   { name: 'dashboard', path: '/dashboard', title: 'Dashboard', icon: 'dashboard', visible: true },
   { name: 'parking', path: '/parking/list', title: 'Parking', icon: 'local_parking', visible: true },
@@ -22,6 +23,7 @@ export const ROUTES: RouteInfo[] = [
   { name: 'maps', path: '/maps', title: 'Maps', icon: 'location_on', visible: true },
   { name: 'company', path: '/company', title: 'Company', icon: 'domain', visible: false },
   { name: 'user-profile', path: '/user-profile', title: 'User Profile', icon: 'person', visible: false },
+  { name: 'settings', path: '/settings/list', title: 'Settings', icon: 'settings', visible: true },
   { name: 'error', path: '/error', title: 'Page not found', icon: 'error', visible: false },
 ];
 

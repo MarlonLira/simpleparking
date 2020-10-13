@@ -34,7 +34,7 @@ export class ParkingComponent extends BaseComponent {
     this.service.toList()
       .then((result: Parking[]) => {
         this.parkings = result;
-        this.displayedColumns = ['id', 'name', 'registryCode', 'phone', 'email', 'actions'];
+        this.displayedColumns = ['name', 'registryCode', 'phone', 'email', 'address', 'actions'];
         this.dataSource = new MatTableDataSource(this.parkings);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -49,10 +49,10 @@ export class ParkingComponent extends BaseComponent {
       phone: new FormControl(''),
       email: new FormControl(''),
       imgUrl: new FormControl(''),
-      adress: new FormGroup({
+      address: new FormGroup({
         id: new FormControl(0),
         city: new FormControl(''),
-        country: new FormControl(''),
+        country: new FormControl({ value: 'Brasil' }),
         state: new FormControl(''),
         street: new FormControl(''),
         district: new FormControl(''),

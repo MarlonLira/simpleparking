@@ -1,19 +1,17 @@
-import { isArray, isString, isNullOrUndefined } from 'util';
-
 export abstract class Utils {
   private static timeReg: RegExp = /^([0-2]{1}[0-9]{1}):[0-5]{1}[0-9]:[0-5]{1}[0-9]/;
 
-  public static GetDateNow() {
-    const InnerDate: any = {};
+  public static getDateNow() {
+    const innerDate: any = {};
     const _date = new Date();
-    InnerDate.Year = this.leftZero(_date.getFullYear());
-    InnerDate.Month = this.leftZero(_date.getMonth() + 1);
-    InnerDate.Day = this.leftZero(_date.getDate());
-    InnerDate.FullDate = `${InnerDate.Year}-${InnerDate.Month}-${InnerDate.Day}`;
-    return InnerDate;
+    innerDate.Year = this.leftZero(_date.getFullYear());
+    innerDate.Month = this.leftZero(_date.getMonth() + 1);
+    innerDate.Day = this.leftZero(_date.getDate());
+    innerDate.FullDate = `${innerDate.Year}-${innerDate.Month}-${innerDate.Day}`;
+    return innerDate;
   }
 
-  public static GetTime(date) {
+  public static getTime(date) {
     if (!this.isTime(date)) {
       const _date = new Date(date);
       const hours = this.leftZero(_date.getUTCHours());
@@ -45,21 +43,19 @@ export abstract class Utils {
   }
 
   public static isValid(value) {
-    if (isArray(value)) {
+    if (typeof (value) === 'string') {
+      return value !== '' ? true : false;
+    } else if (Array.isArray(value)) {
       return value.length > 0 ? true : false;
     }
-
-    if (isString(value)) {
-      return value !== '' ? true : false;
-    }
-    
-    return (!isNullOrUndefined(value)) ? true : false;
+    return !Utils.isNullOrUndefined(value) ? true : false;
   }
 
   public static returnIfValid = (value, defaultValue = undefined) => Utils.isValid(value) ? value : defaultValue;
   // tslint:disable-next-line: max-line-length
-  private static leftZero = (value) => !isNullOrUndefined(value) ? (value.toString().length === 1 ? `0${value.toString()}` : value.toString()) : ' ';
+  private static leftZero = (value) => !Utils.isNullOrUndefined(value) ? (value.toString().length === 1 ? `0${value.toString()}` : value.toString()) : ' ';
   public static isTime = (time): boolean => Utils.timeReg.test(time);
+  private static isNullOrUndefined = (value: any) => (value === null || value === undefined);
 }
 
 export interface Timer {

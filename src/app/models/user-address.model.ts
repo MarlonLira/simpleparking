@@ -1,6 +1,6 @@
 import { Utils } from '../commons/core/utils';
 
-export default class CompanyAdress {
+export default class UserAddress {
 
   id!: number;
   status!: string;
@@ -12,7 +12,7 @@ export default class CompanyAdress {
   number: number;
   zipCode: string;
   complement!: string;
-  companyId!: number;
+  userId!: number;
 
   constructor(json?: any) {
     this.id = Utils.returnIfValid(json.id);
@@ -25,6 +25,6 @@ export default class CompanyAdress {
     this.number = Utils.returnIfValid(json.number);
     this.zipCode = Utils.returnIfValid(json.zipCode);
     this.complement = Utils.returnIfValid(json.complement);
-    this.companyId = Utils.returnIfValid(json.companyId);
+    this.userId = Utils.returnIfValid(json.userId);
   }
 }

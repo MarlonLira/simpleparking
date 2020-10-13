@@ -12,6 +12,8 @@ import 'rxjs/add/operator/map';
 import { DataTableDirective } from 'angular-datatables';
 import { ParkingSpaceService } from 'app/services/parking-space.service';
 import { ParkingService } from 'app/services/parking.service';
+import { SchedulingService } from 'app/services/scheduling.service';
+import Scheduling from 'app/models/scheduling.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,13 +23,15 @@ import { ParkingService } from 'app/services/parking.service';
 export class DashboardComponent extends BaseComponent {
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
+  public totalRevenue = 0;
 
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
     public router: Router,
     public parkingSpaceService: ParkingSpaceService,
-    public parkingService: ParkingService
+    public parkingService: ParkingService,
+    public schedulingService: SchedulingService
   ) {
     super(toastr, router, authService);
   }
@@ -90,6 +94,13 @@ export class DashboardComponent extends BaseComponent {
   };
 
   onInit() {
+
+    this.schedulingService.getByParkingId(11)
+      .then((result: Scheduling[]) => {
+        result.forEach((item: Scheduling) => {
+          this.totalRevenue += item.value;
+        });
+      });
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
     const dataDailySalesChart: any = {

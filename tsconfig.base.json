@@ -20,6 +20,9 @@
     "lib": [
       "es2016",
       "dom"
+    ],
+    "types": [
+      "googlemaps"
     ]
   }
 }

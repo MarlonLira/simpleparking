@@ -7,7 +7,7 @@ import { AuthService } from './services/auth.service';
 import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
-import Swal, { SweetAlertOptions } from 'sweetalert2'
+import Swal, { SweetAlertIcon, SweetAlertOptions } from 'sweetalert2'
 import { Router, Params } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -34,7 +34,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     text: 'You won\'t be able to revert this!',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
+    confirmButtonColor: '#59578e',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!'
   }
@@ -47,18 +47,13 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     this.storage = sessionStorage;
   }
 
-  ngOnDestroy(): void {
-    this.onDestroy();
-  }
-
-  ngAfterViewInit(): void {
-    this.onAfterViewInit();
-  }
-
   protected abstract onAfterViewInit(): void;
   protected abstract onInit(): void;
   protected abstract onDestroy(): void;
   protected formBuild(): void { };
+
+  ngOnDestroy = (): void => this.onDestroy();
+  ngAfterViewInit = (): void => this.onAfterViewInit();
 
   ngOnInit() {
     this.onStartLoading();
@@ -137,9 +132,23 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     }
   }
 
-  protected onEditing() {
+  protected onEditing(disabledFields = [], companyId = 0) {
+    let isValid = true;
+    if (companyId > 0) {
+      isValid = this.auth.company.id === companyId ? true : false;
+      if (!isValid) {
+        this.toastr.error('Error!', 'Oops !. The internet address you are trying to access is not part of your company!');
+        this.redirectFor('/error');
+      }
+    }
+
     $('#list').removeClass('active');
     this.isEditing = true;
+    if (disabledFields.length > 0) {
+      disabledFields.forEach((value) => {
+        this.form.controls[value].disable();
+      });
+    }
   }
 
   protected destroyToken(isAuthenticated = true) {
@@ -184,4 +193,17 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   protected onSuccessMessage = (title: string, message?: string) => Swal.fire(title, message, 'success');
   protected onErrorMessage = (title: string, message?: string) => Swal.fire(title, message, 'error');
   protected encodedToLink = (encoded: any): string => atob(encoded);
+  protected onBuildConfirmMessage = (options: SweetAlertOptions) => Swal.fire(this.buildMessage(options));
+
+  private buildMessage(options: SweetAlertOptions) {
+    return {
+      title: options.title,
+      text: options.text,
+      icon: options.icon,
+      showCancelButton: true,
+      confirmButtonColor: !options.confirmButtonColor ? '#59578e' : options.confirmButtonColor,
+      cancelButtonColor: !options.cancelButtonColor ? '#d33' : options.cancelButtonColor,
+      confirmButtonText: options.confirmButtonText
+    }
+  }
 }

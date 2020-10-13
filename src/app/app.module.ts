@@ -20,6 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DataTablesModule } from 'angular-datatables';
 import { MatTableModule } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
@@ -51,7 +52,6 @@ import { ParkingListComponent } from './components/parking/parking-list/parking-
 import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
 import { UploadComponent } from './shared/upload/upload.component';
-import { DataTableComponent } from './shared/data-table/data-table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CompanyComponent } from './components/company/company.component';
 import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
@@ -60,6 +60,8 @@ import { ParkingSpaceListComponent } from './components/parking-space/parking-sp
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 import { SchedulingViewDialogComponent } from './components/scheduling/scheduling-view-dialog/scheduling-view-dialog.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { SettingsListComponent } from './components/settings/settings-list/settings-list.component';
 
 @NgModule({
   imports: [
@@ -85,6 +87,7 @@ import { SchedulingViewDialogComponent } from './components/scheduling/schedulin
     DataTablesModule,
     MatTableModule,
     MatPaginatorModule,
+    MatExpansionModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
@@ -115,14 +118,15 @@ import { SchedulingViewDialogComponent } from './components/scheduling/schedulin
     EmployeeFormComponent,
     EmployeeListComponent,
     UploadComponent,
-    DataTableComponent,
     CompanyComponent,
     ParkingSpaceComponent,
     ParkingSpaceFormComponent,
     ParkingSpaceListComponent,
     SchedulingComponent,
     SchedulingListComponent,
-    SchedulingViewDialogComponent
+    SchedulingViewDialogComponent,
+    SettingsComponent,
+    SettingsListComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
