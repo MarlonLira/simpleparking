@@ -13,6 +13,7 @@ export default class Employee {
   public about!: string;
   public image: string;
   public password: string;
+  public companyName: string;
   public parkingId!: number;
   public companyId!: number;
   public ruleId!: number;
