@@ -1,6 +1,8 @@
 import { Utils } from '../commons/core/utils';
 import ParkingAddress from './parking-address.model';
 import Company from './company.model';
+import Employee from './employee.model';
+import ParkingFile from './parking-file.model';
 
 export default class Parking {
   id!: number;
@@ -14,6 +16,8 @@ export default class Parking {
 
   address: ParkingAddress;
   company: Company;
+  employees: Employee[];
+  files: ParkingFile[];
 
   constructor(json?: any) {
     if (json) {
@@ -27,6 +31,8 @@ export default class Parking {
       this.companyId = Utils.returnIfValid(json.companyId);
       this.address = Utils.returnIfValid(json.address);
       this.company = Utils.returnIfValid(json.company);
+      this.employees = Utils.returnIfValid(json.employees);
+      this.files = Utils.returnIfValid(json.files);
     }
   }
 }
