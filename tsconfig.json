@@ -7,7 +7,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist/simple-parking",
     "baseUrl": "src",
     "paths": {
       "crypto": [
