@@ -18,7 +18,6 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DataTablesModule } from 'angular-datatables';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -84,7 +83,6 @@ import { SettingsListComponent } from './components/settings/settings-list/setti
     MatProgressSpinnerModule,
     MatDividerModule,
     MaterialFileInputModule,
-    DataTablesModule,
     MatTableModule,
     MatPaginatorModule,
     MatExpansionModule,

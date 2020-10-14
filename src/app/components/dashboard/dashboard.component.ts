@@ -1,15 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import * as Chartist from 'chartist';
-import { HttpClient } from '@angular/common/http';
-import Consts from '../../consts';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 
-import { Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
-import { DataTableDirective } from 'angular-datatables';
 import { ParkingSpaceService } from 'app/services/parking-space.service';
 import { ParkingService } from 'app/services/parking.service';
 import { SchedulingService } from 'app/services/scheduling.service';
@@ -21,8 +17,6 @@ import Scheduling from 'app/models/scheduling.model';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent extends BaseComponent {
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
   public totalRevenue = 0;
 
   constructor(
