@@ -1,16 +1,17 @@
 {
   "name": "simple-parking",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "install:clean": "npm rm -rf node_modules/ && npm rm -rf package-lock.json && npm install && ng serve --open",
-    "postinstall": "node patch.conf.js"
+    "postinstall": "node patch.conf.js",
+    "heroku-postbuild": "ng build"
   },
   "engines": {
     "node": "12.18.4",
@@ -19,17 +20,28 @@
   "private": true,
   "dependencies": {
     "@agm/core": "1.1.0",
+    "@angular-devkit/build-angular": "0.1000.8",
     "@angular/animations": "10.0.14",
     "@angular/cdk": "10.0.1",
+    "@angular/cli": "10.0.8",
     "@angular/common": "10.0.14",
     "@angular/compiler": "10.0.14",
+    "@angular/compiler-cli": "10.0.14",
     "@angular/core": "10.0.14",
     "@angular/forms": "10.0.14",
+    "@angular/language-service": "10.0.14",
     "@angular/material": "10.0.1",
     "@angular/platform-browser": "10.0.14",
     "@angular/platform-browser-dynamic": "10.0.14",
     "@angular/platform-server": "10.0.14",
     "@angular/router": "10.0.14",
+    "@types/bootstrap": "4.3.0",
+    "@types/chartist": "0.9.46",
+    "@types/datatables.net": "^1.10.19",
+    "@types/googlemaps": "3.36.4",
+    "@types/jasmine": "3.3.13",
+    "@types/jquery": "^3.3.29",
+    "@types/node": "12.0.7",
     "ajv": "6.12.0",
     "arrive": "2.4.1",
     "bootstrap": "4.3.1",
@@ -47,11 +59,13 @@
     "ngx-mask": "^9.1.2",
     "ngx-material-file-input": "^2.1.1",
     "ngx-toastr": "^12.1.0",
+    "path": "^0.12.7",
     "perfect-scrollbar": "1.1.0",
     "popper.js": "1.15.0",
     "rxjs": "6.6.0",
     "rxjs-compat": "6.5.2",
     "sweetalert2": "^9.17.0",
+    "typescript": "3.9.6",
     "web-animations-js": "2.3.1",
     "zone.js": "0.10.3"
   },
@@ -77,8 +91,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "8.6.2",
-    "tslint": "~6.1.0",
-    "typescript": "3.9.6"
+    "tslint": "~6.1.0"
   },
   "browser": {
     "crypto": false,
