@@ -59,6 +59,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Parking</mat-label>
             <mat-select formControlName="parkingId">
+              <mat-option [value]="0">N/A</mat-option>
               <mat-option *ngFor="let parking of parkings" [value]="parking.id">
                 {{parking.name}}
               </mat-option>

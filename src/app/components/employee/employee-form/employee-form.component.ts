@@ -54,32 +54,40 @@ export class EmployeeFormComponent extends EmployeeComponent {
     const obj: Employee = Object.assign({}, this.employeeAssign, this.form.value);
     obj.id = this._id;
     obj.companyId = this.auth.company.id;
+    obj.parkingId = Number(obj.parkingId) === 0 ? undefined : obj.parkingId;
     return obj;
   }
 
   onSubmit() {
     this.onStartLoading();
-    if (!this.isEditing) {
-      this.service.save(this.objectBuild())
-        .then(requested => {
-          this.onResetForm();
-          this.onStopLoading();
-          this.onSuccessMessage('Saved Successfully!', requested);
-        }).catch(error => {
-          this.onErrorMessage('Error', error.message);
-          this.onStopLoading();
-        });
+    let isValidate = false;
+    isValidate = this.form.value.password === this.form.value.confirmPassword;
+    if (isValidate) {
+      if (!this.isEditing) {
+        this.service.save(this.objectBuild())
+          .then(requested => {
+            this.onResetForm();
+            this.onStopLoading();
+            this.onSuccessMessage('Saved Successfully!', requested);
+          }).catch(error => {
+            this.onErrorMessage('Error', error.message);
+            this.onStopLoading();
+          });
+      } else {
+        this.service.update(this.objectBuild())
+          .then(result => {
+            this.onResetForm();
+            this.onStopLoading();
+            this.onSuccessMessage('Saved Successfully!', result)
+              .then(() => this.redirectFor('/employee/list'));
+          }).catch(error => {
+            this.onErrorMessage('Error', error.message);
+            this.onStopLoading();
+          });
+      }
     } else {
-      this.service.update(this.objectBuild())
-        .then(result => {
-          this.onResetForm();
-          this.onStopLoading();
-          this.onSuccessMessage('Saved Successfully!', result)
-            .then(() => this.redirectFor('/employee/list'));
-        }).catch(error => {
-          this.onErrorMessage('Error', error.message);
-          this.onStopLoading();
-        });
+      this.onErrorMessage('Erro', 'As senhas não coincidem.');
+      this.onStopLoading();
     }
   }
 
