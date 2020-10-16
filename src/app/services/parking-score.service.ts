@@ -34,7 +34,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
     });
   }
 
-  Update(values): Promise<any> {
+  update(values): Promise<any> {
     return new Promise((resolve, reject) => {
       this.onPut('/parkingScore', values)
         .subscribe(
@@ -44,7 +44,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
     });
   }
 
-  GetById(id: number): Promise<ParkingScore> {
+  getById(id: number): Promise<ParkingScore> {
     return new Promise((resolve, reject) => {
       this.onGet(`/parkingScore/parkingScoreId/${id}`)
         .subscribe(
@@ -54,7 +54,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
     });
   }
 
-  ToList(): Promise<ParkingScore[]> {
+  toList(): Promise<ParkingScore[]> {
     return new Promise((resolve, reject) => {
       this.onGet(`/ParkingsScore/${this.auth.parking.id}`)
         .subscribe(
