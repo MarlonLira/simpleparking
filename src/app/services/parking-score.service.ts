@@ -14,48 +14,53 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
     super(http);
   }
 
-  Save(values): Promise<any> {
-    return new Promise((resolve) => {
+  save(values): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onPost('/parkingScore', values)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  Delete(id: number): Promise<any> {
-    return new Promise((resolve) => {
+  delete(id: number): Promise<any> {
+    return new Promise((resolve, reject) => {
       this.onDelete(`/parkingScore/${id}`)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested['message']),
+          (e) => reject(e.error)
+        );
     });
   }
 
   Update(values): Promise<any> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.onPut('/parkingScore', values)
-        .subscribe(requested => {
-          resolve(requested['message']);
-        });
+        .subscribe(
+          (requested) => resolve(requested['message']),
+          (e) => reject(e.error)
+        );
     });
   }
 
   GetById(id: number): Promise<ParkingScore> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       this.onGet(`/parkingScore/parkingScoreId/${id}`)
-        .subscribe((requested: ParkingScore) => {
-          resolve(requested);
-        });
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
     });
   }
 
-  ToList(parkingId): Promise<ParkingScore[]> {
-    return new Promise((resolve) => {
-      this.onGet(`/ParkingsScore/${parkingId}`)
-        .subscribe((requested: ParkingScore[]) => {
-          resolve(requested);
-        });
+  ToList(): Promise<ParkingScore[]> {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/ParkingsScore/${this.auth.parking.id}`)
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
     });
   }
 }
