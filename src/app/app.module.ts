@@ -90,7 +90,7 @@ import { SettingsListComponent } from './components/settings/settings-list/setti
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBrGTfBFa0mZ9303uZOuvW-xYxHXtHRs2k'
-    }),
+    })
   ],
   declarations: [
     AppComponent,

@@ -16,7 +16,7 @@ export class SchedulingService extends BaseService<Scheduling> {
 
   toList(): Promise<Scheduling[]> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/schedulings/companyId/${this.auth.company.id}`)
+      this.onGet(`/schedulings/companyId/${this.auth.employee.companyId}`)
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)

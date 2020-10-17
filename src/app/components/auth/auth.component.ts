@@ -6,12 +6,13 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export abstract class AuthComponent extends BaseComponent {
-
   constructor(
     public toastr: ToastrService,
     public router: Router,
     public authService: AuthService
-  ) { super(toastr, router, authService) }
+  ) {
+    super(toastr, router, authService)
+  }
 
   protected abstract onSafelyInit();
 
@@ -20,10 +21,8 @@ export abstract class AuthComponent extends BaseComponent {
     this.onSafelyInit();
   }
 
-  protected onAfterViewInit(): void {
-  }
-  protected onDestroy(): void {
-  }
+  protected onAfterViewInit(): void { }
+  protected onDestroy(): void { }
 
   private verify() {
     if (this.auth) {

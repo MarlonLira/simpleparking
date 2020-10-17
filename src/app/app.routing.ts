@@ -83,10 +83,10 @@ export const routes: Routes = [
     CommonModule,
     BrowserModule,
     RouterModule.forRoot(routes, {
-      useHash: true
+      useHash: false,
+      onSameUrlNavigation: 'reload'
     })
   ],
-  exports: [
-  ],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }
