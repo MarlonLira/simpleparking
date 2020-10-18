@@ -52,7 +52,7 @@ export class ParkingComponent extends BaseComponent {
       address: new FormGroup({
         id: new FormControl(0),
         city: new FormControl(''),
-        country: new FormControl({ value: 'Brasil' }),
+        country: new FormControl({ value: 'Brasil', disabled: false }),
         state: new FormControl(''),
         street: new FormControl(''),
         district: new FormControl(''),
