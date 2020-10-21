@@ -1,6 +1,30 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
+      <mat-card>
+        <mat-card-header>
+          <a class="card-header-item">
+            <mat-icon>stars</mat-icon>
+            <mat-card-title>Your Score</mat-card-title>
+          </a>
+        </mat-card-header>
+        <div class="row">
+          <a class="card-icon">
+            <mat-icon>security</mat-icon>
+            <span>Security: {{this.totalSecurityScore}}</span>
+          </a>
+          <a class="card-icon">
+            <mat-icon>place</mat-icon>
+            <span>Location: {{this.totalLocationScore}}</span>
+          </a>
+          <a class="card-icon">
+            <mat-icon>group</mat-icon>
+            <span>Attendance: {{this.totalAttendanceScore}}</span>
+          </a>
+        </div>
+      </mat-card>
+    </div>
+    <div class="row">
       <!-- <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
           <div class="card-header card-header-warning card-header-icon">
@@ -41,7 +65,9 @@
               <i class="material-icons">stars</i>
             </div>
             <p class="card-category">Your Score</p>
-            <h3 class="card-title">4.8</h3>
+            <small class="card-title">Attendance:{{this.totalAttendanceScore}}</small><br />
+            <small class="card-title">Location:{{this.totalLocationScore}}</small><br />
+            <small class="card-title">Security:{{this.totalSecurityScore}}</small>
           </div>
           <div class="card-footer">
             <div class="stats">

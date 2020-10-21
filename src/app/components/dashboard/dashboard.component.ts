@@ -10,6 +10,8 @@ import { ParkingSpaceService } from 'app/services/parking-space.service';
 import { ParkingService } from 'app/services/parking.service';
 import { SchedulingService } from 'app/services/scheduling.service';
 import Scheduling from 'app/models/scheduling.model';
+import ParkingScore from 'app/models/parking-score.model';
+import { ParkingScoreService } from 'app/services/parking-score.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,12 +20,17 @@ import Scheduling from 'app/models/scheduling.model';
 })
 export class DashboardComponent extends BaseComponent {
   public totalRevenue = 0;
+  public totalAttendanceScore = 0;
+  public totalLocationScore = 0;
+  public totalSecurityScore = 0;
+
 
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
     public router: Router,
     public parkingSpaceService: ParkingSpaceService,
+    public parkingScoreService: ParkingScoreService,
     public parkingService: ParkingService,
     public schedulingService: SchedulingService
   ) {
@@ -95,6 +102,15 @@ export class DashboardComponent extends BaseComponent {
           this.totalRevenue += item.value;
         });
       });
+
+    this.parkingScoreService.toList()
+    .then((result: ParkingScore[]) => {
+      result.forEach((item: ParkingScore) => {
+        this.totalAttendanceScore += item.attendanceScore / result.length;
+        this.totalLocationScore += item.locationScore / result.length;
+        this.totalSecurityScore += item.securityScore / result.length;
+      })
+    })
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
     const dataDailySalesChart: any = {

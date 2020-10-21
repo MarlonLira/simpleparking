@@ -56,7 +56,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
 
   toList(): Promise<ParkingScore[]> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/ParkingsScore/${this.auth.parking.id}`)
+      this.onGet(`/ParkingsScores/${this.auth.parking.id}`)
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)

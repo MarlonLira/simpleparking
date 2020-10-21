@@ -23,3 +23,16 @@
     font-weight: 500;
     font-size: large !important;
 }
+
+.card-icon {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 10px 10px;
+}
+
+.card-header-item {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 10px 10px 10px 10px; */
+    font-size: large;
+}
