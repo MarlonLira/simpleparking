@@ -103,8 +103,9 @@ export class ParkingFormComponent extends ParkingComponent {
           this.onResetForm();
           this.onLoadList();
           this.onStopLoading();
+          console.log(requested)
           this.onSuccessMessage('Saved Successfully!', requested['message'])
-            .then(() => this.redirectFor('/parking/edit', { id: requested['result'] }));
+            .then(() => this.redirectFor('/parking/edit', { id: requested['result'].id }));
         }).catch(error => {
           this.onErrorMessage('Error', error.message);
           this.onStopLoading();
