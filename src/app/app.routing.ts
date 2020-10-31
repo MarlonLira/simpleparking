@@ -19,6 +19,9 @@ import { CompanyComponent } from './components/company/company.component';
 import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
 import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
 import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
+import { ParkingProductComponent } from './components/parking-Product/parking-Product.component';
+import { ParkingProductFormComponent } from './components/parking-Product/parking-Product-form/parking-Product-form.component';
+import { ParkingProductListComponent } from './components/parking-Product/parking-Product-list/parking-Product-list.component';
 import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
@@ -46,6 +49,15 @@ export const routes: Routes = [
       { path: 'register', component: ParkingSpaceFormComponent, canActivate: [GroupGuard] },
       { path: 'edit', component: ParkingSpaceFormComponent, canActivate: [GroupGuard] },
       { path: 'list', component: ParkingSpaceListComponent, canActivate: [GroupGuard] }
+    ],
+    canActivate: [GroupGuard]
+  },
+  {
+    path: 'parking-product', component: ParkingProductComponent,
+    children: [
+      { path: 'register', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
+      { path: 'edit', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
+      { path: 'list', component: ParkingProductListComponent, canActivate: [GroupGuard] }
     ],
     canActivate: [GroupGuard]
   },
