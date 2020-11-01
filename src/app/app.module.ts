@@ -67,6 +67,9 @@ import { SettingsListComponent } from './components/settings/settings-list/setti
 import { ParkingProductComponent } from './components/parking-product/parking-product.component';
 import { ParkingProductListComponent } from './components/parking-product/parking-product-list/parking-product-list.component';
 import { ParkingProductFormComponent } from './components/parking-product/parking-product-form/parking-product-form.component';
+import { SchedulingProductComponent } from './components/scheduling-product/scheduling-product.component';
+import { SchedulingProductListComponent } from './components/scheduling-product/scheduling-product-list/scheduling-product-list.component';
+import { SchedulingProductViewDialogComponent } from './components/scheduling-product/scheduling-product-view-dialog/scheduling-product-view-dialog.component';
 
 @NgModule({
   imports: [
@@ -136,6 +139,9 @@ import { ParkingProductFormComponent } from './components/parking-product/parkin
     ParkingProductComponent,
     ParkingProductListComponent,
     ParkingProductFormComponent,
+    SchedulingProductComponent,
+    SchedulingProductListComponent,
+    SchedulingProductViewDialogComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
