@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { BaseComponent } from 'app/base.component';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-import { AuthService } from 'app/services/auth.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ParkingProductService } from 'app/services/parking-product.service';
-import ParkingProduct from 'app/models/parking-product.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { BaseComponent } from 'app/base.component';
+import ParkingProduct from 'app/models/parking-product.model';
 import Parking from 'app/models/parking.model';
+import { AuthService } from 'app/services/auth.service';
+import { ParkingProductService } from 'app/services/parking-product.service';
 import { ParkingService } from 'app/services/parking.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-parking-product',
@@ -62,7 +62,7 @@ export class ParkingProductComponent extends BaseComponent {
     this.form = new FormGroup({
       id: new FormControl({ value: 0, disabled: true }),
       value: new FormControl(0, Validators.compose([Validators.required])),
-      name: new FormControl(0, Validators.compose([Validators.required])),
+      name: new FormControl('', Validators.compose([Validators.required])),
       description: new FormControl('', Validators.compose([Validators.required])),
       parkingId: new FormControl('', Validators.compose([Validators.required]))
     });

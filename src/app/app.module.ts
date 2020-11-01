@@ -58,13 +58,15 @@ import { CompanyComponent } from './components/company/company.component';
 import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
 import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
 import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
-import { ParkingProductFormComponent } from './components/parking-product/parking-product-form/parking-product-form.component';
-import { ParkingProductListComponent } from './components/parking-product/parking-product-list/parking-product-list.component';
+
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 import { SchedulingViewDialogComponent } from './components/scheduling/scheduling-view-dialog/scheduling-view-dialog.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SettingsListComponent } from './components/settings/settings-list/settings-list.component';
+import { ParkingProductComponent } from './components/parking-product/parking-product.component';
+import { ParkingProductListComponent } from './components/parking-product/parking-product-list/parking-product-list.component';
+import { ParkingProductFormComponent } from './components/parking-product/parking-product-form/parking-product-form.component';
 
 @NgModule({
   imports: [
@@ -126,13 +128,14 @@ import { SettingsListComponent } from './components/settings/settings-list/setti
     ParkingSpaceComponent,
     ParkingSpaceFormComponent,
     ParkingSpaceListComponent,
-    ParkingProductFormComponent,
-    ParkingProductListComponent,
     SchedulingComponent,
     SchedulingListComponent,
     SchedulingViewDialogComponent,
     SettingsComponent,
     SettingsListComponent,
+    ParkingProductComponent,
+    ParkingProductListComponent,
+    ParkingProductFormComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

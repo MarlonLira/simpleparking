@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ParkingProductComponent } from '../parking-product.component';
-import { ToastrService } from 'ngx-toastr';
-import { ParkingService } from 'app/services/parking.service';
-import { AuthService } from 'app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import ParkingProduct from 'app/models/parking-product.model';
+import { AuthService } from 'app/services/auth.service';
 import { ParkingProductService } from 'app/services/parking-product.service';
+import { ParkingService } from 'app/services/parking.service';
+import { ToastrService } from 'ngx-toastr';
+import { ParkingProductComponent } from '../parking-product.component';
 
 @Component({
   selector: 'app-parking-product-form',

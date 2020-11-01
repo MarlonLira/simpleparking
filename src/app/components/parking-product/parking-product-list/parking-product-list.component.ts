@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ParkingProductComponent } from '../parking-product.component';
-import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import ParkingProduct from 'app/models/parking-product.model';
+import { AuthService } from 'app/services/auth.service';
 import { ParkingProductService } from 'app/services/parking-product.service';
 import { ParkingService } from 'app/services/parking.service';
-import ParkingProduct from 'app/models/parking-product.model';
+import { ToastrService } from 'ngx-toastr';
+import { ParkingProductComponent } from '../parking-product.component';
 
 @Component({
   selector: 'app-parking-product-list',
@@ -32,6 +32,21 @@ export class ParkingProductListComponent extends ParkingProductComponent {
   onEdit(parkingProduct: ParkingProduct) {
     this.redirectFor('/parking-product/edit',
       { type: parkingProduct.name, amount: parkingProduct.description, parkingId: parkingProduct.parkingId, value: parkingProduct.value });
+  }
+
+  onRemove(parkingProduct) {
+    this.onConfirmMessage()
+      .then((btn) => {
+        if (btn.isConfirmed) {
+          this.onStartLoading();
+          this.service.delete(parkingProduct.id)
+            .then(result => {
+              this.onLoadList();
+              this.onStopLoading();
+              this.onSuccessMessage('Deleted!', result);
+            });
+        }
+      });
   }
 
 }
