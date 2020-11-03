@@ -30,8 +30,7 @@ export class ParkingProductListComponent extends ParkingProductComponent {
   }
 
   onEdit(parkingProduct: ParkingProduct) {
-    this.redirectFor('/parking-product/edit',
-      { type: parkingProduct.name, amount: parkingProduct.description, parkingId: parkingProduct.parkingId, value: parkingProduct.value });
+    this.redirectFor('/parking-product/edit', { id: parkingProduct.id });
   }
 
   onRemove(parkingProduct) {

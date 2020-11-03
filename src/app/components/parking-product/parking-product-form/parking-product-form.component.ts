@@ -33,12 +33,19 @@ export class ParkingProductFormComponent extends ParkingProductComponent {
     this.onLoadList();
     this.formBuild();
     this.route.queryParams.subscribe(params => {
-      if (params['parkingId']) {
-        this.onEditing(['parkingId']);
-        this._parkingProductAssign = new ParkingProduct(params);
-        this.onLoadForm(this._parkingProductAssign);
+      if (params['id']) {
+        this._id = params['id'];
+        this.service.getById(this._id)
+          .then((result: ParkingProduct) => {
+            this.onEditing(['parkingId'], result.parking.companyId);
+            this.onLoadForm(result);
+            this.onStopLoading();
+            console.log(result)
+          }).catch(error => {
+            this.onStopLoading();
+            this.toastr.error(error['message'], 'Error!')
+          });
       }
-      this.onStopLoading();
     });
   }
 
