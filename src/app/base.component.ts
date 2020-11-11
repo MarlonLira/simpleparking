@@ -7,8 +7,8 @@ import { AuthService } from './services/auth.service';
 import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
-import Swal, { SweetAlertIcon, SweetAlertOptions } from 'sweetalert2'
-import { Router, Params } from '@angular/router';
+import Swal, { SweetAlertOptions } from 'sweetalert2'
+import { Router, Params, NavigationEnd } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -152,6 +152,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   }
 
   protected destroyToken(isAuthenticated = true) {
+    this.onStartLoading();
     this.storage.clear();
     BaseComponent.timer = undefined;
 
@@ -159,7 +160,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
       this.toastr.info('Your connection has expired!', 'Info');
     }
 
-    this.redirectFor('auth/signin');
+    window.location.replace('auth/signin');
   }
 
   protected getAuth = (): Auth =>

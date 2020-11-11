@@ -1,19 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import * as Chartist from 'chartist';
-import { HttpClient } from '@angular/common/http';
-import Consts from '../../consts';
 import { BaseComponent } from 'app/base.component';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'app/services/auth.service';
 import { Router } from '@angular/router';
 
-import { Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
-import { DataTableDirective } from 'angular-datatables';
 import { ParkingSpaceService } from 'app/services/parking-space.service';
 import { ParkingService } from 'app/services/parking.service';
 import { SchedulingService } from 'app/services/scheduling.service';
 import Scheduling from 'app/models/scheduling.model';
+import ParkingScore from 'app/models/parking-score.model';
+import { ParkingScoreService } from 'app/services/parking-score.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,15 +19,18 @@ import Scheduling from 'app/models/scheduling.model';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent extends BaseComponent {
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
   public totalRevenue = 0;
+  public totalAttendanceScore = 0;
+  public totalLocationScore = 0;
+  public totalSecurityScore = 0;
+
 
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
     public router: Router,
     public parkingSpaceService: ParkingSpaceService,
+    public parkingScoreService: ParkingScoreService,
     public parkingService: ParkingService,
     public schedulingService: SchedulingService
   ) {
@@ -101,6 +102,15 @@ export class DashboardComponent extends BaseComponent {
           this.totalRevenue += item.value;
         });
       });
+
+    this.parkingScoreService.toList()
+    .then((result: ParkingScore[]) => {
+      result.forEach((item: ParkingScore) => {
+        this.totalAttendanceScore += item.attendanceScore / result.length;
+        this.totalLocationScore += item.locationScore / result.length;
+        this.totalSecurityScore += item.securityScore / result.length;
+      })
+    })
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
     const dataDailySalesChart: any = {

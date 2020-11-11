@@ -18,9 +18,10 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DataTablesModule } from 'angular-datatables';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
@@ -57,11 +58,18 @@ import { CompanyComponent } from './components/company/company.component';
 import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
 import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
 import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
+
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 import { SchedulingViewDialogComponent } from './components/scheduling/scheduling-view-dialog/scheduling-view-dialog.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SettingsListComponent } from './components/settings/settings-list/settings-list.component';
+import { ParkingProductComponent } from './components/parking-product/parking-product.component';
+import { ParkingProductListComponent } from './components/parking-product/parking-product-list/parking-product-list.component';
+import { ParkingProductFormComponent } from './components/parking-product/parking-product-form/parking-product-form.component';
+import { SchedulingProductComponent } from './components/scheduling-product/scheduling-product.component';
+import { SchedulingProductListComponent } from './components/scheduling-product/scheduling-product-list/scheduling-product-list.component';
+import { SchedulingProductViewDialogComponent } from './components/scheduling-product/scheduling-product-view-dialog/scheduling-product-view-dialog.component';
 
 @NgModule({
   imports: [
@@ -84,15 +92,16 @@ import { SettingsListComponent } from './components/settings/settings-list/setti
     MatProgressSpinnerModule,
     MatDividerModule,
     MaterialFileInputModule,
-    DataTablesModule,
     MatTableModule,
     MatPaginatorModule,
     MatExpansionModule,
+    MatCardModule,
+    MatIconModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBrGTfBFa0mZ9303uZOuvW-xYxHXtHRs2k'
-    }),
+    })
   ],
   declarations: [
     AppComponent,
@@ -127,6 +136,12 @@ import { SettingsListComponent } from './components/settings/settings-list/setti
     SchedulingViewDialogComponent,
     SettingsComponent,
     SettingsListComponent,
+    ParkingProductComponent,
+    ParkingProductListComponent,
+    ParkingProductFormComponent,
+    SchedulingProductComponent,
+    SchedulingProductListComponent,
+    SchedulingProductViewDialogComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

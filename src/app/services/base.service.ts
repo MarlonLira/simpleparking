@@ -20,7 +20,7 @@ export class BaseService<T> {
     this.auth = this.getAuth();
   }
 
-  protected GetHeader() {
+  protected getHeader() {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `${this.auth ? this.auth.token : ''}`
@@ -32,8 +32,8 @@ export class BaseService<T> {
       ? <Auth>JSON.parse(Crypto.Decrypt(this.storage.getItem('_sp_auth')))
       : undefined;
 
-  protected onPost = (endpoint: string, body: T) => this.http.post(`${Consts.API_URL}${endpoint}`, body, { headers: this.GetHeader() });
-  protected onGet = (endpoint: string) => this.http.get(`${Consts.API_URL}${endpoint}`, { headers: this.GetHeader() });
-  protected onPut = (endpoint: string, body: T) => this.http.put(`${Consts.API_URL}${endpoint}`, body, { headers: this.GetHeader() });
-  protected onDelete = (endpoint: string) => this.http.delete(`${Consts.API_URL}${endpoint}`, { headers: this.GetHeader() });
+  protected onPost = (endpoint: string, body: T) => this.http.post(`${Consts.API_URL}${endpoint}`, body, { headers: this.getHeader() });
+  protected onGet = (endpoint: string) => this.http.get(`${Consts.API_URL}${endpoint}`, { headers: this.getHeader() });
+  protected onPut = (endpoint: string, body: T) => this.http.put(`${Consts.API_URL}${endpoint}`, body, { headers: this.getHeader() });
+  protected onDelete = (endpoint: string) => this.http.delete(`${Consts.API_URL}${endpoint}`, { headers: this.getHeader() });
 }

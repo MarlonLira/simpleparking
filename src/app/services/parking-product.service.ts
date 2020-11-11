@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import ParkingScore from '../models/parking-score.model';
+import { Injectable } from '@angular/core';
+import ParkingProduct from 'app/models/parking-product.model';
 import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ParkingScoreService extends BaseService<ParkingScore> {
+export class ParkingProductService extends BaseService<ParkingProduct> {
 
   constructor(
     public http: HttpClient
@@ -16,7 +16,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
 
   save(values): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onPost('/parkingScore', values)
+      this.onPost('/parkingProduct', values)
         .subscribe(
           (requested) => resolve(requested),
           (e) => reject(e.error)
@@ -26,7 +26,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
 
   delete(id: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onDelete(`/parkingScore/${id}`)
+      this.onDelete(`/parkingProduct/${id}`)
         .subscribe(
           (requested) => resolve(requested['message']),
           (e) => reject(e.error)
@@ -36,7 +36,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
 
   update(values): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onPut('/parkingScore', values)
+      this.onPut('/parkingProduct', values)
         .subscribe(
           (requested) => resolve(requested['message']),
           (e) => reject(e.error)
@@ -44,9 +44,9 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
     });
   }
 
-  getById(id: number): Promise<ParkingScore> {
+  getByParkingId(parkingId): Promise<ParkingProduct[]> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/parkingScore/parkingScoreId/${id}`)
+      this.onGet(`/parkingProduct/parkingId/${parkingId}`)
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)
@@ -54,13 +54,14 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
     });
   }
 
-  toList(): Promise<ParkingScore[]> {
+  getById(id: number): Promise<ParkingProduct> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/ParkingsScores/${this.auth.parking.id}`)
+      this.onGet(`/parkingProduct/${id}`)
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)
         );
     });
   }
+
 }
