@@ -13,6 +13,7 @@ export default class Parking {
   email: string;
   imgUrl: string;
   companyId: number;
+  qrcode: string;
 
   address: ParkingAddress;
   company: Company;
@@ -33,6 +34,7 @@ export default class Parking {
       this.company = Utils.returnIfValid(json.company);
       this.employees = Utils.returnIfValid(json.employees);
       this.files = Utils.returnIfValid(json.files);
+      this.qrcode = Utils.returnIfValid(json.qrCode);
     }
   }
 }
