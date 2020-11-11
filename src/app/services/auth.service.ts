@@ -7,7 +7,7 @@ import Auth from 'app/models/auth.model';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService extends BaseService<Auth> {
+export class AuthService extends BaseService<any> {
 
   constructor(
     public http: HttpClient
@@ -49,9 +49,7 @@ export class AuthService extends BaseService<Auth> {
 
   public verifyToken(token: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const _auth = new Auth();
-      _auth.token = token;
-      this.onPost('/auth/token-validate', _auth)
+      this.onPost(`/auth/token-validate`, { authorization: token })
         .subscribe(
           (requested: any) => resolve(requested),
           (e) => reject(e.error)

@@ -15,7 +15,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-scheduling',
   templateUrl: './scheduling.component.html',
-  styleUrls: ['./scheduling.component.css']
+  styleUrls: ['./scheduling.component.css'],
+  providers: [SchedulingService]
 })
 export class SchedulingComponent extends BaseComponent {
 

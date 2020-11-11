@@ -20,6 +20,7 @@ export class ParkingFormComponent extends ParkingComponent {
   private _parkingAssign: Parking;
   private _id: number;
   public isLatLong = true;
+  public imageUrl: string;
 
   constructor(
     public toastr: ToastrService,
@@ -40,6 +41,7 @@ export class ParkingFormComponent extends ParkingComponent {
         this._id = params['id'];
         this.service.getById(this._id)
           .then((result: Parking) => {
+            this.imageUrl = result.qrcode;
             this.onEditing([], result.companyId);
             this.onLoadForm(result);
             this.onStopLoading();
@@ -103,8 +105,9 @@ export class ParkingFormComponent extends ParkingComponent {
           this.onResetForm();
           this.onLoadList();
           this.onStopLoading();
+          console.log(requested)
           this.onSuccessMessage('Saved Successfully!', requested['message'])
-            .then(() => this.redirectFor('/parking/edit', { id: requested['result'] }));
+            .then(() => this.redirectFor('/parking/edit', { id: requested['result'].id }));
         }).catch(error => {
           this.onErrorMessage('Error', error.message);
           this.onStopLoading();
