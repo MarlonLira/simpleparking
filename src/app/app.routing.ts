@@ -25,6 +25,9 @@ import { EmployeeFormComponent } from './components/employee/employee-form/emplo
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SettingsListComponent } from './components/settings/settings-list/settings-list.component';
+import { ParkingProductComponent } from './components/parking-product/parking-product.component';
+import { ParkingProductFormComponent } from './components/parking-product/parking-product-form/parking-product-form.component';
+import { ParkingProductListComponent } from './components/parking-product/parking-product-list/parking-product-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
@@ -49,6 +52,15 @@ export const routes: Routes = [
     ],
     canActivate: [GroupGuard]
   },
+   {
+     path: 'parking-product', component: ParkingProductComponent,
+     children: [
+       { path: 'register', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
+       { path: 'edit', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
+       { path: 'list', component: ParkingProductListComponent, canActivate: [GroupGuard] }
+     ],
+     canActivate: [GroupGuard]
+   },
   {
     path: 'scheduling', component: SchedulingComponent,
     children: [
