@@ -29,7 +29,7 @@ export class BaseService<T> {
 
   protected getAuth = (): Auth =>
     Utils.isValid(this.storage.getItem('_sp_auth'))
-      ? <Auth>JSON.parse(Crypto.Decrypt(this.storage.getItem('_sp_auth')))
+      ? <Auth>JSON.parse(Crypto.decrypt(this.storage.getItem('_sp_auth')))
       : undefined;
 
   protected onPost = (endpoint: string, body: T) => this.http.post(`${Consts.API_URL}${endpoint}`, body, { headers: this.getHeader() });
