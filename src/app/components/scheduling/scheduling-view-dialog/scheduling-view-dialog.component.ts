@@ -48,6 +48,7 @@ export class SchedulingViewDialogComponent extends SchedulingComponent {
     this.dataSource = new MatTableDataSource(_schedulingProduct);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.onStopLoading();
   }
 
   closeDialog = () => this.dialogRef.close();
