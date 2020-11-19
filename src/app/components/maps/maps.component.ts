@@ -111,6 +111,7 @@ export class MapsComponent extends BaseComponent {
 
           });
         }
+        this.onStopLoading();
       });
   }
 

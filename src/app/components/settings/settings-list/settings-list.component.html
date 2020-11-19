@@ -16,8 +16,8 @@
         <ng-container matColumnDef="rule">
           <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Rule </th>
           <td mat-cell *matCellDef="let row" style=" width: 200px;">
-            <mat-form-field appearance="fill" >
-              <mat-label>Rule</mat-label>
+            <mat-form-field appearance="outline" >
+              
               <mat-select [id]="row.ruleId" #rule (selectionChange)="onChange(row, rule.value)" [(value)]="row.ruleId">
                 <mat-option *ngFor="let rule of rules" [value]="rule.id">
                   {{rule.name}}

@@ -31,6 +31,7 @@ export class ParkingComponent extends BaseComponent {
   protected onDestroy(): void { }
 
   protected onLoadList() {
+    this.onStartLoading();
     this.service.toList()
       .then((result: Parking[]) => {
         this.parkings = result;

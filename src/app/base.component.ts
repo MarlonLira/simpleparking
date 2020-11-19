@@ -56,7 +56,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   ngAfterViewInit = (): void => this.onAfterViewInit();
 
   ngOnInit() {
-    this.onStartLoading();
+    //this.onStartLoading();
     this.onShowFotter();
     this.auth = this.getAuth();
     this.timerVerify();

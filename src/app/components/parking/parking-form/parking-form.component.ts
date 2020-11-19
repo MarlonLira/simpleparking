@@ -34,10 +34,10 @@ export class ParkingFormComponent extends ParkingComponent {
   }
 
   onInit(): void {
-    this.onStartLoading();
     this.formBuild();
     this.route.queryParams.subscribe(params => {
       if (params['id']) {
+        this.onStartLoading();
         this._id = params['id'];
         this.service.getById(this._id)
           .then((result: Parking) => {
