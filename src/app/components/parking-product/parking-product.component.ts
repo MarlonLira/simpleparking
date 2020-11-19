@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'app/base.component';
 import ParkingProduct from 'app/models/parking-product.model';
+import Parking from 'app/models/parking.model';
 import { AuthService } from 'app/services/auth.service';
 import { ParkingProductService } from 'app/services/parking-product.service';
 import { ParkingService } from 'app/services/parking.service';
@@ -15,7 +16,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./parking-product.component.css']
 })
 export class ParkingProductComponent extends BaseComponent {
-  parkingProducts: ParkingProduct[];
+
+  public parkingProducts: ParkingProduct[];
+  public parkings: Parking[];
 
   constructor(
     public toastr: ToastrService,
@@ -31,7 +34,8 @@ export class ParkingProductComponent extends BaseComponent {
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }
 
-  protected onLoadList() {
+  protected async onLoadList() {
+    this.parkings = await this.parkingService.toList();
     this.service.toList()
       .then((result: ParkingProduct[]) => {
         this.parkingProducts = result;
@@ -39,7 +43,6 @@ export class ParkingProductComponent extends BaseComponent {
         this.dataSource = new MatTableDataSource(this.parkingProducts);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log('aqui')
         this.onStopLoading();
       });
   }
