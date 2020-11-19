@@ -21,7 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 
 // - Pipes
 import { PhonePipe } from './commons/pipes/phonePipe';
@@ -67,9 +67,6 @@ import { SettingsListComponent } from './components/settings/settings-list/setti
 import { ParkingProductComponent } from './components/parking-product/parking-product.component';
 import { ParkingProductListComponent } from './components/parking-product/parking-product-list/parking-product-list.component';
 import { ParkingProductFormComponent } from './components/parking-product/parking-product-form/parking-product-form.component';
-import { SchedulingProductComponent } from './components/scheduling-product/scheduling-product.component';
-import { SchedulingProductListComponent } from './components/scheduling-product/scheduling-product-list/scheduling-product-list.component';
-import { SchedulingProductViewDialogComponent } from './components/scheduling-product/scheduling-product-view-dialog/scheduling-product-view-dialog.component';
 
 @NgModule({
   imports: [
@@ -139,9 +136,6 @@ import { SchedulingProductViewDialogComponent } from './components/scheduling-pr
     ParkingProductComponent,
     ParkingProductListComponent,
     ParkingProductFormComponent,
-    SchedulingProductComponent,
-    SchedulingProductListComponent,
-    SchedulingProductViewDialogComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

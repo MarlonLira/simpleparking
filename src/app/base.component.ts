@@ -61,7 +61,6 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     this.auth = this.getAuth();
     this.timerVerify();
     this.onInit();
-    this.onStopLoading();
   }
 
   protected async TokenVerify(hash: string = undefined) {
@@ -162,6 +161,8 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
 
     window.location.replace('auth/signin');
   }
+
+  protected reloadPage = () => window.location.replace(window.location.pathname);
 
   protected getAuth = (): Auth =>
     Utils.isValid(this.storage.getItem('_sp_auth'))

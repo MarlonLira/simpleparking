@@ -5,6 +5,12 @@ import { Router } from '@angular/router';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import Parking from 'app/models/parking.model';
+import { ParkingService } from 'app/services/parking.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Authentication } from 'app/commons/enums/authentication';
+import { Crypto } from 'app/commons/core/crypto';
+import { Utils } from 'app/commons/core/utils';
 
 @Component({
   selector: 'app-navbar',
@@ -17,13 +23,16 @@ export class NavbarComponent extends BaseComponent {
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
+  public parkings: Parking[];
+  public selected;
 
   constructor(
     public toastr: ToastrService,
     public authService: AuthService,
     location: Location,
     private element: ElementRef,
-    public router: Router
+    public router: Router,
+    public parkingService: ParkingService
   ) {
     super(toastr, router, authService);
     this.location = location;
@@ -31,6 +40,8 @@ export class NavbarComponent extends BaseComponent {
   }
 
   protected onInit() {
+    this.formBuild();
+    this.onLoadParkings();
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
@@ -44,10 +55,51 @@ export class NavbarComponent extends BaseComponent {
     });
   }
 
-  protected onAfterViewInit(): void {
+  protected onAfterViewInit(): void { }
+  protected onDestroy(): void { }
+
+  formBuild(): void {
+    this.form = new FormGroup({
+      parkingId: new FormControl(0)
+    });
   }
-  protected onDestroy(): void {
+
+  private onLoadParkings() {
+    this.onStartLoading();
+    this.parkingService.toList()
+      .then((result: Parking[]) => {
+        this.parkings = result;
+        this.parkings.push({ 'id': 0, 'status': 'AT', 'name': 'N/A' } as Parking);
+        this.onChangeAuth();
+      });
   }
+
+  private onChangeAuth(parkingId?: number) {
+    this.onStartLoading();
+    const _auth = this.getAuth();
+    let _parkingId = Utils.isValid(parkingId) ? parkingId : (_auth.employee.parkingId ? _auth.employee.parkingId : 0);
+    const _authentication = <Authentication>this.auth.authenticationLevel;
+
+    this.form.controls['parkingId'].setValue(_parkingId);
+
+    if (_authentication != Authentication.Developer && _authentication != Authentication.Administrator) {
+      this.form.disable();
+    } else {
+      this.form.enable();
+    }
+
+    if (this.parkings.length > 0) {
+      _auth.parking = this.parkings.find(x => x.id === _parkingId);
+      _auth.employee.parkingId = _parkingId;
+      this.setAuth(Crypto.encrypt(JSON.stringify(_auth)));
+    }
+
+    if (parkingId) {
+      this.reloadPage();
+    }
+  }
+
+  public onChange = () => this.onChangeAuth(Number(this.form.value.parkingId));
 
   sidebarOpen() {
     const toggleButton = this.toggleButton;
@@ -67,8 +119,6 @@ export class NavbarComponent extends BaseComponent {
     body.classList.remove('nav-open');
   };
   sidebarToggle() {
-    // const toggleButton = this.toggleButton;
-    // const body = document.getElementsByTagName('body')[0];
     var $toggle = document.getElementsByClassName('navbar-toggler')[0];
 
     if (this.sidebarVisible === false) {
@@ -79,7 +129,6 @@ export class NavbarComponent extends BaseComponent {
     const body = document.getElementsByTagName('body')[0];
 
     if (this.mobile_menu_visible == 1) {
-      // $('html').removeClass('nav-open');
       body.classList.remove('nav-open');
       if ($layer) {
         $layer.remove();

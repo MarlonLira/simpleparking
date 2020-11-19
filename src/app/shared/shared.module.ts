@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -11,6 +15,11 @@ import { DialogViewComponent } from './upload/dialog-view/dialog-view.component'
   imports: [
     CommonModule,
     RouterModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatToolbarModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     FooterComponent,
