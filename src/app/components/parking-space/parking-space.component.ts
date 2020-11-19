@@ -40,17 +40,7 @@ export class ParkingSpaceComponent extends BaseComponent {
   protected async onLoadList(id: number = 0) {
     this.onStartLoading();
     this.parkings = await this.parkingService.toList();
-
-    if (this.isValid(id) && id === 0) {
-      if (this.isValid(this.auth.employee.parkingId)) {
-        this.selected = this.auth.employee.parkingId;
-      } else if (this.parkings.length > 0) {
-        this.selected = this.parkings[0].id;
-      }
-      id = this.selected;
-    }
-
-    this.parkingSpaces = await this.service.getByParkingId(id);
+    this.parkingSpaces = await this.service.getByParkingId();
     this.displayedColumns = ['type', 'value', 'amount', 'actions'];
     this.dataSource = new MatTableDataSource(this.parkingSpaces);
     this.dataSource.paginator = this.paginator;

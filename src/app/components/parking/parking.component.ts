@@ -38,6 +38,7 @@ export class ParkingComponent extends BaseComponent {
         this.dataSource = new MatTableDataSource(this.parkings);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.onStopLoading();
       });
   }
 

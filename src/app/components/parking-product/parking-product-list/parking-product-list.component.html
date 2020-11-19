@@ -1,14 +1,5 @@
 <div class="card">
-  <div class="col-md-5">
-    <mat-form-field appearance="fill">
-      <mat-label>Parking</mat-label>
-      <mat-select (selectionChange)="onChange(selected)" [(value)]="selected">
-        <mat-option *ngFor="let parking of parkings" [value]="parking.id">
-          {{parking.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+
   <div class="card-body table-responsive">
     <mat-form-field>
       <mat-label>Filter</mat-label>
@@ -41,9 +32,9 @@
               <i class="material-icons">edit</i>
             </button>
             <button mat-raised-button type="button" matTooltip="Remove" (click)="onRemove(row)"
-            [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-            <i class="material-icons">close</i>
-          </button>
+              [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+              <i class="material-icons">close</i>
+            </button>
           </td>
         </ng-container>
 

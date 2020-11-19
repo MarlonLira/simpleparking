@@ -41,16 +41,7 @@ export class ParkingProductComponent extends BaseComponent {
     this.onStartLoading();
     this.parkings = await this.parkingService.toList();
 
-    if (this.isValid(id) && id === 0) {
-      if (this.isValid(this.auth.employee.parkingId)) {
-        this.selected = this.auth.employee.parkingId;
-      } else if (this.parkings.length > 0) {
-        this.selected = this.parkings[0].id;
-      }
-      id = this.selected;
-    }
-
-    this.parkingProducts = await this.service.getByParkingId(id);
+    this.parkingProducts = await this.service.getByParkingId();
     this.displayedColumns = ['name', 'description', 'value', 'actions'];
     this.dataSource = new MatTableDataSource(this.parkingProducts);
     this.dataSource.paginator = this.paginator;

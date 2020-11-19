@@ -1,0 +1,9 @@
+.select-itens {
+  position: relative;
+  top: 50px;
+}
+
+.mat-select-panel {
+  position: relative !important;
+  top: 50px !important;
+}

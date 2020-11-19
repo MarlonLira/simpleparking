@@ -44,13 +44,16 @@ export class ParkingProductService extends BaseService<ParkingProduct> {
     });
   }
 
-  getByParkingId(parkingId): Promise<ParkingProduct[]> {
+  getByParkingId(): Promise<ParkingProduct[]> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/parkingProduct/parkingId/${parkingId}`)
-        .subscribe(
-          (requested) => resolve(requested['result']),
-          (e) => reject(e.error)
-        );
+      const parkingId = this.auth.employee.parkingId ? this.auth.employee.parkingId : 0;
+      if (parkingId > 0) {
+        this.onGet(`/parkingProduct/parkingId/${parkingId}`)
+          .subscribe(
+            (requested) => resolve(requested['result']),
+            (e) => reject(e.error)
+          );
+      }
     });
   }
 
