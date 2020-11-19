@@ -8,6 +8,8 @@ import { SchedulingComponent } from '../scheduling.component';
 import { ParkingService } from 'app/services/parking.service';
 import { ParkingSpaceService } from 'app/services/parking-space.service';
 import Scheduling from 'app/models/scheduling.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-scheduling-view-dialog',
@@ -33,6 +35,19 @@ export class SchedulingViewDialogComponent extends SchedulingComponent {
   protected onInit(): void {
     this.formBuild();
     this.onLoadForm(SchedulingViewDialogComponent.scheduling);
+    this.service.getById(SchedulingViewDialogComponent.scheduling.id)
+      .then((scheduling: Scheduling) => {
+        this.onLoadTable(scheduling);
+      })
+  }
+
+  private onLoadTable(scheduling: any) {
+    const _schedulingProduct = [];
+    _schedulingProduct.push(scheduling.schedulingProducts);
+    this.displayedColumns = ['parkingProductId', 'value', 'createdAt'];
+    this.dataSource = new MatTableDataSource(_schedulingProduct);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   closeDialog = () => this.dialogRef.close();

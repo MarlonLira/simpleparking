@@ -19,7 +19,7 @@ export const ROUTES: RouteInfo[] = [
   { name: 'parking-space', path: '/parking-space/list', title: 'Parking Space', icon: 'space_bar', visible: true },
   { name: 'parking-product', path: '/parking-product/list', title: 'Products & Services', icon: 'construction', visible: true },
   { name: 'employee', path: '/employee/list', title: 'Employee', icon: 'engineering', visible: true },
-  { name: 'scheduling', path: '/scheduling/list', title: 'Scheduling', icon: 'bookmarks', visible: true },
+  { name: 'scheduling', path: '/scheduling/list', title: 'Scheduling', icon: 'schedule', visible: true },
   { name: 'auth', path: '/auth', title: 'auth', icon: 'engineering', visible: false },
   { name: 'maps', path: '/maps', title: 'Maps', icon: 'location_on', visible: true },
   { name: 'company', path: '/company', title: 'Company', icon: 'domain', visible: false },
