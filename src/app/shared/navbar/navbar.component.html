@@ -11,18 +11,6 @@
     </button>
 
     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-      <div [formGroup]="this.form" class="col-md-8 col-xl-5">
-        <mat-form-field appearance="fill">
-          <mat-label>Parking</mat-label>
-          <mat-select (selectionChange)="onChange()" formControlName="parkingId">
-            <mat-option disabled>-- Your Parkings --</mat-option>
-            <mat-option value='0'>N/A</mat-option>
-            <mat-option *ngFor="let parking of parkings" [value]="parking.id">
-              {{parking.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" routerLink="/company">
