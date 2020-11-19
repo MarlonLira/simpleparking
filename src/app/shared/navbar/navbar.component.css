@@ -7,3 +7,9 @@
   position: relative !important;
   top: 50px !important;
 }
+
+.mat-form-field-underline {
+  box-shadow: 0 0 0 0;
+  border: 0 none;
+  outline: 0;
+}
