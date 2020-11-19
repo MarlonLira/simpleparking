@@ -33,4 +33,14 @@ export class SchedulingService extends BaseService<Scheduling> {
         );
     });
   }
+
+  getById(id: number): Promise<Scheduling> {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/scheduling/${id}`)
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
+    });
+  }
 }
