@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DialogViewComponent } from './upload/dialog-view/dialog-view.component';
+import { ParkingsSelectComponent } from './parkings-select/parkings-select.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { DialogViewComponent } from './upload/dialog-view/dialog-view.component'
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    DialogViewComponent
+    DialogViewComponent,
+    ParkingsSelectComponent
   ],
   exports: [
     FooterComponent,

@@ -4,7 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'app/base.component';
 import ParkingProduct from 'app/models/parking-product.model';
-import Parking from 'app/models/parking.model';
 import { AuthService } from 'app/services/auth.service';
 import { ParkingProductService } from 'app/services/parking-product.service';
 import { ParkingService } from 'app/services/parking.service';
@@ -17,8 +16,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ParkingProductComponent extends BaseComponent {
   parkingProducts: ParkingProduct[];
-  public parkings: Parking[];
-  public selected;
 
   constructor(
     public toastr: ToastrService,
@@ -30,23 +27,21 @@ export class ParkingProductComponent extends BaseComponent {
     super(toastr, router, authService);
   }
 
-  protected onInit(): void {
-    this.onLoadList();
-  }
-
+  protected onInit(): void { }
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }
 
-  protected async onLoadList(id: number = 0) {
-    this.onStartLoading();
-    this.parkings = await this.parkingService.toList();
-
-    this.parkingProducts = await this.service.getByParkingId();
-    this.displayedColumns = ['name', 'description', 'value', 'actions'];
-    this.dataSource = new MatTableDataSource(this.parkingProducts);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.onStopLoading();
+  protected onLoadList() {
+    this.service.toList()
+      .then((result: ParkingProduct[]) => {
+        this.parkingProducts = result;
+        this.displayedColumns = ['name', 'description', 'value', 'actions'];
+        this.dataSource = new MatTableDataSource(this.parkingProducts);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log('aqui')
+        this.onStopLoading();
+      });
   }
 
   formBuild(): void {
