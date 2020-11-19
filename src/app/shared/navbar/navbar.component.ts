@@ -136,4 +136,5 @@ export class NavbarComponent extends BaseComponent {
     }
     return 'Dashboard';
   }
+
 }
