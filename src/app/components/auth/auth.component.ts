@@ -17,8 +17,10 @@ export abstract class AuthComponent extends BaseComponent {
   protected abstract onSafelyInit();
 
   onInit(): void {
+    this.onStartLoading();
     this.verify();
     this.onSafelyInit();
+    this.onStopLoading();
   }
 
   protected onAfterViewInit(): void { }

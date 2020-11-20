@@ -42,6 +42,7 @@ export class EmployeeProfileComponent extends BaseUploadComponent {
         this.employeeAssign.companyName = this.auth.company.name;
         this.imageUrl = result.image ? this.encodedToLink(result.image) : this.imageUrl;
         this.onLoadForm(this.employeeAssign);
+        this.onStopLoading();
       });
   }
 

@@ -16,9 +16,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./parking-product.component.css']
 })
 export class ParkingProductComponent extends BaseComponent {
+<<<<<<< HEAD
   parkingProducts: ParkingProduct[];
   public parkings: Parking[];
   public selected;
+=======
+
+  public parkingProducts: ParkingProduct[];
+  public parkings: Parking[];
+>>>>>>> prod
 
   constructor(
     public toastr: ToastrService,
@@ -30,32 +36,21 @@ export class ParkingProductComponent extends BaseComponent {
     super(toastr, router, authService);
   }
 
-  protected onInit(): void {
-    this.onLoadList();
-  }
-
+  protected onInit(): void { }
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }
 
-  protected async onLoadList(id: number = 0) {
-    this.onStartLoading();
+  protected async onLoadList() {
     this.parkings = await this.parkingService.toList();
-
-    if (this.isValid(id) && id === 0) {
-      if (this.isValid(this.auth.employee.parkingId)) {
-        this.selected = this.auth.employee.parkingId;
-      } else if (this.parkings.length > 0) {
-        this.selected = this.parkings[0].id;
-      }
-      id = this.selected;
-    }
-
-    this.parkingProducts = await this.service.getByParkingId(id);
-    this.displayedColumns = ['name', 'description', 'value', 'actions'];
-    this.dataSource = new MatTableDataSource(this.parkingProducts);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.onStopLoading();
+    this.service.toList()
+      .then((result: ParkingProduct[]) => {
+        this.parkingProducts = result;
+        this.displayedColumns = ['name', 'description', 'value', 'actions'];
+        this.dataSource = new MatTableDataSource(this.parkingProducts);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.onStopLoading();
+      });
   }
 
   formBuild(): void {

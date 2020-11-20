@@ -5,6 +5,12 @@ import { Router } from '@angular/router';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import Parking from 'app/models/parking.model';
+import { ParkingService } from 'app/services/parking.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Authentication } from 'app/commons/enums/authentication';
+import { Crypto } from 'app/commons/core/crypto';
+import { Utils } from 'app/commons/core/utils';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +29,8 @@ export class NavbarComponent extends BaseComponent {
     public authService: AuthService,
     location: Location,
     private element: ElementRef,
-    public router: Router
+    public router: Router,
+    public parkingService: ParkingService
   ) {
     super(toastr, router, authService);
     this.location = location;
@@ -44,10 +51,8 @@ export class NavbarComponent extends BaseComponent {
     });
   }
 
-  protected onAfterViewInit(): void {
-  }
-  protected onDestroy(): void {
-  }
+  protected onAfterViewInit(): void { }
+  protected onDestroy(): void { }
 
   sidebarOpen() {
     const toggleButton = this.toggleButton;
@@ -67,8 +72,6 @@ export class NavbarComponent extends BaseComponent {
     body.classList.remove('nav-open');
   };
   sidebarToggle() {
-    // const toggleButton = this.toggleButton;
-    // const body = document.getElementsByTagName('body')[0];
     var $toggle = document.getElementsByClassName('navbar-toggler')[0];
 
     if (this.sidebarVisible === false) {
@@ -79,7 +82,6 @@ export class NavbarComponent extends BaseComponent {
     const body = document.getElementsByTagName('body')[0];
 
     if (this.mobile_menu_visible == 1) {
-      // $('html').removeClass('nav-open');
       body.classList.remove('nav-open');
       if ($layer) {
         $layer.remove();
@@ -134,4 +136,5 @@ export class NavbarComponent extends BaseComponent {
     }
     return 'Dashboard';
   }
+
 }

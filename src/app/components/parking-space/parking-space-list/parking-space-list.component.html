@@ -1,14 +1,4 @@
 <div class="card">
-  <div class="col-md-5">
-    <mat-form-field appearance="fill">
-      <mat-label>Parking</mat-label>
-      <mat-select (selectionChange)="onChange(selected)" [(value)]="selected">
-        <mat-option *ngFor="let parking of parkings" [value]="parking.id">
-          {{parking.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
   <div class="card-body table-responsive">
     <mat-form-field>
       <mat-label>Filter</mat-label>
@@ -29,7 +19,7 @@
         </ng-container>
 
         <ng-container matColumnDef="amount">
-          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> AMOUNT </th>
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
           <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
         </ng-container>
 

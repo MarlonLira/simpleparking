@@ -43,12 +43,15 @@ export abstract class Utils {
   }
 
   public static isValid(value) {
-    if (typeof (value) === 'string') {
-      return value !== '' ? true : false;
-    } else if (Array.isArray(value)) {
-      return value.length > 0 ? true : false;
+    const _isNullOrUndefined = Utils.isNullOrUndefined(value);
+    if (!_isNullOrUndefined) {
+      if (typeof (value) === 'string') {
+        return value !== '' ? true : false;
+      } else if (Array.isArray(value)) {
+        return value.length > 0 ? true : false;
+      }
     }
-    return !Utils.isNullOrUndefined(value) ? true : false;
+    return !_isNullOrUndefined;
   }
 
   public static returnIfValid = (value, defaultValue = undefined) => Utils.isValid(value) ? value : defaultValue;

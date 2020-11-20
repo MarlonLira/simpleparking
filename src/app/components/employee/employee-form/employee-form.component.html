@@ -46,7 +46,7 @@
       </div>
       <div class="row">
         <div class="col-md-4">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>Rule</mat-label>
             <mat-select formControlName="ruleId">
               <mat-option *ngFor="let rule of rules" [value]="rule.id">
@@ -56,7 +56,7 @@
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="outline">
             <mat-label>Parking</mat-label>
             <mat-select formControlName="parkingId">
               <mat-option [value]="0">N/A</mat-option>

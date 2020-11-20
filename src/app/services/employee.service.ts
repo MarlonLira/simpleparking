@@ -15,13 +15,35 @@ export class EmployeeService extends BaseService<Employee> {
     super(http);
   }
 
-  toList(): Promise<Employee[]> {
+  getByCompanyId(id: number): Promise<Employee[]> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/employees/companyId/${this.auth.company.id}`)
+      this.onGet(`/employees/companyId/${id}`)
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)
         );
+    });
+  }
+
+  getByParkingId(id: number): Promise<Employee[]> {
+    return new Promise((resolve, reject) => {
+      this.onGet(`/employees/parkingId/${id}`)
+        .subscribe(
+          (requested) => resolve(requested['result']),
+          (e) => reject(e.error)
+        );
+    });
+  }
+
+  toList(): Promise<Employee[]> {
+    return new Promise(async (resolve, reject) => {
+      const parkingId = this.auth.employee.parkingId ? this.auth.employee.parkingId : 0;
+      const companyId = this.auth.employee.companyId ? this.auth.employee.companyId : 0;
+      if (parkingId > 0) {
+        resolve(await this.getByParkingId(parkingId));
+      } else {
+        resolve(await this.getByCompanyId(companyId));
+      }
     });
   }
 

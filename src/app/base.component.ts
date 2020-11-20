@@ -56,12 +56,11 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   ngAfterViewInit = (): void => this.onAfterViewInit();
 
   ngOnInit() {
-    this.onStartLoading();
+    //this.onStartLoading();
     this.onShowFotter();
     this.auth = this.getAuth();
     this.timerVerify();
     this.onInit();
-    this.onStopLoading();
   }
 
   protected async TokenVerify(hash: string = undefined) {
@@ -163,19 +162,21 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
     window.location.replace('auth/signin');
   }
 
+  protected reloadPage = () => window.location.replace(window.location.pathname);
+
   protected getAuth = (): Auth =>
     Utils.isValid(this.storage.getItem('_sp_auth'))
-      ? <Auth>JSON.parse(Crypto.Decrypt(this.storage.getItem('_sp_auth')))
+      ? <Auth>JSON.parse(Crypto.decrypt(this.storage.getItem('_sp_auth')))
       : undefined;
 
   protected getToken = (): string =>
     Utils.isValid(this.storage.getItem('_sp_auth'))
-      ? (<Auth>JSON.parse(Crypto.Decrypt(this.storage.getItem('_sp_auth')))).token
+      ? (<Auth>JSON.parse(Crypto.decrypt(this.storage.getItem('_sp_auth')))).token
       : undefined;
 
   protected isAuth = (): boolean =>
     Utils.isValid(this.storage.getItem('_sp_auth'))
-      ? (<Auth>JSON.parse(Crypto.Decrypt(this.storage.getItem('_sp_auth')))).validated
+      ? (<Auth>JSON.parse(Crypto.decrypt(this.storage.getItem('_sp_auth')))).validated
       : undefined;
 
   protected setAuth = (auth: string) => this.storage.setItem('_sp_auth', auth);
