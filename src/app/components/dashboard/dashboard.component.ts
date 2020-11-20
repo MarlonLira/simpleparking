@@ -117,13 +117,15 @@ export class DashboardComponent extends BaseComponent {
       });
 
     this.parkingScoreService.toList()
-    .then((result: ParkingScore[]) => {
-      result.forEach((item: ParkingScore) => {
-        this.totalAttendanceScore += item.attendanceScore / result.length;
-        this.totalLocationScore += item.locationScore / result.length;
-        this.totalSecurityScore += item.securityScore / result.length;
-      })
-    })
+      .then((result: ParkingScore[]) => {
+        if (result) {
+          result.forEach((item: ParkingScore) => {
+            this.totalAttendanceScore += item.attendanceScore / result.length;
+            this.totalLocationScore += item.locationScore / result.length;
+            this.totalSecurityScore += item.securityScore / result.length;
+          });
+        }
+      });
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
     const dataDailySalesChart: any = {

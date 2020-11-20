@@ -13,7 +13,7 @@
 
 <div class="card">
   <div class="card-body">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" ngNativeValidate>
+    <form [formGroup]="form" ngNativeValidate>
       <div class="row">
         <div class="col-md-4">
           <mat-form-field>
@@ -74,6 +74,11 @@
     </form>
     <br />
     <div class="clearfix"></div>
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="tableFilter($event)" #input>
+    </mat-form-field>
+
     <div class="mat-elevation-z8">
       <table mat-table class="table table-hover" [dataSource]="dataSource" matSort style="width:100%">
 

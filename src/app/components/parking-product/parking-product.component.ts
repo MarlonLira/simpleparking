@@ -16,15 +16,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./parking-product.component.css']
 })
 export class ParkingProductComponent extends BaseComponent {
-<<<<<<< HEAD
-  parkingProducts: ParkingProduct[];
-  public parkings: Parking[];
-  public selected;
-=======
 
   public parkingProducts: ParkingProduct[];
   public parkings: Parking[];
->>>>>>> prod
 
   constructor(
     public toastr: ToastrService,
