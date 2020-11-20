@@ -1,6 +1,5 @@
 import * as CryptoJS from 'crypto-js'
 
-
 export abstract class Crypto {
 
   private static readonly cryptographyData = {
@@ -10,6 +9,6 @@ export abstract class Crypto {
     type: 'hex'
   };
 
-  public static Encrypt = (value: string): string => CryptoJS.AES.encrypt(value, Crypto.cryptographyData.secret).toString();
-  public static Decrypt = (hash: string): string => CryptoJS.AES.decrypt(hash, Crypto.cryptographyData.secret).toString(CryptoJS.enc.Utf8);
+  public static encrypt = (value: string): string => CryptoJS.AES.encrypt(value, Crypto.cryptographyData.secret).toString();
+  public static decrypt = (hash: string): string => CryptoJS.AES.decrypt(hash, Crypto.cryptographyData.secret).toString(CryptoJS.enc.Utf8);
 }

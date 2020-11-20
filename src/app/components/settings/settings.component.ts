@@ -76,5 +76,6 @@ export class SettingsComponent extends BaseComponent {
     this.dataSource = new MatTableDataSource(obj);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.onStopLoading();
   }
 }

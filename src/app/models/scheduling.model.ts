@@ -1,4 +1,5 @@
 import { Utils } from '../commons/core/utils';
+import SchedulingProduct from './scheduling-product.model';
 
 export default class Scheduling {
   id!: number;
@@ -16,6 +17,7 @@ export default class Scheduling {
   vehicleId!: number;
   parkingId!: number;
   parkingSpaceId!: number;
+  schedulingProducts: SchedulingProduct[];
 
   constructor(json?: any) {
     this.id = Utils.returnIfValid(json.id);
@@ -33,5 +35,6 @@ export default class Scheduling {
     this.cardId = Utils.returnIfValid(json.cardId);
     this.parkingId = Utils.returnIfValid(json.parkingId);
     this.parkingSpaceId = Utils.returnIfValid(json.parkingSpaceId);
+    this.schedulingProducts = Utils.returnIfValid(json.schedulingProducts);
   }
 }

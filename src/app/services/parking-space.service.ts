@@ -44,13 +44,18 @@ export class ParkingSpaceService extends BaseService<ParkingSpace> {
     });
   }
 
-  getByParkingId(parkingId): Promise<ParkingSpace[]> {
+  getByParkingId(): Promise<ParkingSpace[]> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/parkingspace/parkingId/${parkingId}`)
-        .subscribe(
-          (requested) => resolve(requested['result']),
-          (e) => reject(e.error)
-        );
+      const parkingId = this.auth.parking.id ? this.auth.parking.id : 0;
+      if (parkingId > 0) {
+        this.onGet(`/parkingspace/parkingId/${parkingId}`)
+          .subscribe(
+            (requested) => resolve(requested['result']),
+            (e) => reject(e.error)
+          );
+      } else {
+        resolve();
+      }
     });
   }
 

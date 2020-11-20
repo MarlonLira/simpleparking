@@ -98,9 +98,22 @@ export class DashboardComponent extends BaseComponent {
 
     this.schedulingService.getByParkingId(11)
       .then((result: Scheduling[]) => {
-        result.forEach((item: Scheduling) => {
-          this.totalRevenue += item.value;
-        });
+        if (result) {
+          result.forEach((item: Scheduling) => {
+            this.totalRevenue += item.value;
+          });
+        }
+      });
+
+    this.parkingScoreService.toList()
+      .then((result: ParkingScore[]) => {
+        if (result) {
+          result.forEach((item: ParkingScore) => {
+            this.totalAttendanceScore += item.attendanceScore / result.length;
+            this.totalLocationScore += item.locationScore / result.length;
+            this.totalSecurityScore += item.securityScore / result.length;
+          });
+        }
       });
 
     this.parkingScoreService.toList()

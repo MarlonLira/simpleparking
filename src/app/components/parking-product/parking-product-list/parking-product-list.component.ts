@@ -25,8 +25,8 @@ export class ParkingProductListComponent extends ParkingProductComponent {
     super(toastr, router, authService, service, parkingService);
   }
 
-  onChange(parkingId) {
-    this.onLoadList(parkingId);
+  onInit(): void {
+    this.onLoadList();
   }
 
   onEdit(parkingProduct: ParkingProduct) {

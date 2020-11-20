@@ -46,7 +46,7 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
 
   getById(id: number): Promise<ParkingScore> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/parkingScore/parkingScoreId/${id}`)
+      this.onGet(`/parkingScore/${id}`)
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)
@@ -56,11 +56,16 @@ export class ParkingScoreService extends BaseService<ParkingScore> {
 
   toList(): Promise<ParkingScore[]> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/ParkingsScores/${this.auth.parking.id}`)
-        .subscribe(
-          (requested) => resolve(requested['result']),
-          (e) => reject(e.error)
-        );
+      const parkingId = this.auth.employee.parkingId ? this.auth.employee.parkingId : 0;
+      if (parkingId > 0) {
+        this.onGet(`/ParkingsScores/${parkingId}`)
+          .subscribe(
+            (requested) => resolve(requested['result']),
+            (e) => reject(e.error)
+          );
+      } else {
+        resolve();
+      }
     });
   }
 }

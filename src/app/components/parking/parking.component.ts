@@ -31,6 +31,7 @@ export class ParkingComponent extends BaseComponent {
   protected onDestroy(): void { }
 
   protected onLoadList() {
+    this.onStartLoading();
     this.service.toList()
       .then((result: Parking[]) => {
         this.parkings = result;
@@ -38,6 +39,7 @@ export class ParkingComponent extends BaseComponent {
         this.dataSource = new MatTableDataSource(this.parkings);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.onStopLoading();
       });
   }
 
