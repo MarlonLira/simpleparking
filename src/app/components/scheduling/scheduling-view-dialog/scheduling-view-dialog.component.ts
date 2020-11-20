@@ -38,12 +38,14 @@ export class SchedulingViewDialogComponent extends SchedulingComponent {
     this.service.getById(SchedulingViewDialogComponent.scheduling.id)
       .then((scheduling: Scheduling) => {
         this.onLoadTable(scheduling);
-      })
+      });
   }
 
   private onLoadTable(scheduling: any) {
     const _schedulingProduct = [];
-    _schedulingProduct.push(scheduling.schedulingProducts);
+    if (scheduling.schedulingProducts) {
+      _schedulingProduct.push(scheduling.schedulingProducts);
+    }
     this.displayedColumns = ['parkingProductId', 'value', 'createdAt'];
     this.dataSource = new MatTableDataSource(_schedulingProduct);
     this.dataSource.paginator = this.paginator;

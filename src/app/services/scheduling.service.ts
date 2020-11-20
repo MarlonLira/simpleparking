@@ -15,7 +15,7 @@ export class SchedulingService extends BaseService<Scheduling> {
   }
 
   toList(): Promise<Scheduling[]> {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       const parkingId = this.auth.employee.parkingId ? this.auth.employee.parkingId : 0;
       const companyId = this.auth.employee.companyId ? this.auth.employee.companyId : 0;
       if (parkingId > 0) {
@@ -25,7 +25,7 @@ export class SchedulingService extends BaseService<Scheduling> {
       }
     });
   }
-  
+
   getByCompanyId(id: number): Promise<Scheduling[]> {
     return new Promise((resolve, reject) => {
       if (id > 0) {

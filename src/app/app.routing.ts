@@ -52,6 +52,15 @@ export const routes: Routes = [
     ],
     canActivate: [GroupGuard]
   },
+   {
+     path: 'parking-product', component: ParkingProductComponent,
+     children: [
+       { path: 'register', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
+       { path: 'edit', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
+       { path: 'list', component: ParkingProductListComponent, canActivate: [GroupGuard] }
+     ],
+     canActivate: [GroupGuard]
+   },
   {
     path: 'parking-product', component: ParkingProductComponent,
     children: [
