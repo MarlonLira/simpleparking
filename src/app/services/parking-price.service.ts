@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from './base.service';
-import ParkingSpace from 'app/models/parking-space.model';
+import { ParkingPrice } from 'app/models/parking-price.models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ParkingSpaceService extends BaseService<ParkingSpace> {
+export class ParkingPriceService extends BaseService<ParkingPrice> {
 
   constructor(
     public http: HttpClient
@@ -16,7 +16,7 @@ export class ParkingSpaceService extends BaseService<ParkingSpace> {
 
   save(values): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onPost('/parkingSpace', values)
+      this.onPost('/parkingPrice', values)
         .subscribe(
           (requested) => resolve(requested),
           (e) => reject(e.error)
@@ -26,7 +26,7 @@ export class ParkingSpaceService extends BaseService<ParkingSpace> {
 
   delete(id: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onDelete(`/parkingSpace/${id}`)
+      this.onDelete(`/parkingPrice/${id}`)
         .subscribe(
           (requested) => resolve(requested['message']),
           (e) => reject(e.error)
@@ -36,7 +36,7 @@ export class ParkingSpaceService extends BaseService<ParkingSpace> {
 
   update(values): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.onPut('/parkingSpace', values)
+      this.onPut('/parkingPrice', values)
         .subscribe(
           (requested) => resolve(requested['message']),
           (e) => reject(e.error)
@@ -44,11 +44,11 @@ export class ParkingSpaceService extends BaseService<ParkingSpace> {
     });
   }
 
-  getByParkingId(): Promise<ParkingSpace[]> {
+  getByParkingId(): Promise<ParkingPrice[]> {
     return new Promise((resolve, reject) => {
       const parkingId = this.auth.parking.id ? this.auth.parking.id : 0;
       if (parkingId > 0) {
-        this.onGet(`/parkingspace/parkingId/${parkingId}`)
+        this.onGet(`/parkingprice/parkingId/${parkingId}`)
           .subscribe(
             (requested) => resolve(requested['result']),
             (e) => reject(e.error)
@@ -59,9 +59,9 @@ export class ParkingSpaceService extends BaseService<ParkingSpace> {
     });
   }
 
-  getById(id: number): Promise<ParkingSpace> {
+  getById(id: number): Promise<ParkingPrice> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/parkingspace/id/${id}`)
+      this.onGet(`/parkingprice/id/${id}`)
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)
