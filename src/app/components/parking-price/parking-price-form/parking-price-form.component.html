@@ -8,8 +8,13 @@
           </mat-form-field>
         </div>
         <div class="col-md-5">
-          <mat-form-field>
-            <input matInput placeholder="Period" type="text" formControlName="period">
+          <mat-form-field appearance="outline">
+            <mat-label>Period</mat-label>
+            <mat-select formControlName="period">
+              <mat-option *ngFor="let period of periods" [value]="period.value">
+                {{period.name}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div class="col-md-5">
@@ -24,7 +29,7 @@
             <mat-label>Type</mat-label>
             <mat-select formControlName="vehicleType">
               <mat-option *ngFor="let vehicleType of vehicleTypes" [value]="vehicleType.value">
-                {{type.name}}
+                {{vehicleType.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
