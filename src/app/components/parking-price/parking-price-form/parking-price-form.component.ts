@@ -17,15 +17,19 @@ export class ParkingPriceFormComponent extends ParkingPriceComponent {
   private _parkingPriceAssign: ParkingPrice;
   private _id: number;
 
-  public types: any = [
+  public vehicleTypes: any = [
     { 'value': 'CAR', 'name': 'CAR' },
     { 'value': 'MOTORCYCLE', 'name': 'MOTORCYCLE' },
-    { 'value': 'OVERTIME', 'name': 'OVERTIME' },
-    { 'value': 'HOUR', 'name': 'HOUR' },
-    { 'value': 'DAY', 'name': 'DAY' },
-    { 'value': 'WEEK', 'name': 'WEEK' },
-    { 'value': 'MONTH', 'name': 'MONTH' },
-    { 'value': 'YEAR', 'name': 'YEAR' },
+    { 'value': 'BOTH', 'name': 'BOTH' },
+  ]
+
+  public periods: any = [
+  { 'value': 'OVERTIME', 'name': 'OVERTIME' },
+  { 'value': 'HOUR', 'name': 'HOUR' },
+  { 'value': 'DAY', 'name': 'DAY' },
+  { 'value': 'WEEK', 'name': 'WEEK' },
+  { 'value': 'MONTH', 'name': 'MONTH' },
+  { 'value': 'YEAR', 'name': 'YEAR' },
   ]
 
   constructor(
@@ -48,7 +52,7 @@ export class ParkingPriceFormComponent extends ParkingPriceComponent {
         this._id = params['id'];
         this.service.getById(this._id)
           .then((result: ParkingPrice) => {
-            this.onEditing(['parkingId'], result.parking.companyId);
+            this.onEditing(['parkingId', 'vehicleType', 'period' ], result.parking.companyId);
             this.onLoadForm(result);
             this.onStopLoading();
             console.log(result)
@@ -56,6 +60,8 @@ export class ParkingPriceFormComponent extends ParkingPriceComponent {
             this.onStopLoading();
             this.toastr.error(error['message'], 'Error!')
           });
+      } else {
+        this.onStopLoading();
       }
     });
   }

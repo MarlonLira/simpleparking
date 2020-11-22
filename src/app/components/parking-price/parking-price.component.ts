@@ -51,7 +51,7 @@ export class ParkingPriceComponent extends BaseComponent {
   formBuild(): void {
     this.form = new FormGroup({
       id: new FormControl({ value: 0, disabled: true }),
-      unit: new FormControl(0, Validators.compose([Validators.required])),
+      unit: new FormControl(1, Validators.compose([Validators.required])),
       period: new FormControl('', Validators.compose([Validators.required])),
       value: new FormControl(0, Validators.compose([Validators.required])),
       vehicleType: new FormControl('', Validators.compose([Validators.required])),
