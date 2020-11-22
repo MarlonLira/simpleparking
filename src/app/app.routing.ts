@@ -28,6 +28,9 @@ import { SettingsListComponent } from './components/settings/settings-list/setti
 import { ParkingProductComponent } from './components/parking-product/parking-product.component';
 import { ParkingProductFormComponent } from './components/parking-product/parking-product-form/parking-product-form.component';
 import { ParkingProductListComponent } from './components/parking-product/parking-product-list/parking-product-list.component';
+import { ParkingPriceListComponent } from './components/parking-price/parking-price-list/parking-price-list.component';
+import { ParkingPriceFormComponent } from './components/parking-price/parking-price-form/parking-price-form.component';
+import { ParkingPriceComponent } from './components/parking-price/parking-price.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
@@ -62,11 +65,11 @@ export const routes: Routes = [
      canActivate: [GroupGuard]
    },
   {
-    path: 'parking-product', component: ParkingProductComponent,
+    path: 'parking-price', component: ParkingPriceComponent,
     children: [
-      { path: 'register', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
-      { path: 'edit', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
-      { path: 'list', component: ParkingProductListComponent, canActivate: [GroupGuard] }
+      { path: 'register', component: ParkingPriceFormComponent, canActivate: [GroupGuard] },
+      { path: 'edit', component: ParkingPriceFormComponent, canActivate: [GroupGuard] },
+      { path: 'list', component: ParkingPriceListComponent, canActivate: [GroupGuard] }
     ],
     canActivate: [GroupGuard]
   },

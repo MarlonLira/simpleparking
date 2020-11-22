@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-5">
+          <mat-form-field>
+            <input matInput placeholder="Unit" type="number"  step="any" min="1" formControlName="unit">
+          </mat-form-field>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field>
+            <input matInput placeholder="Period" type="text" formControlName="period">
+          </mat-form-field>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field>
+            <input matInput placeholder="value" type="number" step="any" min="0" formControlName="value">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="vehicleType">
+              <mat-option *ngFor="let vehicleType of vehicleTypes" [value]="vehicleType.value">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Parking</mat-label>
+            <mat-select formControlName="parkingId">
+              <mat-option *ngFor="let parking of parkings" [value]="parking.id">
+                {{parking.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <button mat-raised-button type="submit" [disabled]="!this.form.valid"
+        class="btn btn-info pull-right">Save</button>
+      <div class="clearfix"></div>
+    </form>
+  </div>
+</div>
