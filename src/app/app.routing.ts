@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-
 import { GroupGuard } from './group-guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeProfileComponent } from './components/employee/employee-profile/employee-profile.component';
