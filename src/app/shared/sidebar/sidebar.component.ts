@@ -3,12 +3,8 @@ import { BaseComponent } from 'app/base.component';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { Authentication } from 'app/commons/enums/authentication';
-import { Utils } from 'app/commons/core/utils';
-import { Crypto } from 'app/commons/core/crypto';
 import Parking from 'app/models/parking.model';
 import { ParkingService } from 'app/services/parking.service';
-import { FormControl, FormGroup } from '@angular/forms';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -41,7 +37,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent extends BaseComponent {
 
-  menuItems: any[];
+  menuItems: RouteInfo[];
   public parkings: Parking[];
 
   constructor(
