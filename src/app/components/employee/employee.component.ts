@@ -45,7 +45,6 @@ export class EmployeeComponent extends BaseComponent {
     this.service.toList()
       .then((result: Employee[]) => {
         this.employees = result;
-        console.log(this.employees)
         if (this.employees) {
           this.employees.forEach((employee: Employee) => {
             employee.parking = this.returnIfValid(employee.parking, new Parking({ 'name': 'N/A' }));
