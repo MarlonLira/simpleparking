@@ -25,19 +25,8 @@ export class ParkingPriceListComponent extends ParkingPriceComponent {
     super(toastr, router, authService, service, parkingService);
   }
 
-  onChange(parkingId) {
-    this.onLoadList(parkingId);
-  }
-
   onEdit(parkingPrice: ParkingPrice) {
-    this.redirectFor('/parking-price/edit',
-      {
-        vehicleType: parkingPrice.vehicleType,
-        unit: parkingPrice.unit,
-        period: parkingPrice.period,
-        parkingId: parkingPrice.parkingId,
-        value: parkingPrice.value
-      });
+    this.redirectFor('/parking-price/edit', { id: parkingPrice.id });
   }
 
 }
