@@ -61,7 +61,7 @@ export class ParkingPriceService extends BaseService<ParkingPrice> {
 
   getById(id: number): Promise<ParkingPrice> {
     return new Promise((resolve, reject) => {
-      this.onGet(`/parkingprice/id/${id}`)
+      this.onGet(`/parkingprice/${id}`)
         .subscribe(
           (requested) => resolve(requested['result']),
           (e) => reject(e.error)

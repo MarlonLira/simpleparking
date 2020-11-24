@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-6">
               <mat-form-field>
-                <input matInput placeholder="Name" formControlName="name">
+                <input matInput placeholder="Name" formControlName="name" required>
               </mat-form-field>
             </div>
           </div>
@@ -24,14 +24,14 @@
             </div>
             <div class="col-md-6">
               <mat-form-field>
-                <input matInput placeholder="Phone" mask="(00) 0 0000-0000" type="text" formControlName="phone">
+                <input matInput placeholder="Phone" mask="(00) 0 0000-0000" type="text" formControlName="phone" required>
               </mat-form-field>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
               <mat-form-field>
-                <input matInput placeholder="Email address" type="email" formControlName="email">
+                <input matInput placeholder="Email address" type="email" formControlName="email" required>
               </mat-form-field>
             </div>
           </div>
@@ -49,23 +49,23 @@
         <div class="row">
           <div class="col-md-3">
             <mat-form-field>
-              <input matInput placeholder="Country" type="text" formControlName="country" readonly>
+              <input matInput placeholder="Country" type="text" formControlName="country" readonly required>
             </mat-form-field>
           </div>
           <div class="col-md-3">
             <mat-form-field>
               <input matInput #zipcode placeholder="Zip Code" mask="00000-000" type="text" formControlName="zipCode"
-                (change)="searchAddress(zipcode.value)">
+                (change)="searchAddress(zipcode.value)" required>
             </mat-form-field>
           </div>
           <div class="col-md-3">
             <mat-form-field>
-              <input matInput placeholder="State" type="text" formControlName="state">
+              <input matInput placeholder="State" type="text" formControlName="state" required>
             </mat-form-field>
           </div>
           <div class="col-md-3">
             <mat-form-field>
-              <input matInput placeholder="City" type="text" formControlName="city">
+              <input matInput placeholder="City" type="text" formControlName="city" required>
             </mat-form-field>
           </div>
 
@@ -73,17 +73,17 @@
         <div class="row">
           <div class="col-md-4">
             <mat-form-field>
-              <input matInput placeholder="District" type="text" formControlName="district">
+              <input matInput placeholder="District" type="text" formControlName="district" required>
             </mat-form-field>
           </div>
           <div class="col-md-4">
             <mat-form-field>
-              <input matInput placeholder="Street" type="text" formControlName="street">
+              <input matInput placeholder="Street" type="text" formControlName="street" required>
             </mat-form-field>
           </div>
           <div class="col-md-4">
             <mat-form-field>
-              <input matInput placeholder="Number" type="text" formControlName="number">
+              <input matInput placeholder="Number" type="text" formControlName="number" required>
             </mat-form-field>
           </div>
         </div>

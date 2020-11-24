@@ -52,7 +52,8 @@ export class ParkingPriceFormComponent extends ParkingPriceComponent {
         this._id = params['id'];
         this.service.getById(this._id)
           .then((result: ParkingPrice) => {
-            this.onEditing(['parkingId', 'vehicleType', 'period' ], result.parking.companyId);
+            this._parkingPriceAssign = result;
+            this.onEditing(['parkingId', 'vehicleType', 'period' ]);
             this.onLoadForm(result);
             this.onStopLoading();
             console.log(result)
@@ -69,6 +70,7 @@ export class ParkingPriceFormComponent extends ParkingPriceComponent {
   objectBuild() {
     const obj: ParkingPrice = Object.assign({}, this._parkingPriceAssign, this.form.value);
     obj.id = this._id;
+    console.log(obj)
     return obj;
   }
 
