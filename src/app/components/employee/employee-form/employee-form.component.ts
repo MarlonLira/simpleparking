@@ -32,7 +32,7 @@ export class EmployeeFormComponent extends EmployeeComponent {
 
   onInit() {
     this.onStartLoading();
-    this.onLoadList();
+    this.onLoadSelects();
     this.formBuild();
     this.route.queryParams.subscribe(params => {
       if (params['id']) {
@@ -48,6 +48,16 @@ export class EmployeeFormComponent extends EmployeeComponent {
           });
       }
     });
+  }
+
+  async onLoadSelects() {
+    try {
+      this.rules = await this.ruleService.toList();
+      this.parkings = await this.parkingService.toList();
+      this.onStopLoading()
+    } catch (error) {
+      this.toastr.error(error, 'Error!');
+    }
   }
 
   objectBuild() {

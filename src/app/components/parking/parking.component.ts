@@ -46,24 +46,23 @@ export class ParkingComponent extends BaseComponent {
   formBuild(): void {
     this.form = new FormGroup({
       id: new FormControl({ value: 0, disabled: true }),
-      name: new FormControl(''),
+      name: new FormControl('', Validators.compose([Validators.required])),
       registryCode: new FormControl('', Validators.compose([Validators.required])),
-      phone: new FormControl(''),
-      email: new FormControl(''),
-      imgUrl: new FormControl(''),
+      phone: new FormControl('', Validators.compose([Validators.required])),
+      email: new FormControl('', Validators.compose([Validators.required])),
       address: new FormGroup({
         id: new FormControl(0),
-        city: new FormControl(''),
+        city: new FormControl('', Validators.compose([Validators.required])),
         country: new FormControl({ value: 'Brasil', disabled: false }),
-        state: new FormControl(''),
-        street: new FormControl(''),
-        district: new FormControl(''),
+        state: new FormControl('', Validators.compose([Validators.required])),
+        street: new FormControl('', Validators.compose([Validators.required])),
+        district: new FormControl('', Validators.compose([Validators.required])),
         complement: new FormControl(''),
-        zipCode: new FormControl(''),
-        number: new FormControl(0),
-        latitude: new FormControl(0),
-        longitude: new FormControl(0),
-      }, Validators.compose([Validators.required]))
+        zipCode: new FormControl('', Validators.compose([Validators.required])),
+        number: new FormControl(0, Validators.compose([Validators.required])),
+        latitude: new FormControl(0, Validators.compose([Validators.required])),
+        longitude: new FormControl(0, Validators.compose([Validators.required])),
+      }),
     });
   }
 }

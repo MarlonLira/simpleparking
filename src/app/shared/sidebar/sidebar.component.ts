@@ -3,12 +3,8 @@ import { BaseComponent } from 'app/base.component';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { Authentication } from 'app/commons/enums/authentication';
-import { Utils } from 'app/commons/core/utils';
-import { Crypto } from 'app/commons/core/crypto';
 import Parking from 'app/models/parking.model';
 import { ParkingService } from 'app/services/parking.service';
-import { FormControl, FormGroup } from '@angular/forms';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -24,6 +20,7 @@ export const ROUTES: RouteInfo[] = [
   { name: 'parking', path: '/parking/list', title: 'Parking', icon: 'local_parking', visible: true },
   { name: 'parking-space', path: '/parking-space/list', title: 'Parking Space', icon: 'space_bar', visible: true },
   { name: 'parking-product', path: '/parking-product/list', title: 'Products & Services', icon: 'construction', visible: true },
+  { name: 'parking-price', path: '/parking-price/list', title: 'Parking Price', icon: 'attach_money', visible: true },
   { name: 'employee', path: '/employee/list', title: 'Employee', icon: 'engineering', visible: true },
   { name: 'scheduling', path: '/scheduling/list', title: 'Scheduling', icon: 'schedule', visible: true },
   { name: 'auth', path: '/auth', title: 'auth', icon: 'engineering', visible: false },
@@ -41,7 +38,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent extends BaseComponent {
 
-  menuItems: any[];
+  menuItems: RouteInfo[];
   public parkings: Parking[];
 
   constructor(

@@ -4,22 +4,32 @@
       <div class="row">
         <div class="col-md-5">
           <mat-form-field>
-            <input matInput placeholder="Value" type="number" step="any" min="0" formControlName="value">
+            <input matInput placeholder="Unit" type="number"  step="any" min="1" formControlName="unit">
+          </mat-form-field>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Period</mat-label>
+            <mat-select formControlName="period">
+              <mat-option *ngFor="let period of periods" [value]="period.value">
+                {{period.name}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
         <div class="col-md-5">
           <mat-form-field>
-            <input matInput placeholder="Amount" type="number" formControlName="amount">
+            <input matInput placeholder="value" type="number" step="any" min="0" formControlName="value">
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-5">
           <mat-form-field appearance="outline">
-            <mat-label>Type</mat-label>
-            <mat-select formControlName="type">
-              <mat-option *ngFor="let type of types" [value]="type.value">
-                {{type.name}}
+            <mat-label>Vehicle Type</mat-label>
+            <mat-select formControlName="vehicleType">
+              <mat-option *ngFor="let vehicleType of vehicleTypes" [value]="vehicleType.value">
+                {{vehicleType.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>

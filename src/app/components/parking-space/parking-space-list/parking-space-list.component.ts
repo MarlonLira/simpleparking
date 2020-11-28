@@ -25,10 +25,6 @@ export class ParkingSpaceListComponent extends ParkingSpaceComponent {
     super(toastr, router, authService, service, parkingService);
   }
 
-  onChange(parkingId) {
-    this.onLoadList(parkingId);
-  }
-
   onEdit(parkingSpace: ParkingSpace) {
     this.redirectFor('/parking-space/edit',
       { type: parkingSpace.type, amount: parkingSpace.amount, parkingId: parkingSpace.parkingId, value: parkingSpace.value });

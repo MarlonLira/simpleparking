@@ -18,7 +18,6 @@ import { ParkingService } from 'app/services/parking.service';
 export class ParkingSpaceComponent extends BaseComponent {
   parkingSpaces: ParkingSpace[];
   public parkings: Parking[];
-  public selected;
 
   constructor(
     public toastr: ToastrService,
@@ -37,15 +36,19 @@ export class ParkingSpaceComponent extends BaseComponent {
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }
 
-  protected async onLoadList(id: number = 0) {
+  protected async onLoadList() {
     this.onStartLoading();
     this.parkings = await this.parkingService.toList();
-    this.parkingSpaces = await this.service.getByParkingId();
-    this.displayedColumns = ['type', 'value', 'amount', 'actions'];
-    this.dataSource = new MatTableDataSource(this.parkingSpaces);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.onStopLoading();
+    this.service.getByParkingId()
+      .then((result: ParkingSpace[]) => {
+        console.log(result)
+        this.parkingSpaces = result;
+        this.displayedColumns = ['type', 'value', 'amount', 'actions'];
+        this.dataSource = new MatTableDataSource(this.parkingSpaces);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.onStopLoading();
+      })
   }
 
   formBuild(): void {
