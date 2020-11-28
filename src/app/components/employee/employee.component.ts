@@ -40,7 +40,7 @@ export class EmployeeComponent extends BaseComponent {
   protected onDestroy(): void { }
   protected onInit() { }
 
-  protected async onLoadList() {
+  protected onLoadList() {
     this.onStartLoading();
     this.service.toList()
       .then((result: Employee[]) => {
