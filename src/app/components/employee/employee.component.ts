@@ -42,22 +42,22 @@ export class EmployeeComponent extends BaseComponent {
 
   protected async onLoadList() {
     this.onStartLoading();
-    this.employees = await this.service.toList();
-    this.rules = await this.ruleService.toList();
-    this.parkings = await this.parkingService.toList();
+    this.service.toList()
+      .then((result: Employee[]) => {
+        this.employees = result;
+        if (this.employees) {
+          this.employees.forEach((employee: Employee) => {
+            employee.parking = this.returnIfValid(employee.parking, new Parking({ 'name': 'N/A' }));
+          });
+        }
 
-    if (this.employees) {
-      this.employees.forEach((employee: Employee) => {
-        employee.rule = this.rules.find(r => r.id === employee.ruleId);
-        employee.parking = this.returnIfValid(this.parkings.find(p => p.id === employee.parkingId), new Parking({ 'name': 'N/A' }));
-      });
-    }
+        this.displayedColumns = ['id', 'name', 'registryCode', 'email', 'rule', 'parking', 'actions'];
+        this.dataSource = new MatTableDataSource(this.employees);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.onStopLoading();
+      })
 
-    this.displayedColumns = ['id', 'name', 'registryCode', 'email', 'rule', 'parking', 'actions'];
-    this.dataSource = new MatTableDataSource(this.employees);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.onStopLoading();
   }
 
   formBuild(): void {

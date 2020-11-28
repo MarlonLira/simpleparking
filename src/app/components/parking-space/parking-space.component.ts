@@ -41,6 +41,7 @@ export class ParkingSpaceComponent extends BaseComponent {
     this.parkings = await this.parkingService.toList();
     this.service.getByParkingId()
       .then((result: ParkingSpace[]) => {
+        console.log(result)
         this.parkingSpaces = result;
         this.displayedColumns = ['type', 'value', 'amount', 'actions'];
         this.dataSource = new MatTableDataSource(this.parkingSpaces);
