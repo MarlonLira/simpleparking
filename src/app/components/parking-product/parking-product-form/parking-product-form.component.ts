@@ -40,7 +40,6 @@ export class ParkingProductFormComponent extends ParkingProductComponent {
             this.onEditing(['parkingId'], result.parking.companyId);
             this.onLoadForm(result);
             this.onStopLoading();
-            console.log(result)
           }).catch(error => {
             this.onStopLoading();
             this.toastr.error(error['message'], 'Error!')

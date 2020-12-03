@@ -33,7 +33,4 @@ export class SchedulingListComponent extends SchedulingComponent {
     let dialogRef = this.dialog.open(SchedulingViewDialogComponent, { width: '50%' });
   }
 
-  onChange(parkingId) {
-    this.onLoadList(parkingId);
-  }
 }

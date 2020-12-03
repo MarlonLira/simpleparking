@@ -37,11 +37,11 @@ export class ParkingPriceComponent extends BaseComponent {
   protected onAfterViewInit(): void { }
   protected onDestroy(): void { }
 
-  protected async onLoadList(id: number = 0) {
+  protected async onLoadList() {
     this.onStartLoading();
     this.parkings = await this.parkingService.toList();
     this.parkingPrices = await this.service.getByParkingId();
-    this.displayedColumns = ['unit', 'period', 'value', 'vehicleType', 'actions'];
+    this.displayedColumns = ['period', 'unit', 'vehicleType', 'value', 'actions'];
     this.dataSource = new MatTableDataSource(this.parkingPrices);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
