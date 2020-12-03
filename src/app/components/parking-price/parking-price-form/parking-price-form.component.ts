@@ -56,7 +56,6 @@ export class ParkingPriceFormComponent extends ParkingPriceComponent {
             this.onEditing(['parkingId', 'vehicleType', 'period' ]);
             this.onLoadForm(result);
             this.onStopLoading();
-            console.log(result)
           }).catch(error => {
             this.onStopLoading();
             this.toastr.error(error['message'], 'Error!')
@@ -70,7 +69,6 @@ export class ParkingPriceFormComponent extends ParkingPriceComponent {
   objectBuild() {
     const obj: ParkingPrice = Object.assign({}, this._parkingPriceAssign, this.form.value);
     obj.id = this._id;
-    console.log(obj)
     return obj;
   }
 

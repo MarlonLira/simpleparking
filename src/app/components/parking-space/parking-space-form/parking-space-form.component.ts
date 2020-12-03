@@ -61,7 +61,8 @@ export class ParkingSpaceFormComponent extends ParkingSpaceComponent {
         .then(requested => {
           this.onResetForm();
           this.onStopLoading();
-          this.onSuccessMessage('Saved Successfully!', requested['message']);
+          this.onSuccessMessage('Saved Successfully!', requested['message'])
+            .then(() => this.redirectFor('/parking-space/list'));
         }).catch(error => {
           this.onErrorMessage('Error', error.message);
           this.onStopLoading();
