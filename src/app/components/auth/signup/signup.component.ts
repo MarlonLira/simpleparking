@@ -44,25 +44,42 @@ export class SignupComponent extends AuthComponent {
 
   public onSubmit() {
     this.onStartLoading();
+
+    let isValidateEmp = true;
+    if ((this.form.controls['employee'].value.name === '') || (this.form.controls['employee'].value.registryCode === '')
+      || (this.form.controls['employee'].value.password === '') || (this.form.controls['employee'].value.confirmPassword === '')) {
+      isValidateEmp = false;
+    }
+
+    let isValidateCamp = true;
+    if ((this.form.controls['company'].value.name === '') || (this.form.controls['company'].value.registryCode === '')
+      || (this.form.controls['company'].value.phone === '')) {
+      isValidateCamp = false;
+    }
+
     let isValidate = false;
     isValidate = this.form.controls['employee'].value.password === this.form.controls['employee'].value.confirmPassword;
 
     if (isValidate) {
-      const _auth = new Auth();
-      _auth.company = new Company(this.form.controls['company'].value);
-      _auth.employee = new Employee(this.form.controls['employee'].value);
-      this.signup(_auth)
-        .then((result: string) => {
-          this.onStopLoading();
-          this.redirectFor('auth/signin');
-        })
-        .catch(error => {
-          this.onStopLoading();
-        });
+      if ((isValidateEmp) && (isValidateCamp)) {
+        const _auth = new Auth();
+        _auth.company = new Company(this.form.controls['company'].value);
+        _auth.employee = new Employee(this.form.controls['employee'].value);
+        this.signup(_auth)
+          .then((result: string) => {
+            this.onStopLoading();
+            this.redirectFor('auth/signin');
+          })
+          .catch(error => {
+            this.onStopLoading();
+          });
+      } else {
+        this.onErrorMessage('Erro', 'Employee e Company devem ser preenchidos.');
+        this.onStopLoading();
+      }
     } else {
       this.onErrorMessage('Erro', 'As senhas não coincidem.');
       this.onStopLoading();
     }
   }
-
 }
