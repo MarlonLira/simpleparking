@@ -39,7 +39,7 @@ export class ParkingSpaceComponent extends BaseComponent {
   protected async onLoadList() {
     this.onStartLoading();
     this.parkings = await this.parkingService.toList();
-    this.service.getByParkingId()
+    this.service.toList()
       .then((result: ParkingSpace[]) => {
         this.parkingSpaces = result;
         this.displayedColumns = ['type', 'value', 'amount', 'actions'];
