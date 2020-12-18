@@ -16,7 +16,7 @@
           <a class="nav-link" routerLink="/company">
             <i class="material-icons">domain</i>
             <p>
-              <span class="d-lg-none d-md-block">Company</span>
+              <span class="d-lg-none d-md-block">Empresa</span>
             </p>
           </a>
         </li>
@@ -40,12 +40,12 @@
             aria-haspopup="true" aria-expanded="false">
             <i class="material-icons">person</i>
             <p>
-              <span class="d-lg-none d-md-block">Perfil</span>
+              <span class="d-lg-none d-md-block">Meu Perfil</span>
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" routerLink="/employee-profile">{{this.auth ? this.auth.employee.name : ''}}</a>
-            <a class="dropdown-item" href="javascript:void(0)" (click)="signOut()">Sign Out</a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="signOut()">Sair</a>
           </div>
         </li>
       </ul>

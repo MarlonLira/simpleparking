@@ -1,4 +1,4 @@
-import { Component, Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'app/base.component';
 import { AuthService } from 'app/services/auth.service';
@@ -46,7 +46,7 @@ export abstract class BaseUploadComponent extends BaseComponent {
         await this.onUploadFile();
       } else {
         this.files.delete(file);
-        this.toastr.error('Only jpg/jpeg/gif and png files are allowed!', 'Error');
+        this.toastr.error('Somente arquivos jpg / jpeg / gif e png são permitidos!', 'Error');
         this.onStopLoading();
       }
     });
@@ -62,7 +62,7 @@ export abstract class BaseUploadComponent extends BaseComponent {
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result.toString());
       reader.onerror = error => reject(error);
-    })
+    });
   };
 
 }

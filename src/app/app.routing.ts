@@ -15,21 +15,15 @@ import { ErrorComponent } from './components/error/error.component';
 import { ParkingFormComponent } from './components/parking/parking-form/parking-form.component';
 import { ParkingListComponent } from './components/parking/parking-list/parking-list.component';
 import { CompanyComponent } from './components/company/company.component';
-import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
-import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
-import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
+import { ParkingSpaceComponent } from './components/parking/parking-space/parking-space.component';
 import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { EmployeeFormComponent } from './components/employee/employee-form/employee-form.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SettingsListComponent } from './components/settings/settings-list/settings-list.component';
-import { ParkingProductComponent } from './components/parking-product/parking-product.component';
-import { ParkingProductFormComponent } from './components/parking-product/parking-product-form/parking-product-form.component';
-import { ParkingProductListComponent } from './components/parking-product/parking-product-list/parking-product-list.component';
-import { ParkingPriceListComponent } from './components/parking-price/parking-price-list/parking-price-list.component';
-import { ParkingPriceFormComponent } from './components/parking-price/parking-price-form/parking-price-form.component';
-import { ParkingPriceComponent } from './components/parking-price/parking-price.component';
+import { ParkingProductComponent } from './components/parking/parking-product/parking-product.component';
+import { ParkingPriceComponent } from './components/parking/parking-price/parking-price.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth/signin', pathMatch: 'full' },
@@ -41,34 +35,10 @@ export const routes: Routes = [
     children: [
       { path: 'register', component: ParkingFormComponent, canActivate: [GroupGuard] },
       { path: 'edit', component: ParkingFormComponent, canActivate: [GroupGuard] },
-      { path: 'list', component: ParkingListComponent, canActivate: [GroupGuard] }
-    ],
-    canActivate: [GroupGuard]
-  },
-  {
-    path: 'parking-space', component: ParkingSpaceComponent,
-    children: [
-      { path: 'register', component: ParkingSpaceFormComponent, canActivate: [GroupGuard] },
-      { path: 'edit', component: ParkingSpaceFormComponent, canActivate: [GroupGuard] },
-      { path: 'list', component: ParkingSpaceListComponent, canActivate: [GroupGuard] }
-    ],
-    canActivate: [GroupGuard]
-  },
-   {
-     path: 'parking-product', component: ParkingProductComponent,
-     children: [
-       { path: 'register', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
-       { path: 'edit', component: ParkingProductFormComponent, canActivate: [GroupGuard] },
-       { path: 'list', component: ParkingProductListComponent, canActivate: [GroupGuard] }
-     ],
-     canActivate: [GroupGuard]
-   },
-  {
-    path: 'parking-price', component: ParkingPriceComponent,
-    children: [
-      { path: 'register', component: ParkingPriceFormComponent, canActivate: [GroupGuard] },
-      { path: 'edit', component: ParkingPriceFormComponent, canActivate: [GroupGuard] },
-      { path: 'list', component: ParkingPriceListComponent, canActivate: [GroupGuard] }
+      { path: 'list', component: ParkingListComponent, canActivate: [GroupGuard] },
+      { path: 'space', component: ParkingSpaceComponent, canActivate: [GroupGuard] },
+      { path: 'product', component: ParkingProductComponent, canActivate: [GroupGuard] },
+      { path: 'price', component: ParkingPriceComponent, canActivate: [GroupGuard] },
     ],
     canActivate: [GroupGuard]
   },
