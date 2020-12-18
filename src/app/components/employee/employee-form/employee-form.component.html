@@ -9,25 +9,24 @@
         </div>
         <div class="col-md-4">
           <mat-form-field>
-            <input matInput placeholder="Name" formControlName="name">
+            <input matInput placeholder="Nome" formControlName="name">
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field>
-            <input matInput placeholder="Registry Code" mask="000.000.000-00" type="text"
-              formControlName="registryCode">
+            <input matInput placeholder="CPF" mask="000.000.000-00" type="text" formControlName="registryCode">
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4">
           <mat-form-field>
-            <input matInput placeholder="Phone" mask="(00) 0 0000-0000" type="text" formControlName="phone">
+            <input matInput placeholder="Telefone" mask="(00) 0 0000-0000" type="text" formControlName="phone">
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field>
-            <input matInput placeholder="Email address" type="email" formControlName="email">
+            <input matInput placeholder="E-mail" type="email" formControlName="email">
           </mat-form-field>
         </div>
 
@@ -35,19 +34,19 @@
       <div class="row">
         <div class="col-md-4">
           <mat-form-field>
-            <input matInput placeholder="Password" type="password" formControlName="password">
+            <input matInput placeholder="Senha" type="password" formControlName="password">
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field>
-            <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword">
+            <input matInput placeholder="Confirme a Senha" type="password" formControlName="confirmPassword">
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4">
           <mat-form-field appearance="outline">
-            <mat-label>Rule</mat-label>
+            <mat-label>Níveis</mat-label>
             <mat-select formControlName="ruleId">
               <mat-option *ngFor="let rule of rules" [value]="rule.id">
                 {{rule.name}}
@@ -57,7 +56,7 @@
         </div>
         <div class="col-md-4">
           <mat-form-field appearance="outline">
-            <mat-label>Parking</mat-label>
+            <mat-label>Estacionamentos</mat-label>
             <mat-select formControlName="parkingId">
               <mat-option [value]="0">N/A</mat-option>
               <mat-option *ngFor="let parking of parkings" [value]="parking.id">
@@ -67,7 +66,7 @@
           </mat-form-field>
         </div>
       </div>
-      <button mat-raised-button type="submit" class="btn btn-info pull-right">Save</button>
+      <button mat-raised-button type="submit" class="btn btn-info pull-right">Salvar</button>
       <div class="clearfix"></div>
     </form>
   </div>

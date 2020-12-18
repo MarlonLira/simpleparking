@@ -18,7 +18,7 @@ import { Utils } from 'app/commons/core/utils';
 export class ParkingFormComponent extends ParkingComponent {
 
   private _parkingAssign: Parking;
-  private _id: number;
+  public _id: number;
   public isLatLong = true;
   public imageUrl: string;
 
@@ -27,10 +27,10 @@ export class ParkingFormComponent extends ParkingComponent {
     public service: ParkingService,
     public authService: AuthService,
     public genericAdressService: GenericAddressService,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     public router: Router
   ) {
-    super(toastr, router, authService, service);
+    super(toastr, router, authService, service, route);
   }
 
   onInit(): void {

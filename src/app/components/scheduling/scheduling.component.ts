@@ -50,7 +50,7 @@ export class SchedulingComponent extends BaseComponent {
     //this.parkings = await this.parkingService.toList();
 
     this.schedulings = await this.service.toList();
-    this.parkingSpaces = await this.parkingSpaceService.getByParkingId();
+    this.parkingSpaces = await this.parkingSpaceService.toList();
 
     this.displayedColumns = ['id', 'userName', 'vehiclePlate', 'date', 'avaliableTime', 'unavailableTime', 'actions'];
     this.dataSource = new MatTableDataSource(this.schedulings);

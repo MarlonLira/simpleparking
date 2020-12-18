@@ -44,17 +44,16 @@ export class ParkingPriceService extends BaseService<ParkingPrice> {
     });
   }
 
-  getByParkingId(): Promise<ParkingPrice[]> {
+  getByParkingId(id: number): Promise<ParkingPrice[]> {
     return new Promise((resolve, reject) => {
-      const parkingId = this.auth.parking.id ? this.auth.parking.id : 0;
-      if (parkingId > 0) {
-        this.onGet(`/parkingprice/parkingId/${parkingId}`)
+      if (id > 0) {
+        this.onGet(`/parkingprice/parkingId/${id}`)
           .subscribe(
             (requested) => resolve(requested['result']),
             (e) => reject(e.error)
           );
       } else {
-        resolve();
+        resolve(undefined);
       }
     });
   }

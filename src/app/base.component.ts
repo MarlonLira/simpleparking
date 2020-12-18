@@ -8,7 +8,7 @@ import { Utils, Timer } from './commons/core/utils';
 import { Crypto } from './commons/core/crypto';
 import Auth from './models/auth.model';
 import Swal, { SweetAlertOptions } from 'sweetalert2'
-import { Router, Params, NavigationEnd } from '@angular/router';
+import { Router, Params, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -30,13 +30,14 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   private onConfirmMessageConfig: SweetAlertOptions = {
-    title: 'Are you sure?',
-    text: 'You won\'t be able to revert this!',
+    title: 'Você tem certeza ?',
+    text: 'Você não poderá reverter isso!',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#59578e',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
+    confirmButtonText: 'Sim, exclua!',
+    cancelButtonText: 'Cancelar'
   }
 
   constructor(
@@ -56,7 +57,6 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
   ngAfterViewInit = (): void => this.onAfterViewInit();
 
   ngOnInit() {
-    //this.onStartLoading();
     this.onShowFotter();
     this.auth = this.getAuth();
     this.timerVerify();
@@ -114,7 +114,7 @@ export abstract class BaseComponent implements AfterViewInit, OnDestroy, OnInit 
 
   protected isRoute(path) {
     const route = window.location.toString();
-    const isRoute = new RegExp(`/.*?${path}.*/`);
+    const isRoute = new RegExp(`.*?${path}.*`);
     if (isRoute.test(route)) {
       return true;
     } else {
