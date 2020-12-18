@@ -18,7 +18,8 @@
             </a>
           </li>
           <li class="nav-item" *ngIf="isOnEditing">
-            <a mat-button class="nav-link {{ this.isRoute('edit') ? 'active' : '' }}" data-toggle="tab">
+            <a mat-button class="nav-link {{ this.isRoute('edit') ? 'active' : '' }}" data-toggle="tab"
+              [routerLink]="['edit']" [queryParams]="{ id: this._parkingId }">
               <i class="material-icons">work</i> Estacionamento
               <div class="ripple-container"></div>
             </a>
