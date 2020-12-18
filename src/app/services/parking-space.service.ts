@@ -78,4 +78,15 @@ export class ParkingSpaceService extends BaseService<ParkingSpace> {
         );
     });
   }
+
+  toList(): Promise<ParkingSpace[]> {
+    return new Promise(async (resolve) => {
+      const parkingId = this.auth.employee.parkingId ? this.auth.employee.parkingId : 0;
+      if (parkingId > 0) {
+        resolve(await this.getByParkingId(parkingId));
+      } else {
+        resolve();
+      }
+    });
+  }
 }
