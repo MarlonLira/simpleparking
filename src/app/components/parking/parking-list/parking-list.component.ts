@@ -3,7 +3,7 @@ import { ParkingComponent } from '../parking.component';
 import { ToastrService } from 'ngx-toastr';
 import { ParkingService } from 'app/services/parking.service';
 import { AuthService } from 'app/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-parking-list',
@@ -16,9 +16,10 @@ export class ParkingListComponent extends ParkingComponent {
     public toastr: ToastrService,
     public service: ParkingService,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    public route: ActivatedRoute,
   ) {
-    super(toastr, router, authService, service);
+    super(toastr, router, authService, service, route);
   }
 
   onInit(): void {

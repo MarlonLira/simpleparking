@@ -4,14 +4,43 @@
       <app-tab>
         <app-tab-header>
           <li class="nav-item">
-            <a id="list" mat-button class="nav-link active" routerLink="list" data-toggle="tab">
-              <i class="material-icons">list</i> List
+            <a id="list" mat-button class="nav-link {{ this.isRoute('list') ? 'active' : '' }}" routerLink="list"
+              data-toggle="tab">
+              <i class="material-icons"> {{ isOnEditing ? 'reply' : 'list'}}</i> {{ isOnEditing ? 'Voltar' : 'Listar'}}
               <div class="ripple-container"></div>
             </a>
           </li>
-          <li class="nav-item">
-            <a mat-button class="nav-link" routerLink="register" data-toggle="tab">
-              <i class="material-icons">save</i> Register
+          <li class="nav-item" *ngIf="!isOnEditing">
+            <a mat-button class="nav-link {{ this.isRoute('register') ? 'active' : '' }}" data-toggle="tab"
+              [routerLink]="['register']">
+              <i class="material-icons">save</i> Cadastrar
+              <div class="ripple-container"></div>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="isOnEditing">
+            <a mat-button class="nav-link {{ this.isRoute('edit') ? 'active' : '' }}" data-toggle="tab">
+              <i class="material-icons">work</i> Estacionamento
+              <div class="ripple-container"></div>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="isOnEditing">
+            <a mat-button class="nav-link {{ this.isRoute('space') ? 'active' : '' }}" data-toggle="tab"
+              [routerLink]="['space']" [queryParams]="{ id: this._parkingId }">
+              <i class="material-icons">space_bar</i> Vagas
+              <div class="ripple-container"></div>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="isOnEditing">
+            <a mat-button class="nav-link {{ this.isRoute('product') ? 'active' : '' }}" data-toggle="tab"
+              [routerLink]="['product']" [queryParams]="{ id: this._parkingId }">
+              <i class="material-icons">construction</i> Serviços
+              <div class="ripple-container"></div>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="isOnEditing">
+            <a mat-button class="nav-link {{ this.isRoute('price') ? 'active' : '' }}" data-toggle="tab"
+              [routerLink]="['price']" [queryParams]="{ id: this._parkingId }">
+              <i class="material-icons">attach_money</i> Preços
               <div class="ripple-container"></div>
             </a>
           </li>

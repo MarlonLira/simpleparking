@@ -55,20 +55,14 @@ import { EmployeeListComponent } from './components/employee/employee-list/emplo
 import { UploadComponent } from './shared/upload/upload.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CompanyComponent } from './components/company/company.component';
-import { ParkingSpaceComponent } from './components/parking-space/parking-space.component';
-import { ParkingSpaceFormComponent } from './components/parking-space/parking-space-form/parking-space-form.component';
-import { ParkingSpaceListComponent } from './components/parking-space/parking-space-list/parking-space-list.component';
+import { ParkingSpaceComponent } from './components/parking/parking-space/parking-space.component';
 import { SchedulingComponent } from './components/scheduling/scheduling.component';
 import { SchedulingListComponent } from './components/scheduling/scheduling-list/scheduling-list.component';
 import { SchedulingViewDialogComponent } from './components/scheduling/scheduling-view-dialog/scheduling-view-dialog.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { SettingsListComponent } from './components/settings/settings-list/settings-list.component';
-import { ParkingProductComponent } from './components/parking-product/parking-product.component';
-import { ParkingProductListComponent } from './components/parking-product/parking-product-list/parking-product-list.component';
-import { ParkingProductFormComponent } from './components/parking-product/parking-product-form/parking-product-form.component';
-import { ParkingPriceListComponent } from './components/parking-price/parking-price-list/parking-price-list.component';
-import { ParkingPriceFormComponent } from './components/parking-price/parking-price-form/parking-price-form.component';
-import { ParkingPriceComponent } from './components/parking-price/parking-price.component';
+import { ParkingProductComponent } from './components/parking/parking-product/parking-product.component';
+import { ParkingPriceComponent } from './components/parking/parking-price/parking-price.component';
 
 @NgModule({
   imports: [
@@ -128,19 +122,13 @@ import { ParkingPriceComponent } from './components/parking-price/parking-price.
     UploadComponent,
     CompanyComponent,
     ParkingSpaceComponent,
-    ParkingSpaceFormComponent,
-    ParkingSpaceListComponent,
     SchedulingComponent,
     SchedulingListComponent,
     SchedulingViewDialogComponent,
     SettingsComponent,
     SettingsListComponent,
     ParkingProductComponent,
-    ParkingProductListComponent,
-    ParkingProductFormComponent,
-    ParkingPriceComponent,
-    ParkingPriceListComponent,
-    ParkingPriceFormComponent,
+    ParkingPriceComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

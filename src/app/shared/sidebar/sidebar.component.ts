@@ -17,18 +17,15 @@ declare interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
   { name: 'dashboard', path: '/dashboard', title: 'Dashboard', icon: 'dashboard', visible: true },
-  { name: 'parking', path: '/parking/list', title: 'Parking', icon: 'local_parking', visible: true },
-  { name: 'parking-space', path: '/parking-space/list', title: 'Parking Space', icon: 'space_bar', visible: true },
-  { name: 'parking-product', path: '/parking-product/list', title: 'Products & Services', icon: 'construction', visible: true },
-  { name: 'parking-price', path: '/parking-price/list', title: 'Parking Price', icon: 'attach_money', visible: true },
-  { name: 'employee', path: '/employee/list', title: 'Employee', icon: 'engineering', visible: true },
-  { name: 'scheduling', path: '/scheduling/list', title: 'Scheduling', icon: 'schedule', visible: true },
+  { name: 'parking', path: '/parking/list', title: 'Estacionamento', icon: 'local_parking', visible: true },
+  { name: 'employee', path: '/employee/list', title: 'Funcionário', icon: 'engineering', visible: true },
+  { name: 'scheduling', path: '/scheduling/list', title: 'Agendamento', icon: 'schedule', visible: true },
   { name: 'auth', path: '/auth', title: 'auth', icon: 'engineering', visible: false },
-  { name: 'maps', path: '/maps', title: 'Maps', icon: 'location_on', visible: true },
-  { name: 'company', path: '/company', title: 'Company', icon: 'domain', visible: false },
-  { name: 'user-profile', path: '/user-profile', title: 'User Profile', icon: 'person', visible: false },
-  { name: 'settings', path: '/settings/list', title: 'Settings', icon: 'settings', visible: true },
-  { name: 'error', path: '/error', title: 'Page not found', icon: 'error', visible: false },
+  { name: 'maps', path: '/maps', title: 'Mapa', icon: 'location_on', visible: true },
+  { name: 'company', path: '/company', title: 'Perfil da Empresa', icon: 'domain', visible: false },
+  { name: 'employee-profile', path: '/employee-profile', title: 'Perfil do Funcionário', icon: 'person', visible: false },
+  { name: 'settings', path: '/settings/list', title: 'Configurações', icon: 'settings', visible: true },
+  { name: 'error', path: '/error', title: 'Página não encontrada', icon: 'error', visible: false },
 ];
 
 @Component({
