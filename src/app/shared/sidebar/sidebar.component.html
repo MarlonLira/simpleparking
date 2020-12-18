@@ -51,7 +51,7 @@
     </ul>
   </div>
   <ul class="nav">
-    <li *ngFor="let menuItem of menuItems" class="nav-item {{ this.isRoute(menuItem.name) ? 'active' : '' }}">
+    <li *ngFor="let menuItem of menuItems" class="nav-item {{ this.isRoute('/' + menuItem.name) ? 'active' : '' }}">
       <a class="nav-link" [routerLink]="[menuItem.path]" *ngIf="menuItem.visible == true">
         <i class="material-icons">{{menuItem.icon}}</i>
         <p>{{menuItem.title}}</p>
