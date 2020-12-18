@@ -24,7 +24,8 @@
             </div>
             <div class="col-md-6">
               <mat-form-field>
-                <input matInput placeholder="Phone" mask="(00) 0 0000-0000" type="text" formControlName="phone" required>
+                <input matInput placeholder="Phone" mask="(00) 0 0000-0000" type="text" formControlName="phone"
+                  required>
               </mat-form-field>
             </div>
           </div>
@@ -38,8 +39,7 @@
         </div>
         <div class="col-md-4 form-img">
           <a>
-            <img class="img"
-              [src]="imageUrl" />
+            <img class="img" [src]="imageUrl" />
           </a>
         </div>
       </div>
@@ -102,11 +102,11 @@
         </div>
       </div>
       <button mat-raised-button type="submit" [disabled]="!this.form.valid"
-        class="btn btn-info pull-right">Save</button>
+        class="btn btn-info pull-right">Salvar</button>
     </form>
     <br />
     <div>
-      <app-upload title="Images" id='{{this._id}}'></app-upload>
+      <app-upload title="Imagens" id='{{this._id}}'></app-upload>
     </div>
     <div class="clearfix"></div>
   </div>

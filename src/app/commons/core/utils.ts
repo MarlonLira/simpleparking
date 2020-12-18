@@ -65,3 +65,8 @@ export interface Timer {
   hash: string
   id: any
 }
+
+export interface InnerType {
+  name: string,
+  value: string
+}

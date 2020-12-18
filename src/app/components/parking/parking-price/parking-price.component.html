@@ -1,0 +1,94 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-5">
+          <mat-form-field>
+            <input matInput placeholder="Unidade" type="number" step="any" min="1" formControlName="unit">
+          </mat-form-field>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field>
+            <input matInput placeholder="Preço (R$)" type="number" step="any" min="0" formControlName="value">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Período</mat-label>
+            <mat-select formControlName="period">
+              <mat-option *ngFor="let period of periods" [value]="period.value">
+                {{period.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-5">
+          <mat-form-field appearance="outline">
+            <mat-label>Tipo de Veículo</mat-label>
+            <mat-select formControlName="vehicleType">
+              <mat-option *ngFor="let vehicleType of vehicleTypes" [value]="vehicleType.value">
+                {{vehicleType.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <button mat-raised-button type="submit" [disabled]="!this.form.valid"
+        class="btn btn-info pull-right">Salvar</button>
+      <div class="clearfix"></div>
+    </form>
+  </div>
+
+  <div class="card-body table-responsive">
+    <mat-form-field>
+      <mat-label>Filtro</mat-label>
+      <input matInput (keyup)="tableFilter($event)" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table class="table table-hover" [dataSource]="dataSource" matSort style="width:100%">
+
+        <ng-container matColumnDef="period">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Período </th>
+          <td class="bold-f" mat-cell *matCellDef="let row"> {{ this.getPeriodName(row.period) }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="unit">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Unidade </th>
+          <td mat-cell *matCellDef="let row"> {{row.unit}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="vehicleType">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de Veículo </th>
+          <td mat-cell *matCellDef="let row"> {{ this.getVehicleTypeName(row.vehicleType)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Preço (R$) </th>
+          <td mat-cell *matCellDef="let row"> {{row.value}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th class="text-warning" mat-header-cell *matHeaderCellDef mat-sort-header> Ações </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-raised-button type="button" matTooltip="Edit" (click)="onEdit(row)"
+              [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+              <i class="material-icons">edit</i>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+</div>

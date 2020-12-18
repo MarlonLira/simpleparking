@@ -66,7 +66,7 @@ export class CompanyComponent extends BaseUploadComponent {
   formBuild(): void {
     this.form = new FormGroup({
       id: new FormControl(0),
-      name: new FormControl(''),
+      name: new FormControl({ value: '', disabled: true }),
       registryCode: new FormControl(''),
       phone: new FormControl(''),
       email: new FormControl(''),

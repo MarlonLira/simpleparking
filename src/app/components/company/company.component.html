@@ -4,33 +4,32 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header card-header-info">
-            <h4 class="card-title">Edit Profile</h4>
-            <p class="card-category">Complete your profile</p>
+            <h4 class="card-title">Editar Perfil</h4>
+            <p class="card-category">Complete seu perfil</p>
           </div>
           <div class="card-body">
             <form [formGroup]="form">
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field>
-                    <input matInput placeholder="Name" type="text" formControlName="name">
+                    <input matInput placeholder="Nome" type="text" formControlName="name">
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
                   <mat-form-field>
-                    <input matInput placeholder="Registry Code" formControlName="registryCode"
-                      mask="00.000.000/0000-00">
+                    <input matInput placeholder="CNPJ" formControlName="registryCode" mask="00.000.000/0000-00">
                   </mat-form-field>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
                   <mat-form-field>
-                    <input matInput placeholder="Phone" type="text" formControlName="phone" mask="(00) 0 0000-0000">
+                    <input matInput placeholder="Telefone" type="text" formControlName="phone" mask="(00) 0 0000-0000">
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
                   <mat-form-field>
-                    <input matInput placeholder="Email address" type="email" formControlName="email">
+                    <input matInput placeholder="E-mail" type="email" formControlName="email">
                   </mat-form-field>
                 </div>
               </div>
@@ -38,54 +37,54 @@
                 <div class="row">
                   <div class="col-md-3">
                     <mat-form-field>
-                      <input matInput placeholder="Country" type="text" formControlName="country">
+                      <input matInput placeholder="País" type="text" formControlName="country">
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field>
-                      <input matInput #zipcode placeholder="Zip Code" mask="00000-000" type="text"
-                        formControlName="zipCode" (change)="searchAddress(zipcode.value)">
+                      <input matInput #zipcode placeholder="CEP" mask="00000-000" type="text" formControlName="zipCode"
+                        (change)="searchAddress(zipcode.value)">
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field>
-                      <input matInput placeholder="State" type="text" formControlName="state">
+                      <input matInput placeholder="Estado" type="text" formControlName="state">
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field>
-                      <input matInput placeholder="City" type="text" formControlName="city">
+                      <input matInput placeholder="Cidade" type="text" formControlName="city">
                     </mat-form-field>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-4">
                     <mat-form-field>
-                      <input matInput placeholder="District" type="text" formControlName="district">
+                      <input matInput placeholder="Bairro" type="text" formControlName="district">
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
                     <mat-form-field>
-                      <input matInput placeholder="Street" type="text" formControlName="street">
+                      <input matInput placeholder="Rua" type="text" formControlName="street">
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
                     <mat-form-field>
-                      <input matInput placeholder="Number" type="text" formControlName="number">
+                      <input matInput placeholder="Número" type="text" formControlName="number">
                     </mat-form-field>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <label>About Me</label>
+                  <label>Sobre mim</label>
                   <mat-form-field>
                     <textarea matInput formControlName="about"></textarea>
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="onUpdate()">Update
-                Profile</button>
+              <button mat-raised-button type="submit" class="btn btn-info pull-right" (click)="onUpdate()">Atualizar
+                Perfil</button>
               <div class="clearfix"></div>
             </form>
           </div>

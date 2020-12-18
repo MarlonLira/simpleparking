@@ -14,8 +14,8 @@ export class ErrorComponent extends BaseComponent {
   public labels = {
     error_code: '404',
     msg1: 'Uh, Ohh',
-    msg2: 'Sorry we can\'t find what you are looking',
-    msg3: 'for \'cuz its so dark in here'
+    msg2: 'Desculpe, não podemos encontrar o que você está procurando',
+    msg3: 'porque está muito escuro aqui'
   }
 
   constructor(

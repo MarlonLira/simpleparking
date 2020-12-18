@@ -47,7 +47,6 @@ export class SchedulingComponent extends BaseComponent {
 
   protected async onLoadList() {
     this.onStartLoading();
-    
     this.schedulings = await this.service.toList();
     this.parkingSpaces = await this.parkingSpaceService.toList();
 
