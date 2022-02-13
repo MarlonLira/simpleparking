@@ -44,7 +44,7 @@
     "@types/jasmine": "3.3.13",
     "@types/jquery": "^3.3.29",
     "@types/node": "12.0.7",
-    "ajv": "6.12.0",
+    "ajv": "6.12.3",
     "arrive": "2.4.1",
     "bootstrap": "4.3.1",
     "bootstrap-material-design": "4.1.2",
