@@ -57,7 +57,7 @@
     "googleapis": "40.0.0",
     "jquery": "^3.4.1",
     "libphonenumber-js": "^1.7.53",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "ngx-mask": "^9.1.2",
     "ngx-material-file-input": "^2.1.1",
     "ngx-toastr": "^12.1.0",
